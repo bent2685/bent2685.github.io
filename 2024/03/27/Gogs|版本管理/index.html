@@ -192,6 +192,28 @@
   <blockquote>
 <p>如同其<a target="_blank" rel="noopener" href="https://gogs.io/">官网</a>所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 <a target="_blank" rel="noopener" href="https://golang.org/">Go 语言</a> 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备上。</p>
 </blockquote>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">docker</span> pull gogs/gogs
+$ <span class="token function">docker</span> pull mysql
+$ <span class="token function">docker</span> network create storage<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+ <span class="token parameter variable">--name</span> mysql <span class="token punctuation">\</span>
+ <span class="token parameter variable">--env</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>root123 <span class="token punctuation">\</span>
+ <span class="token parameter variable">--network</span><span class="token operator">=</span>storage <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">3307</span>:3306 <span class="token punctuation">\</span>
+ <span class="token parameter variable">--restart</span><span class="token operator">=</span>always <span class="token punctuation">\</span>
+ <span class="token parameter variable">-v</span> ~/Documents/docker/mysql/data:/var/lib/mysql <span class="token punctuation">\</span>
+ mysql
+ 
+ <span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+ <span class="token parameter variable">--name</span> gogs <span class="token punctuation">\</span>
+ <span class="token parameter variable">--network</span><span class="token operator">=</span>storage <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">10022</span>:22 <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">3000</span>:3000 <span class="token punctuation">\</span>
+ <span class="token parameter variable">-v</span> ~/Documents/docker/gogs:/data <span class="token punctuation">\</span>
+ gogs/gogs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Gogs拥有git技术链中的绝大多数功能，例如分支、Pull Request、工单、WIKi、分子保护、成员权限、组织、标签、Star、Fork、Watching……</p>
 <p>凭借Golang的性能优势，执行速度和资源开销这块有着明显得优势，轻量级的特点能够在绝大多数设备中跑起来。</p>
 <hr>
