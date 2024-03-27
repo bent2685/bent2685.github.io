@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>Gogs|版本管理</title>
+  
+  <link rel="canonical" href="https://bent2685.github.io/2024/03/27/Gogs|%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/">
+  
+  <meta name="description" content="如同其官网所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 Go 语言 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备">
+  
+  
+  <meta name="author" content="John Doe">
+  
+  
+  
+  <meta property="og:site_name" content="Bent灵感" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Gogs|版本管理" />
+  
+  <meta property="og:description" content="如同其官网所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 Go 语言 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备">
+  
+  <meta property="og:url" content="https://bent2685.github.io/2024/03/27/Gogs|%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Gogs|版本管理">
+  
+  <meta name="twitter:description" content="如同其官网所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 Go 语言 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备">
+  
+  
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/03/27/Gogs|%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/prism-dark.css">
+
+  
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+
+  <!-- User css -->
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #8F2323;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #8F2323 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #8F2323;
+  }
+  .nanobar .bar {
+    background: #8F2323;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #8F2323;
+    border-color: #8F2323;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #8F2323;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌒</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>🌝</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi Folks.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>Gogs|版本管理</h2>
+
+  <blockquote>
+<p>如同其<a target="_blank" rel="noopener" href="https://gogs.io/">官网</a>所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 <a target="_blank" rel="noopener" href="https://golang.org/">Go 语言</a> 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备上。</p>
+</blockquote>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Gogs拥有git技术链中的绝大多数功能，例如分支、Pull Request、工单、WIKi、分子保护、成员权限、组织、标签、Star、Fork、Watching……</p>
+<p>凭借Golang的性能优势，执行速度和资源开销这块有着明显得优势，轻量级的特点能够在绝大多数设备中跑起来。</p>
+<hr>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Gogs有很多种安装方式，例如：二进制安装、包管理安装、包管理安装、源码安装、<strong>Docker安装</strong>。本文介绍如何使用docker安装，也是我最为喜欢的方式。</p>
+<ol>
+<li><p><strong>获取镜像:</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 获取gogs镜像</span>
+$ <span class="token function">docker</span> pull gogs/gogs
+<span class="token comment"># 获取mysql镜像</span>
+$ <span class="token function">docker</span> pull mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>创建网络(Bridge类型):</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token function">docker</span> network create storage<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>启动Mysql</strong></p>
+<p>创建Mysql容器，指定root密码、网络、持久化目录、端口(也可以无需指定，看你是否有暴露到宿主机的需求)</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+ <span class="token parameter variable">--name</span> mysql <span class="token punctuation">\</span>
+ <span class="token parameter variable">--env</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span>root123 <span class="token punctuation">\</span>
+ <span class="token parameter variable">--network</span><span class="token operator">=</span>storage <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">3307</span>:3306 <span class="token punctuation">\</span>
+ <span class="token parameter variable">--restart</span><span class="token operator">=</span>always <span class="token punctuation">\</span>
+ <span class="token parameter variable">-v</span> ~/Documents/docker/mysql/data:/var/lib/mysql <span class="token punctuation">\</span>
+ mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>启动gogs</strong></p>
+<p>创建gogs容器，指定网络、和持久化目录，暴露3000和22端口到宿主机的3000和10022上(宿主端口自便)。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token punctuation">\</span>
+ <span class="token parameter variable">--name</span> gogs <span class="token punctuation">\</span>
+ <span class="token parameter variable">--network</span><span class="token operator">=</span>storage <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">10022</span>:22 <span class="token punctuation">\</span>
+ <span class="token parameter variable">-p</span> <span class="token number">3000</span>:3000 <span class="token punctuation">\</span>
+ <span class="token parameter variable">-v</span> ~/Documents/docker/gogs:/data <span class="token punctuation">\</span>
+ gogs/gogs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+</li>
+<li><p><strong>配置gogs:</strong></p>
+<p>  <img src="/../images/Gogs%7C%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86.assets/image-20240327141426902.png" alt="image-20240327141426902"><br> 确保gogs和mysql同属于一个网络<code>stoage</code>下，使用<code>容器名称:端口号</code>的形式连接到mysql服务，在mysql中实现创建好数据库<code>gogs</code>设置utf8mb4_general_ci字符集。在配置页中输入创建好的数据库、用户名、密码，完成数据库的设置。</p>
+<p> 在可选设置中的管理员账号设置中创建一个管理员账号</p>
+<p> <img src="/../images/Gogs%7C%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86.assets/image-20240327141625267.png" alt="image-20240327141625267"></p>
+<p> 剩下的配置自行发挥即可，完成配置后点击立即安装。至此便完成了gogs的搭建。</p>
+<p> &#x3D;&#x3D;ENDIGN&#x3D;&#x3D;</p>
+</li>
+</ol>
+
+  <p><a class="classtest-link" href="/tags/docker/" rel="tag">docker</a>, <a class="classtest-link" href="/tags/%E5%BA%94%E7%94%A8%E5%88%86%E4%BA%AB/" rel="tag">应用分享</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年3月27日</p>
+  
+
+
+        </div>
+        <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div>
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/bent2685" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
