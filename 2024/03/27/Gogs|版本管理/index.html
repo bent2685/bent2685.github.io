@@ -61,11 +61,14 @@
 <link rel="stylesheet" href="/css/custom.css">
 
   
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
 <link rel="stylesheet" href="/css/prism-dark.css">
-
-  
+ -->
+  <!-- 
 <link rel="stylesheet" href="/css/prism-line-numbers.css">
-
+ -->
   <!-- User css -->
   
 
@@ -192,26 +195,9 @@
   <blockquote>
 <p>如同其<a target="_blank" rel="noopener" href="https://gogs.io/">官网</a>所说一款极易搭建的自助 Git 服务。它能够执行搭建git版本控制，并且在任何 <a target="_blank" rel="noopener" href="https://golang.org/">Go 语言</a> 支持的平台都可以运行 Gogs，包括 Windows、Mac、Linux 以及 ARM。一个廉价的树莓派的配置足以满足 Gogs 的最低系统硬件要求。有些用户甚至还将 Gogs 运行在 NAS 设备上。</p>
 </blockquote>
-<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ docker pull gogs&#x2F;gogs
-$ docker pull mysql
-$ docker network create storage</code></pre>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ docker pull gogs/gogs</span><br><span class="line">$ docker pull mysql</span><br><span class="line">$ docker network create storage</span><br></pre></td></tr></table></figure>
 
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d \
- --name mysql \
- --env MYSQL_ROOT_PASSWORD&#x3D;root123 \
- --network&#x3D;storage \
- -p 3307:3306 \
- --restart&#x3D;always \
- -v ~&#x2F;Documents&#x2F;docker&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \
- mysql
- 
- docker run -d \
- --name gogs \
- --network&#x3D;storage \
- -p 10022:22 \
- -p 3000:3000 \
- -v ~&#x2F;Documents&#x2F;docker&#x2F;gogs:&#x2F;data \
- gogs&#x2F;gogs</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name mysql \</span><br><span class="line"> --<span class="built_in">env</span> MYSQL_ROOT_PASSWORD=root123 \</span><br><span class="line"> --network=storage \</span><br><span class="line"> -p 3307:3306 \</span><br><span class="line"> --restart=always \</span><br><span class="line"> -v ~/Documents/docker/mysql/data:/var/lib/mysql \</span><br><span class="line"> mysql</span><br><span class="line"> </span><br><span class="line"> docker run -d \</span><br><span class="line"> --name gogs \</span><br><span class="line"> --network=storage \</span><br><span class="line"> -p 10022:22 \</span><br><span class="line"> -p 3000:3000 \</span><br><span class="line"> -v ~/Documents/docker/gogs:/data \</span><br><span class="line"> gogs/gogs</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Gogs拥有git技术链中的绝大多数功能，例如分支、Pull Request、工单、WIKi、分子保护、成员权限、组织、标签、Star、Fork、Watching……</p>
@@ -220,34 +206,18 @@ $ docker network create storage</code></pre>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Gogs有很多种安装方式，例如：二进制安装、包管理安装、包管理安装、源码安装、<strong>Docker安装</strong>。本文介绍如何使用docker安装，也是我最为喜欢的方式。</p>
 <ol>
 <li><p><strong>获取镜像:</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"># 获取gogs镜像
-$ docker pull gogs&#x2F;gogs
-# 获取mysql镜像
-$ docker pull mysql</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取gogs镜像</span></span><br><span class="line">$ docker pull gogs/gogs</span><br><span class="line"><span class="comment"># 获取mysql镜像</span></span><br><span class="line">$ docker pull mysql</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>创建网络(Bridge类型):</strong></p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ docker network create storage</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker network create storage</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>启动Mysql</strong></p>
 <p>创建Mysql容器，指定root密码、网络、持久化目录、端口(也可以无需指定，看你是否有暴露到宿主机的需求)</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d \
- --name mysql \
- --env MYSQL_ROOT_PASSWORD&#x3D;root123 \
- --network&#x3D;storage \
- -p 3307:3306 \
- --restart&#x3D;always \
- -v ~&#x2F;Documents&#x2F;docker&#x2F;mysql&#x2F;data:&#x2F;var&#x2F;lib&#x2F;mysql \
- mysql</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name mysql \</span><br><span class="line"> --<span class="built_in">env</span> MYSQL_ROOT_PASSWORD=root123 \</span><br><span class="line"> --network=storage \</span><br><span class="line"> -p 3307:3306 \</span><br><span class="line"> --restart=always \</span><br><span class="line"> -v ~/Documents/docker/mysql/data:/var/lib/mysql \</span><br><span class="line"> mysql</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>启动gogs</strong></p>
 <p>创建gogs容器，指定网络、和持久化目录，暴露3000和22端口到宿主机的3000和10022上(宿主端口自便)。</p>
-<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">docker run -d \
- --name gogs \
- --network&#x3D;storage \
- -p 10022:22 \
- -p 3000:3000 \
- -v ~&#x2F;Documents&#x2F;docker&#x2F;gogs:&#x2F;data \
- gogs&#x2F;gogs</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name gogs \</span><br><span class="line"> --network=storage \</span><br><span class="line"> -p 10022:22 \</span><br><span class="line"> -p 3000:3000 \</span><br><span class="line"> -v ~/Documents/docker/gogs:/data \</span><br><span class="line"> gogs/gogs</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>配置gogs:</strong></p>
 <p>  <img src="/../images/Gogs%7C%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86.assets/image-20240327141426902.png" alt="image-20240327141426902"><br> 确保gogs和mysql同属于一个网络<code>stoage</code>下，使用<code>容器名称:端口号</code>的形式连接到mysql服务，在mysql中实现创建好数据库<code>gogs</code>设置utf8mb4_general_ci字符集。在配置页中输入创建好的数据库、用户名、密码，完成数据库的设置。</p>

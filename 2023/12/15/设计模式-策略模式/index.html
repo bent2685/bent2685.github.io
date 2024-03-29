@@ -61,11 +61,14 @@
 <link rel="stylesheet" href="/css/custom.css">
 
   
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
 <link rel="stylesheet" href="/css/prism-dark.css">
-
-  
+ -->
+  <!-- 
 <link rel="stylesheet" href="/css/prism-line-numbers.css">
-
+ -->
   <!-- User css -->
   
 
@@ -207,77 +210,17 @@
 <h3 id="客户端-Client"><a href="#客户端-Client" class="headerlink" title="客户端(Client)"></a>客户端(Client)</h3><p>客户端是使用策略模式的调用者。它通过实例化上下文类并设置具体策略对象来选择要使用的算法或操作。客户端根据自身的需求，在不同的情况下选择不同的策略，从而实现灵活的算法切换。</p>
 <hr>
 <h2 id="📖经典例子"><a href="#📖经典例子" class="headerlink" title="📖经典例子"></a>📖经典例子</h2><p>我们使用java来写一个贴切实际业务的策略模式的例子</p>
-<h3 id="支付策略接口"><a href="#支付策略接口" class="headerlink" title="支付策略接口"></a>支付策略接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public interface PaymentStrategy &#123;
-  void pay(double amount);
-&#125;</code></pre>
+<h3 id="支付策略接口"><a href="#支付策略接口" class="headerlink" title="支付策略接口"></a>支付策略接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="具体策略类"><a href="#具体策略类" class="headerlink" title="具体策略类"></a>具体策略类</h3><h4 id="信用卡支付"><a href="#信用卡支付" class="headerlink" title="信用卡支付"></a>信用卡支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class CreditCardPaymentStrategy implements PaymentStrategy &#123;
-  private String cardNumber;
-  private String expirationDate;
-  private String cvv;
+<h3 id="具体策略类"><a href="#具体策略类" class="headerlink" title="具体策略类"></a>具体策略类</h3><h4 id="信用卡支付"><a href="#信用卡支付" class="headerlink" title="信用卡支付"></a>信用卡支付</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CreditCardPaymentStrategy</span> <span class="keyword">implements</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String cardNumber;</span><br><span class="line">  <span class="keyword">private</span> String expirationDate;</span><br><span class="line">  <span class="keyword">private</span> String cvv;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">CreditCardPaymentStrategy</span><span class="params">(String cardNumber, String expirationDate, String cvv)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.cardNumber = cardNumber;</span><br><span class="line">    <span class="built_in">this</span>.expirationDate = expirationDate;</span><br><span class="line">    <span class="built_in">this</span>.cvv = cvv;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">    <span class="comment">// 使用信用卡进行支付的逻辑</span></span><br><span class="line">    System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过信用卡号: &quot;</span> + cardNumber);</span><br><span class="line">    <span class="comment">// 其他支付操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  public CreditCardPaymentStrategy(String cardNumber, String expirationDate, String cvv) &#123;
-    this.cardNumber &#x3D; cardNumber;
-    this.expirationDate &#x3D; expirationDate;
-    this.cvv &#x3D; cvv;
-  &#125;
+<h4 id="支付宝支付"><a href="#支付宝支付" class="headerlink" title="支付宝支付"></a>支付宝支付</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AlipayPaymentStrategy</span> <span class="keyword">implements</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String userId;</span><br><span class="line">  <span class="keyword">private</span> String password;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">AlipayPaymentStrategy</span><span class="params">(String userId, String password)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.userId = userId;</span><br><span class="line">    <span class="built_in">this</span>.password = password;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">    <span class="comment">// 使用支付宝进行支付的逻辑</span></span><br><span class="line">    System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过支付宝账户: &quot;</span> + userId);</span><br><span class="line">    <span class="comment">// 其他支付操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  @Override
-  public void pay(double amount) &#123;
-    &#x2F;&#x2F; 使用信用卡进行支付的逻辑
-    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过信用卡号: &quot; + cardNumber);
-    &#x2F;&#x2F; 其他支付操作...
-  &#125;
-&#125;</code></pre>
+<h3 id="上下文类"><a href="#上下文类" class="headerlink" title="上下文类"></a>上下文类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Order</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="type">double</span> amount;</span><br><span class="line">  <span class="keyword">private</span> PaymentStrategy paymentStrategy;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">Order</span><span class="params">(<span class="type">double</span> amount, PaymentStrategy paymentStrategy)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.amount = amount;</span><br><span class="line">    <span class="built_in">this</span>.paymentStrategy = paymentStrategy;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">makePayment</span><span class="params">()</span> &#123;</span><br><span class="line">    paymentStrategy.pay(amount);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="支付宝支付"><a href="#支付宝支付" class="headerlink" title="支付宝支付"></a>支付宝支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class AlipayPaymentStrategy implements PaymentStrategy &#123;
-  private String userId;
-  private String password;
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 创建订单</span></span><br><span class="line">    <span class="type">Order</span> <span class="variable">order1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(<span class="number">100.0</span>, <span class="keyword">new</span> <span class="title class_">CreditCardPaymentStrategy</span>(<span class="string">&quot;1234 5678 9012 3456&quot;</span>, <span class="string">&quot;12/25&quot;</span>, <span class="string">&quot;123&quot;</span>));</span><br><span class="line">    <span class="type">Order</span> <span class="variable">order2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(<span class="number">200.0</span>, <span class="keyword">new</span> <span class="title class_">AlipayPaymentStrategy</span>(<span class="string">&quot;user123&quot;</span>, <span class="string">&quot;password456&quot;</span>));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行支付</span></span><br><span class="line">    order1.makePayment();</span><br><span class="line">    System.out.println();</span><br><span class="line">    order2.makePayment();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  public AlipayPaymentStrategy(String userId, String password) &#123;
-    this.userId &#x3D; userId;
-    this.password &#x3D; password;
-  &#125;
-
-  @Override
-  public void pay(double amount) &#123;
-    &#x2F;&#x2F; 使用支付宝进行支付的逻辑
-    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过支付宝账户: &quot; + userId);
-    &#x2F;&#x2F; 其他支付操作...
-  &#125;
-&#125;</code></pre>
-
-<h3 id="上下文类"><a href="#上下文类" class="headerlink" title="上下文类"></a>上下文类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Order &#123;
-  private double amount;
-  private PaymentStrategy paymentStrategy;
-
-  public Order(double amount, PaymentStrategy paymentStrategy) &#123;
-    this.amount &#x3D; amount;
-    this.paymentStrategy &#x3D; paymentStrategy;
-  &#125;
-  
-  public void makePayment() &#123;
-    paymentStrategy.pay(amount);
-  &#125;
-&#125;</code></pre>
-
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
-  public static void main(String[] args) &#123;
-    &#x2F;&#x2F; 创建订单
-    Order order1 &#x3D; new Order(100.0, new CreditCardPaymentStrategy(&quot;1234 5678 9012 3456&quot;, &quot;12&#x2F;25&quot;, &quot;123&quot;));
-    Order order2 &#x3D; new Order(200.0, new AlipayPaymentStrategy(&quot;user123&quot;, &quot;password456&quot;));
-
-    &#x2F;&#x2F; 执行支付
-    order1.makePayment();
-    System.out.println();
-    order2.makePayment();
-  &#125;
-&#125;</code></pre>
-
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
-支付 ￥100.0 通过信用卡号: 1234 5678 9012 3456
-
-支付 ￥200.0 通过支付宝账户: user12</code></pre>
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过信用卡号:</span> <span class="number">1234 </span><span class="number">5678 </span><span class="number">9012 </span><span class="number">3456</span></span><br><span class="line"></span><br><span class="line"><span class="string">支付</span> <span class="string">￥200.0</span> <span class="string">通过支付宝账户:</span> <span class="string">user12</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>结合上述例子，可以得出结论:</p>
@@ -285,43 +228,13 @@
 <p>策略接口定义了策略模式的公共接口，具体策略类实现了该接口并封装了具体的策略算法。上下文类持有策略对象并在需要时调用其方法，而客户端则负责创建具体策略对象并将其传递给上下文类。这样，客户端可以根据不同的情况选择不同的策略，并将其应用于上下文类的操作中。</p>
 </blockquote>
 <p>当业务需要更多执行策略的时候，只需创建具体策略类(继承策略公共接口)即可，例如:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F; 微信支付策略
-public class WeChatPaymentStrategy implements PaymentStrategy &#123;
-  private String appId;
-  private String appSecret;
-
-  public WeChatPaymentStrategy(String appId, String appSecret) &#123;
-    this.appId &#x3D; appId;
-    this.appSecret &#x3D; appSecret;
-  &#125;
-
-  @Override
-  public void pay(double amount) &#123;
-    &#x2F;&#x2F; 使用微信支付的逻辑
-    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过微信APP ID: &quot; + appId);
-    &#x2F;&#x2F; 其他支付操作...
-  &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 微信支付策略</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WeChatPaymentStrategy</span> <span class="keyword">implements</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> String appId;</span><br><span class="line">  <span class="keyword">private</span> String appSecret;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="title function_">WeChatPaymentStrategy</span><span class="params">(String appId, String appSecret)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.appId = appId;</span><br><span class="line">    <span class="built_in">this</span>.appSecret = appSecret;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">    <span class="comment">// 使用微信支付的逻辑</span></span><br><span class="line">    System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过微信APP ID: &quot;</span> + appId);</span><br><span class="line">    <span class="comment">// 其他支付操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>且在具体执行逻辑中</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
-  public static void main(String[] args) &#123;
-    &#x2F;&#x2F; 创建订单
-    Order order1 &#x3D; new Order(100.0, new CreditCardPaymentStrategy(&quot;1234 5678 9012 3456&quot;, &quot;12&#x2F;25&quot;, &quot;123&quot;));
-    - Order order2 &#x3D; new Order(200.0, new AlipayPaymentStrategy(&quot;user123&quot;, &quot;password456&quot;));
-    + Order order2 &#x3D; new Order(150.0, new WeChatPaymentStrategy(&quot;12345678&quot;, &quot;a1b2c3d4&quot;));
-    &#x2F;&#x2F; 执行支付
-    order1.makePayment();
-    System.out.println();
-    order2.makePayment();
-  &#125;
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="comment">// 创建订单</span></span><br><span class="line">    <span class="type">Order</span> <span class="variable">order1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(<span class="number">100.0</span>, <span class="keyword">new</span> <span class="title class_">CreditCardPaymentStrategy</span>(<span class="string">&quot;1234 5678 9012 3456&quot;</span>, <span class="string">&quot;12/25&quot;</span>, <span class="string">&quot;123&quot;</span>));</span><br><span class="line">    - <span class="type">Order</span> <span class="variable">order2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(<span class="number">200.0</span>, <span class="keyword">new</span> <span class="title class_">AlipayPaymentStrategy</span>(<span class="string">&quot;user123&quot;</span>, <span class="string">&quot;password456&quot;</span>));</span><br><span class="line">    + <span class="type">Order</span> <span class="variable">order2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Order</span>(<span class="number">150.0</span>, <span class="keyword">new</span> <span class="title class_">WeChatPaymentStrategy</span>(<span class="string">&quot;12345678&quot;</span>, <span class="string">&quot;a1b2c3d4&quot;</span>));</span><br><span class="line">    <span class="comment">// 执行支付</span></span><br><span class="line">    order1.makePayment();</span><br><span class="line">    System.out.println();</span><br><span class="line">    order2.makePayment();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>结果</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
-支付 ￥100.0 通过信用卡号: 1234 5678 9012 3456
-
-支付 ￥150.0 通过微信AOO ID: 12345678</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过信用卡号:</span> <span class="number">1234 </span><span class="number">5678 </span><span class="number">9012 </span><span class="number">3456</span></span><br><span class="line"></span><br><span class="line"><span class="string">支付</span> <span class="string">￥150.0</span> <span class="string">通过微信AOO</span> <span class="attr">ID:</span> <span class="number">12345678</span></span><br></pre></td></tr></table></figure>
 
 <p>在本例中，业务的替换或拓展通过策略模式的优化将逻辑业务转到了策略类中，降低了工程的耦合度和可维护性。</p>
 <hr>
@@ -338,56 +251,12 @@ public class WeChatPaymentStrategy implements PaymentStrategy &#123;
 <p><strong>我们可以通过枚举的特性来优化</strong></p>
 <p>枚举类中的抽象方法的实现，需要枚举类中的每个元素都对其进行实现。</p>
 </blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F; 策略枚举
-public enum PaymentStrategy &#123;
-  CREDIT_CARD &#123;
-    @Override
-    public void pay(double amount) &#123;
-      &#x2F;&#x2F; 使用信用卡进行支付的逻辑
-      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过信用卡&quot;);
-      &#x2F;&#x2F; 其他支付操作...
-    &#125;
-  &#125;,
-  ALIPAY &#123;
-    @Override
-    public void pay(double amount) &#123;
-      &#x2F;&#x2F; 使用支付宝进行支付的逻辑
-      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过支付宝&quot;);
-      &#x2F;&#x2F; 其他支付操作...
-    &#125;
-  &#125;,
-  WECHAT &#123;
-    @Override
-    public void pay(double amount) &#123;
-      &#x2F;&#x2F; 使用微信支付的逻辑
-      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过微信&quot;);
-      &#x2F;&#x2F; 其他支付操作...
-    &#125;
-  &#125;;
-
-  public abstract void pay(double amount);
-&#125;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 策略枚举</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  CREDIT_CARD &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">      <span class="comment">// 使用信用卡进行支付的逻辑</span></span><br><span class="line">      System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过信用卡&quot;</span>);</span><br><span class="line">      <span class="comment">// 其他支付操作...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  ALIPAY &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">      <span class="comment">// 使用支付宝进行支付的逻辑</span></span><br><span class="line">      System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过支付宝&quot;</span>);</span><br><span class="line">      <span class="comment">// 其他支付操作...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  WECHAT &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span> &#123;</span><br><span class="line">      <span class="comment">// 使用微信支付的逻辑</span></span><br><span class="line">      System.out.println(<span class="string">&quot;支付 ￥&quot;</span> + amount + <span class="string">&quot; 通过微信&quot;</span>);</span><br><span class="line">      <span class="comment">// 其他支付操作...</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>此时枚举类中的每个元素代表的即是一个策略</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
-  public static void main(String[] args) &#123;
-    double amount &#x3D; 100.0;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">amount</span> <span class="operator">=</span> <span class="number">100.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用信用卡进行支付</span></span><br><span class="line">    PaymentStrategy.CREDIT_CARD.pay(amount);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用支付宝进行支付</span></span><br><span class="line">    PaymentStrategy.ALIPAY.pay(amount);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用微信支付</span></span><br><span class="line">    PaymentStrategy.WECHAT.pay(amount);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    &#x2F;&#x2F; 使用信用卡进行支付
-    PaymentStrategy.CREDIT_CARD.pay(amount);
-
-    &#x2F;&#x2F; 使用支付宝进行支付
-    PaymentStrategy.ALIPAY.pay(amount);
-
-    &#x2F;&#x2F; 使用微信支付
-    PaymentStrategy.WECHAT.pay(amount);
-  &#125;
-&#125;</code></pre>
-
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
-支付 ￥100.0 通过信用卡
-支付 ￥100.0 通过支付宝
-支付 ￥100.0 通过微信</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过信用卡</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过支付宝</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过微信</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>🙋🏻‍♂️问:</strong></p>
@@ -397,54 +266,17 @@ public enum PaymentStrategy &#123;
 <p>我们可以通过枚举的<code>valueOf</code>方法</p>
 </blockquote>
 </blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
-  public static void main(String[] args) &#123;
-    double amount &#x3D; 100.0;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">amount</span> <span class="operator">=</span> <span class="number">100.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 动态选择枚举值</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">paymentMethod</span> <span class="operator">=</span> <span class="string">&quot;WECHAT&quot;</span>;</span><br><span class="line">    <span class="type">PaymentStrategy</span> <span class="variable">strategy</span> <span class="operator">=</span> PaymentStrategy.valueOf(paymentMethod);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行支付</span></span><br><span class="line">    strategy.pay(amount);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    &#x2F;&#x2F; 动态选择枚举值
-    String paymentMethod &#x3D; &quot;WECHAT&quot;;
-    PaymentStrategy strategy &#x3D; PaymentStrategy.valueOf(paymentMethod);
-
-    &#x2F;&#x2F; 执行支付
-    strategy.pay(amount);
-  &#125;
-&#125;</code></pre>
-
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
-支付 ￥100.0 通过微信</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># output</span></span><br><span class="line"><span class="string">支付</span> <span class="string">￥100.0</span> <span class="string">通过微信</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="✨使用函数式接口优化策略模式"><a href="#✨使用函数式接口优化策略模式" class="headerlink" title="✨使用函数式接口优化策略模式"></a>✨使用函数式接口优化策略模式</h2><blockquote>
 <p>在Java8中引入了函数式编程概念以及Lambda表达式</p>
 </blockquote>
-<h3 id="定义函数式接口"><a href="#定义函数式接口" class="headerlink" title="定义函数式接口"></a>定义函数式接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">@FunctionalInterface
-interface PaymentStrategy &#123;
-  void pay(double amount);
-&#125;</code></pre>
+<h3 id="定义函数式接口"><a href="#定义函数式接口" class="headerlink" title="定义函数式接口"></a>定义函数式接口</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@FunctionalInterface</span></span><br><span class="line"><span class="keyword">interface</span> <span class="title class_">PaymentStrategy</span> &#123;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">pay</span><span class="params">(<span class="type">double</span> amount)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="具体业务实现"><a href="#具体业务实现" class="headerlink" title="具体业务实现"></a>具体业务实现</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
-  public static void main(String[] args) &#123;
-    double amount &#x3D; 100.0;
-
-    &#x2F;&#x2F; 使用Lambda表达式定义不同的支付策略
-    PaymentStrategy creditCardStrategy &#x3D; (amt) -&gt; &#123;
-      &#x2F;&#x2F; 支付操作...
-    &#125;;
-
-    PaymentStrategy alipayStrategy &#x3D; (amt) -&gt; &#123;
-      &#x2F;&#x2F; 支付操作...
-    &#125;;
-
-    PaymentStrategy wechatStrategy &#x3D; (amt) -&gt; &#123;
-      &#x2F;&#x2F; 支付操作...
-    &#125;;
-
-    &#x2F;&#x2F; 执行支付
-    creditCardStrategy.pay(amount);
-    alipayStrategy.pay(amount);
-    wechatStrategy.pay(amount);
-  &#125;
-&#125;</code></pre>
+<h3 id="具体业务实现"><a href="#具体业务实现" class="headerlink" title="具体业务实现"></a>具体业务实现</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> &#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">    <span class="type">double</span> <span class="variable">amount</span> <span class="operator">=</span> <span class="number">100.0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用Lambda表达式定义不同的支付策略</span></span><br><span class="line">    <span class="type">PaymentStrategy</span> <span class="variable">creditCardStrategy</span> <span class="operator">=</span> (amt) -&gt; &#123;</span><br><span class="line">      <span class="comment">// 支付操作...</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">PaymentStrategy</span> <span class="variable">alipayStrategy</span> <span class="operator">=</span> (amt) -&gt; &#123;</span><br><span class="line">      <span class="comment">// 支付操作...</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">PaymentStrategy</span> <span class="variable">wechatStrategy</span> <span class="operator">=</span> (amt) -&gt; &#123;</span><br><span class="line">      <span class="comment">// 支付操作...</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行支付</span></span><br><span class="line">    creditCardStrategy.pay(amount);</span><br><span class="line">    alipayStrategy.pay(amount);</span><br><span class="line">    wechatStrategy.pay(amount);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="💥注意"><a href="#💥注意" class="headerlink" title="💥注意"></a>💥注意</h2><p>如果业务<strong>只有一个或很少数的分支行为，又或者是无需持续维护或拓展分支功能的业务</strong>，那或许该考虑是否适合用策略模式。</p>

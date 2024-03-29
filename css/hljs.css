@@ -1,0 +1,141 @@
+:root{
+    --code-activeline-background:#13191c;
+    --code-atom-color:#f78c6c;
+    --code-attribute-color:#c792ea;
+    --code-background:#263238;
+    --code-bracket-color:hotpink;
+    --code-builtin-color:#ffcb6b;
+    --code-comment-color:#546e7a;
+    --code-cursor-border:1px solid #ffcc00;
+    --code-def-color:#82aaff;
+    --code-error-color:#ff5370;
+    --code-gutter-border-color:#546e7a;
+    --code-keyword-color:#c792ea;
+    --code-language-background:var(--code-activeline-background);
+    --code-language-color:var(--code-text-color);
+    --code-linenumber-color:#546e7a;
+    --code-link-color:unset;
+    --code-meta-color:#ffcb6b;
+    --code-number-color:#ff5370;
+    --code-operator-color:#89ddff;
+    --code-property-color:#c792ea;
+    --code-qualifier-color:#decb6b;
+    --code-selected-background:#46696a;
+    --code-string-color:#c3e88d;
+    --code-string-2-color:#f07178;
+    --code-tag-color:#ff5370;
+    --code-title-color:#56cbe9;
+    --code-text-color:#ffffff;
+    --code-type-color:#f07178;
+    --code-variable-color:#f07178;
+    --code-variable-2-color:#eeffff;
+    --code-variable-3-color:#f07178;
+}
+
+.highlight {
+    width: 100%;
+    overflow-x: auto;
+    margin: 0;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    border-radius: 5px;
+    border: 1px solid #e6e6e6;
+    padding: 12px;
+    color: var(--code-text-color);
+    background: var(--code-language-background);
+}
+
+
+.highlight table {
+    display: block;
+    font-weight: 800;
+}
+
+
+.highlight table tbody {
+    display: block;
+    width: 100%;
+    font-weight: 800;
+}
+
+.highlight table .code {
+    width: 100%;
+}
+
+.highlight th,td {
+    border-bottom: none;
+    padding: 0 12px;
+}
+
+.highlight pre {
+    margin: 0;
+}
+
+.highlight .line .keyword {
+    color: var(--code-keyword-color);
+    font-weight: 800;
+}
+
+.highlight .line.marked {
+    background: var(--code-background);
+    width: 100%;
+    display: inline-block;
+    border: 1px dashed var(--code-gutter-border-color);
+}
+
+.highlight .line .attr {
+    color: var(--code-attribute-color);
+}
+
+.highlight .line .number {
+    color: var(--code-number-color);
+}
+
+.highlight .line .comment {
+    color: var(--code-comment-color);
+}
+
+.highlight .line .variable {
+    color: var(--code-variable-color);
+}
+.highlight .line .params {
+    color: var(--code-meta-color);
+}
+
+.highlight .line .type {
+    color: var(--code-type-color);
+}
+
+.highlight .line .title {
+    color: var(--code-title-color);
+}
+
+.highlight .line .tag {
+    color: var(--code-tag-color);
+}
+
+.highlight .line .name {
+    color: var(--code-variable-3-color);
+}
+
+.highlight .line .string {
+    color: var(--code-string-color);
+}
+
+.highlight .language-css .selector-class {
+    color: var(--code-string-color);
+}
+
+.highlight .language-css .attribute {
+    color: var(--code-attribute-color);
+}
+
+
+.highlight .gutter {
+    border-right: 1px solid var(--code-gutter-border-color);
+}
+.highlight .gutter .line {
+    color: var(--code-linenumber-color);
+}

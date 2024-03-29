@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="https://bent2685.github.io/2023/12/15/FuncNext-1-1-4/">
   
-  <meta name="description" content="FuncNext 1.1.4  安装npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性 ">
+  <meta name="description" content="FuncNext 1.1.4  安装1npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性">
   
   
   <meta name="author" content="John Doe">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="FuncNext|1.1.4" />
   
-  <meta property="og:description" content="FuncNext 1.1.4  安装npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性 ">
+  <meta property="og:description" content="FuncNext 1.1.4  安装1npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性">
   
   <meta property="og:url" content="https://bent2685.github.io/2023/12/15/FuncNext-1-1-4/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="FuncNext|1.1.4">
   
-  <meta name="twitter:description" content="FuncNext 1.1.4  安装npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性 ">
+  <meta name="twitter:description" content="FuncNext 1.1.4  安装1npm install func-next --save-dev   介绍是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：  深拷贝对象 排除指定的属性 执行一系列函数 覆盖或追加对象的属性 选择指定的属 删除指定的属性">
   
   
   
@@ -61,11 +61,14 @@
 <link rel="stylesheet" href="/css/custom.css">
 
   
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
 <link rel="stylesheet" href="/css/prism-dark.css">
-
-  
+ -->
+  <!-- 
 <link rel="stylesheet" href="/css/prism-line-numbers.css">
-
+ -->
   <!-- User css -->
   
 
@@ -192,7 +195,7 @@
   <blockquote>
 <p>FuncNext 1.1.4</p>
 </blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">npm install func-next --save-dev</code></pre>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install func<span class="literal">-next</span> <span class="literal">--save-dev</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：</p>
@@ -210,90 +213,7 @@
 </ul>
 <p>如果要使用这个类，可以通过 import 语句将它引入到你的代码中，然后创建一个 FuncNext 的实例，调用它提供的方法来对对象进行操作。</p>
 <hr>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">import FuncNext from &#39;func-next&#39;;
-
-const obj &#x3D; &#123;
-  name: &#39;Alice&#39;,
-  age: 20,
-  gender: 1,
-  bornDate: &#39;2003-06-03&#39;
-&#125;;
-
-&#x2F;&#x2F; 深拷贝
-const newObj &#x3D; FuncNext.of(obj).out()
-
-&#x2F;&#x2F; 对象每个键设为指定值
-const newObj &#x3D; FuncNext.of(obj).map(x &#x3D;&gt; null).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: null, age: null, gender: null, bornDate: null &#125;
-
-&#x2F;&#x2F; 保护(排除)指定键
-const newObj &#x3D; FuncNext.of(obj).exclude(&#39;name&#39;).map(x &#x3D;&gt; null).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: null, gender: null, bornDate: null &#125;;
-const newObj &#x3D; FuncNext.of(obj).exclude(&#39;name&#39;, &#39;age&#39;).map(x &#x3D;&gt; null).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, gender: null, bornDate: null &#125;
-
-&#x2F;&#x2F; 覆盖或新增
-&#x2F;&#x2F;! 受保护的键不会被修改
-const newObj &#x3D; FuncNext.of(obj).coverOrAppend(&#123;name:&#39;jack&#39;, address: &#39;xxx&#39;&#125;).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;jack&#39;, age: 20, gender: 1, bornDate: &#39;2003-06-03&#39;, address: &#39;xxx&#39; &#125;
-
-&#x2F;&#x2F; 提取指定key组成新对象
-&#x2F;&#x2F;! 受保护的键也会被pick
-const newObj &#x3D; FuncNext.of(obj).pick(&#39;name&#39;, &#39;age&#39;).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20 &#125;
-
-&#x2F;&#x2F; 移除指定键
-&#x2F;&#x2F;! 受保护的键不会被移除
-const newObj &#x3D; FuncNext.of(obj).takeOut(&#39;name&#39;, &#39;age&#39;).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; gender: 1, bornDate: &#39;2003-06-03&#39;&#125;
-
-&#x2F;&#x2F; 把与日期有关的值都转为时间戳
-&#x2F;&#x2F;! 受保护的键不会被转换
-const obj &#x3D; &#123;
-  name: &#39;Alice&#39;,
-  age: 20,
-  bornDate: &#39;2003-06-03&#39;,
-  createTime: new Date()
-&#125;;
-const newObj &#x3D; FuncNext.of(obj).dateToTimestamp().out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, bornDate: 1054598400000, createTime: 1686479418509 &#125;
-
-&#x2F;&#x2F; 把与日期有关的所有值都转换为自定义格式
-&#x2F;&#x2F;! 受保护的键除外
-&#x2F;&#x2F;* 结合dayjs等库使用，将是最佳实践
-&#x2F;&#x2F; 注意dateToAnyFormat接收一个T &#x3D;&gt; R函数, 别忘了Return
-const obj &#x3D; &#123;
-  name: &#39;Alice&#39;,
-  age: 20,
-  bornDate: &#39;2003-06-03&#39;,
-  createTime: new Date()
-&#125;;
-const newObj &#x3D; FuncNext.of(obj).dateToAnyFormat(x &#x3D;&gt; null).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, bornDate: null, createTime: null &#125;
-
-&#x2F;&#x2F; 遍历获取每个值
-&#x2F;&#x2F;！ 受保护的键不会被遍历
-&#x2F;&#x2F; 常用于修改, 别忘了return
-&#x2F;&#x2F; 接收一个(value, key) &#x3D;&gt; newValue
-const newObj &#x3D; FuncNext.of(obj).map((value, key) &#x3D;&gt; &#123;
-    if (key !&#x3D; &#39;name&#39;) return null
-    return value
-&#125;).out()
-&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: null, gender: null, bornDate: null &#125;
-
-&#x2F;&#x2F; 遍历获取每个值
-&#x2F;&#x2F;！受保护的键也会被遍历
-&#x2F;&#x2F; 用于消费，请勿用来修改值
-&#x2F;&#x2F; 接受一个Consumer函数, 即(value, key, isProtected:是否受保护) &#x3D;&gt; void
-FuncNext.of(obj)
-    .exclude(&#39;gender&#39;)
-    .each((value, key, isProtected) &#x3D;&gt; &#123;
-        console.log(&#96;值: $&#123;value&#125;, 键: $&#123;key&#125;, 是否受保护: $&#123;isProtected&#125;&#96;)
-    &#125;).out()
-&#x2F;&#x2F; 值: Alice, 键: name, 是否受保护: false
-&#x2F;&#x2F; 值: 20, 键: age, 是否受保护: false
-&#x2F;&#x2F; 值: 1, 键: gender, 是否受保护: true
-&#x2F;&#x2F; 值: 2003-06-03, 键: bornDate, 是否受保护: false</code></pre>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="title class_">FuncNext</span> <span class="keyword">from</span> <span class="string">&#x27;func-next&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="attr">gender</span>: <span class="number">1</span>,</span><br><span class="line">  <span class="attr">bornDate</span>: <span class="string">&#x27;2003-06-03&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 深拷贝</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">out</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象每个键设为指定值</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">map</span>(<span class="function"><span class="params">x</span> =&gt;</span> <span class="literal">null</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: null, age: null, gender: null, bornDate: null &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 保护(排除)指定键</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">exclude</span>(<span class="string">&#x27;name&#x27;</span>).<span class="title function_">map</span>(<span class="function"><span class="params">x</span> =&gt;</span> <span class="literal">null</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: null, gender: null, bornDate: null &#125;;</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">exclude</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;age&#x27;</span>).<span class="title function_">map</span>(<span class="function"><span class="params">x</span> =&gt;</span> <span class="literal">null</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: 20, gender: null, bornDate: null &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 覆盖或新增</span></span><br><span class="line"><span class="comment">//! 受保护的键不会被修改</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">coverOrAppend</span>(&#123;<span class="attr">name</span>:<span class="string">&#x27;jack&#x27;</span>, <span class="attr">address</span>: <span class="string">&#x27;xxx&#x27;</span>&#125;).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;jack&#x27;, age: 20, gender: 1, bornDate: &#x27;2003-06-03&#x27;, address: &#x27;xxx&#x27; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 提取指定key组成新对象</span></span><br><span class="line"><span class="comment">//! 受保护的键也会被pick</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">pick</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;age&#x27;</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: 20 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 移除指定键</span></span><br><span class="line"><span class="comment">//! 受保护的键不会被移除</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">takeOut</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;age&#x27;</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; gender: 1, bornDate: &#x27;2003-06-03&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 把与日期有关的值都转为时间戳</span></span><br><span class="line"><span class="comment">//! 受保护的键不会被转换</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="attr">bornDate</span>: <span class="string">&#x27;2003-06-03&#x27;</span>,</span><br><span class="line">  <span class="attr">createTime</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">dateToTimestamp</span>().<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: 20, bornDate: 1054598400000, createTime: 1686479418509 &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 把与日期有关的所有值都转换为自定义格式</span></span><br><span class="line"><span class="comment">//! 受保护的键除外</span></span><br><span class="line"><span class="comment">//* 结合dayjs等库使用，将是最佳实践</span></span><br><span class="line"><span class="comment">// 注意dateToAnyFormat接收一个T =&gt; R函数, 别忘了Return</span></span><br><span class="line"><span class="keyword">const</span> obj = &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Alice&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">  <span class="attr">bornDate</span>: <span class="string">&#x27;2003-06-03&#x27;</span>,</span><br><span class="line">  <span class="attr">createTime</span>: <span class="keyword">new</span> <span class="title class_">Date</span>()</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">dateToAnyFormat</span>(<span class="function"><span class="params">x</span> =&gt;</span> <span class="literal">null</span>).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: 20, bornDate: null, createTime: null &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历获取每个值</span></span><br><span class="line"><span class="comment">//！ 受保护的键不会被遍历</span></span><br><span class="line"><span class="comment">// 常用于修改, 别忘了return</span></span><br><span class="line"><span class="comment">// 接收一个(value, key) =&gt; newValue</span></span><br><span class="line"><span class="keyword">const</span> newObj = <span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj).<span class="title function_">map</span>(<span class="function">(<span class="params">value, key</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (key != <span class="string">&#x27;name&#x27;</span>) <span class="keyword">return</span> <span class="literal">null</span></span><br><span class="line">    <span class="keyword">return</span> value</span><br><span class="line">&#125;).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// newObj = &#123; name: &#x27;Alice&#x27;, age: null, gender: null, bornDate: null &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 遍历获取每个值</span></span><br><span class="line"><span class="comment">//！受保护的键也会被遍历</span></span><br><span class="line"><span class="comment">// 用于消费，请勿用来修改值</span></span><br><span class="line"><span class="comment">// 接受一个Consumer函数, 即(value, key, isProtected:是否受保护) =&gt; void</span></span><br><span class="line"><span class="title class_">FuncNext</span>.<span class="title function_">of</span>(obj)</span><br><span class="line">    .<span class="title function_">exclude</span>(<span class="string">&#x27;gender&#x27;</span>)</span><br><span class="line">    .<span class="title function_">each</span>(<span class="function">(<span class="params">value, key, isProtected</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`值: <span class="subst">$&#123;value&#125;</span>, 键: <span class="subst">$&#123;key&#125;</span>, 是否受保护: <span class="subst">$&#123;isProtected&#125;</span>`</span>)</span><br><span class="line">    &#125;).<span class="title function_">out</span>()</span><br><span class="line"><span class="comment">// 值: Alice, 键: name, 是否受保护: false</span></span><br><span class="line"><span class="comment">// 值: 20, 键: age, 是否受保护: false</span></span><br><span class="line"><span class="comment">// 值: 1, 键: gender, 是否受保护: true</span></span><br><span class="line"><span class="comment">// 值: 2003-06-03, 键: bornDate, 是否受保护: false</span></span><br></pre></td></tr></table></figure>
 
 <hr>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong><code>of()</code>和<code>out()</code>是 FuncNext 类中的两个起始方法。</strong></p>
