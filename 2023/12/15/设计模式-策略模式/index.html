@@ -207,77 +207,77 @@
 <h3 id="客户端-Client"><a href="#客户端-Client" class="headerlink" title="客户端(Client)"></a>客户端(Client)</h3><p>客户端是使用策略模式的调用者。它通过实例化上下文类并设置具体策略对象来选择要使用的算法或操作。客户端根据自身的需求，在不同的情况下选择不同的策略，从而实现灵活的算法切换。</p>
 <hr>
 <h2 id="📖经典例子"><a href="#📖经典例子" class="headerlink" title="📖经典例子"></a>📖经典例子</h2><p>我们使用java来写一个贴切实际业务的策略模式的例子</p>
-<h3 id="支付策略接口"><a href="#支付策略接口" class="headerlink" title="支付策略接口"></a>支付策略接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+<h3 id="支付策略接口"><a href="#支付策略接口" class="headerlink" title="支付策略接口"></a>支付策略接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public interface PaymentStrategy &#123;
+  void pay(double amount);
+&#125;</code></pre>
 
-<h3 id="具体策略类"><a href="#具体策略类" class="headerlink" title="具体策略类"></a>具体策略类</h3><h4 id="信用卡支付"><a href="#信用卡支付" class="headerlink" title="信用卡支付"></a>信用卡支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">CreditCardPaymentStrategy</span> <span class="token keyword">implements</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> cardNumber<span class="token punctuation">;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> expirationDate<span class="token punctuation">;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> cvv<span class="token punctuation">;</span>
+<h3 id="具体策略类"><a href="#具体策略类" class="headerlink" title="具体策略类"></a>具体策略类</h3><h4 id="信用卡支付"><a href="#信用卡支付" class="headerlink" title="信用卡支付"></a>信用卡支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class CreditCardPaymentStrategy implements PaymentStrategy &#123;
+  private String cardNumber;
+  private String expirationDate;
+  private String cvv;
 
-  <span class="token keyword">public</span> <span class="token class-name">CreditCardPaymentStrategy</span><span class="token punctuation">(</span><span class="token class-name">String</span> cardNumber<span class="token punctuation">,</span> <span class="token class-name">String</span> expirationDate<span class="token punctuation">,</span> <span class="token class-name">String</span> cvv<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>cardNumber <span class="token operator">=</span> cardNumber<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>expirationDate <span class="token operator">=</span> expirationDate<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>cvv <span class="token operator">=</span> cvv<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  public CreditCardPaymentStrategy(String cardNumber, String expirationDate, String cvv) &#123;
+    this.cardNumber &#x3D; cardNumber;
+    this.expirationDate &#x3D; expirationDate;
+    this.cvv &#x3D; cvv;
+  &#125;
 
-  <span class="token annotation punctuation">@Override</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 使用信用卡进行支付的逻辑</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过信用卡号: "</span> <span class="token operator">+</span> cardNumber<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 其他支付操作...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  @Override
+  public void pay(double amount) &#123;
+    &#x2F;&#x2F; 使用信用卡进行支付的逻辑
+    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过信用卡号: &quot; + cardNumber);
+    &#x2F;&#x2F; 其他支付操作...
+  &#125;
+&#125;</code></pre>
 
-<h4 id="支付宝支付"><a href="#支付宝支付" class="headerlink" title="支付宝支付"></a>支付宝支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">AlipayPaymentStrategy</span> <span class="token keyword">implements</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> userId<span class="token punctuation">;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> password<span class="token punctuation">;</span>
+<h4 id="支付宝支付"><a href="#支付宝支付" class="headerlink" title="支付宝支付"></a>支付宝支付</h4><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class AlipayPaymentStrategy implements PaymentStrategy &#123;
+  private String userId;
+  private String password;
 
-  <span class="token keyword">public</span> <span class="token class-name">AlipayPaymentStrategy</span><span class="token punctuation">(</span><span class="token class-name">String</span> userId<span class="token punctuation">,</span> <span class="token class-name">String</span> password<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>userId <span class="token operator">=</span> userId<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>password <span class="token operator">=</span> password<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  public AlipayPaymentStrategy(String userId, String password) &#123;
+    this.userId &#x3D; userId;
+    this.password &#x3D; password;
+  &#125;
 
-  <span class="token annotation punctuation">@Override</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 使用支付宝进行支付的逻辑</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过支付宝账户: "</span> <span class="token operator">+</span> userId<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 其他支付操作...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  @Override
+  public void pay(double amount) &#123;
+    &#x2F;&#x2F; 使用支付宝进行支付的逻辑
+    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过支付宝账户: &quot; + userId);
+    &#x2F;&#x2F; 其他支付操作...
+  &#125;
+&#125;</code></pre>
 
-<h3 id="上下文类"><a href="#上下文类" class="headerlink" title="上下文类"></a>上下文类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Order</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">private</span> <span class="token keyword">double</span> amount<span class="token punctuation">;</span>
-  <span class="token keyword">private</span> <span class="token class-name">PaymentStrategy</span> paymentStrategy<span class="token punctuation">;</span>
+<h3 id="上下文类"><a href="#上下文类" class="headerlink" title="上下文类"></a>上下文类</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Order &#123;
+  private double amount;
+  private PaymentStrategy paymentStrategy;
 
-  <span class="token keyword">public</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">,</span> <span class="token class-name">PaymentStrategy</span> paymentStrategy<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>amount <span class="token operator">=</span> amount<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>paymentStrategy <span class="token operator">=</span> paymentStrategy<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  public Order(double amount, PaymentStrategy paymentStrategy) &#123;
+    this.amount &#x3D; amount;
+    this.paymentStrategy &#x3D; paymentStrategy;
+  &#125;
   
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">makePayment</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    paymentStrategy<span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  public void makePayment() &#123;
+    paymentStrategy.pay(amount);
+  &#125;
+&#125;</code></pre>
 
-<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 创建订单</span>
-    <span class="token class-name">Order</span> order1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token number">100.0</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CreditCardPaymentStrategy</span><span class="token punctuation">(</span><span class="token string">"1234 5678 9012 3456"</span><span class="token punctuation">,</span> <span class="token string">"12/25"</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">Order</span> order2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token number">200.0</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">AlipayPaymentStrategy</span><span class="token punctuation">(</span><span class="token string">"user123"</span><span class="token punctuation">,</span> <span class="token string">"password456"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
+  public static void main(String[] args) &#123;
+    &#x2F;&#x2F; 创建订单
+    Order order1 &#x3D; new Order(100.0, new CreditCardPaymentStrategy(&quot;1234 5678 9012 3456&quot;, &quot;12&#x2F;25&quot;, &quot;123&quot;));
+    Order order2 &#x3D; new Order(200.0, new AlipayPaymentStrategy(&quot;user123&quot;, &quot;password456&quot;));
 
-    <span class="token comment">// 执行支付</span>
-    order1<span class="token punctuation">.</span><span class="token function">makePayment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    order2<span class="token punctuation">.</span><span class="token function">makePayment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 执行支付
+    order1.makePayment();
+    System.out.println();
+    order2.makePayment();
+  &#125;
+&#125;</code></pre>
 
-<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># output</span>
-<span class="token key atrule">支付 ￥100.0 通过信用卡号</span><span class="token punctuation">:</span> 1234 5678 9012 3456
+<h3 id="输出结果"><a href="#输出结果" class="headerlink" title="输出结果"></a>输出结果</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
+支付 ￥100.0 通过信用卡号: 1234 5678 9012 3456
 
-<span class="token key atrule">支付 ￥200.0 通过支付宝账户</span><span class="token punctuation">:</span> user12<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+支付 ￥200.0 通过支付宝账户: user12</code></pre>
 
 <hr>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>结合上述例子，可以得出结论:</p>
@@ -285,43 +285,43 @@
 <p>策略接口定义了策略模式的公共接口，具体策略类实现了该接口并封装了具体的策略算法。上下文类持有策略对象并在需要时调用其方法，而客户端则负责创建具体策略对象并将其传递给上下文类。这样，客户端可以根据不同的情况选择不同的策略，并将其应用于上下文类的操作中。</p>
 </blockquote>
 <p>当业务需要更多执行策略的时候，只需创建具体策略类(继承策略公共接口)即可，例如:</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 微信支付策略</span>
-<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WeChatPaymentStrategy</span> <span class="token keyword">implements</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> appId<span class="token punctuation">;</span>
-  <span class="token keyword">private</span> <span class="token class-name">String</span> appSecret<span class="token punctuation">;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F; 微信支付策略
+public class WeChatPaymentStrategy implements PaymentStrategy &#123;
+  private String appId;
+  private String appSecret;
 
-  <span class="token keyword">public</span> <span class="token class-name">WeChatPaymentStrategy</span><span class="token punctuation">(</span><span class="token class-name">String</span> appId<span class="token punctuation">,</span> <span class="token class-name">String</span> appSecret<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>appId <span class="token operator">=</span> appId<span class="token punctuation">;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>appSecret <span class="token operator">=</span> appSecret<span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
+  public WeChatPaymentStrategy(String appId, String appSecret) &#123;
+    this.appId &#x3D; appId;
+    this.appSecret &#x3D; appSecret;
+  &#125;
 
-  <span class="token annotation punctuation">@Override</span>
-  <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 使用微信支付的逻辑</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过微信APP ID: "</span> <span class="token operator">+</span> appId<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 其他支付操作...</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  @Override
+  public void pay(double amount) &#123;
+    &#x2F;&#x2F; 使用微信支付的逻辑
+    System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过微信APP ID: &quot; + appId);
+    &#x2F;&#x2F; 其他支付操作...
+  &#125;
+&#125;</code></pre>
 
 <p>且在具体执行逻辑中</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 创建订单</span>
-    <span class="token class-name">Order</span> order1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token number">100.0</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">CreditCardPaymentStrategy</span><span class="token punctuation">(</span><span class="token string">"1234 5678 9012 3456"</span><span class="token punctuation">,</span> <span class="token string">"12/25"</span><span class="token punctuation">,</span> <span class="token string">"123"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">-</span> <span class="token class-name">Order</span> order2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token number">200.0</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">AlipayPaymentStrategy</span><span class="token punctuation">(</span><span class="token string">"user123"</span><span class="token punctuation">,</span> <span class="token string">"password456"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token operator">+</span> <span class="token class-name">Order</span> order2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Order</span><span class="token punctuation">(</span><span class="token number">150.0</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">WeChatPaymentStrategy</span><span class="token punctuation">(</span><span class="token string">"12345678"</span><span class="token punctuation">,</span> <span class="token string">"a1b2c3d4"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token comment">// 执行支付</span>
-    order1<span class="token punctuation">.</span><span class="token function">makePayment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    order2<span class="token punctuation">.</span><span class="token function">makePayment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
+  public static void main(String[] args) &#123;
+    &#x2F;&#x2F; 创建订单
+    Order order1 &#x3D; new Order(100.0, new CreditCardPaymentStrategy(&quot;1234 5678 9012 3456&quot;, &quot;12&#x2F;25&quot;, &quot;123&quot;));
+    - Order order2 &#x3D; new Order(200.0, new AlipayPaymentStrategy(&quot;user123&quot;, &quot;password456&quot;));
+    + Order order2 &#x3D; new Order(150.0, new WeChatPaymentStrategy(&quot;12345678&quot;, &quot;a1b2c3d4&quot;));
+    &#x2F;&#x2F; 执行支付
+    order1.makePayment();
+    System.out.println();
+    order2.makePayment();
+  &#125;
+&#125;</code></pre>
 
 <p>结果</p>
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># output</span>
-<span class="token key atrule">支付 ￥100.0 通过信用卡号</span><span class="token punctuation">:</span> 1234 5678 9012 3456
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
+支付 ￥100.0 通过信用卡号: 1234 5678 9012 3456
 
-<span class="token key atrule">支付 ￥150.0 通过微信AOO ID</span><span class="token punctuation">:</span> <span class="token number">12345678</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+支付 ￥150.0 通过微信AOO ID: 12345678</code></pre>
 
 <p>在本例中，业务的替换或拓展通过策略模式的优化将逻辑业务转到了策略类中，降低了工程的耦合度和可维护性。</p>
 <hr>
@@ -338,56 +338,56 @@
 <p><strong>我们可以通过枚举的特性来优化</strong></p>
 <p>枚举类中的抽象方法的实现，需要枚举类中的每个元素都对其进行实现。</p>
 </blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 策略枚举</span>
-<span class="token keyword">public</span> <span class="token keyword">enum</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token constant">CREDIT_CARD</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 使用信用卡进行支付的逻辑</span>
-      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过信用卡"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// 其他支付操作...</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token constant">ALIPAY</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 使用支付宝进行支付的逻辑</span>
-      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过支付宝"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// 其他支付操作...</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-  <span class="token constant">WECHAT</span> <span class="token punctuation">&#123;</span>
-    <span class="token annotation punctuation">@Override</span>
-    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 使用微信支付的逻辑</span>
-      <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"支付 ￥"</span> <span class="token operator">+</span> amount <span class="token operator">+</span> <span class="token string">" 通过微信"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token comment">// 其他支付操作...</span>
-    <span class="token punctuation">&#125;</span>
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">&#x2F;&#x2F; 策略枚举
+public enum PaymentStrategy &#123;
+  CREDIT_CARD &#123;
+    @Override
+    public void pay(double amount) &#123;
+      &#x2F;&#x2F; 使用信用卡进行支付的逻辑
+      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过信用卡&quot;);
+      &#x2F;&#x2F; 其他支付操作...
+    &#125;
+  &#125;,
+  ALIPAY &#123;
+    @Override
+    public void pay(double amount) &#123;
+      &#x2F;&#x2F; 使用支付宝进行支付的逻辑
+      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过支付宝&quot;);
+      &#x2F;&#x2F; 其他支付操作...
+    &#125;
+  &#125;,
+  WECHAT &#123;
+    @Override
+    public void pay(double amount) &#123;
+      &#x2F;&#x2F; 使用微信支付的逻辑
+      System.out.println(&quot;支付 ￥&quot; + amount + &quot; 通过微信&quot;);
+      &#x2F;&#x2F; 其他支付操作...
+    &#125;
+  &#125;;
 
-  <span class="token keyword">public</span> <span class="token keyword">abstract</span> <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+  public abstract void pay(double amount);
+&#125;</code></pre>
 
 <p>此时枚举类中的每个元素代表的即是一个策略</p>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">double</span> amount <span class="token operator">=</span> <span class="token number">100.0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
+  public static void main(String[] args) &#123;
+    double amount &#x3D; 100.0;
 
-    <span class="token comment">// 使用信用卡进行支付</span>
-    <span class="token class-name">PaymentStrategy</span><span class="token punctuation">.</span><span class="token constant">CREDIT_CARD</span><span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    &#x2F;&#x2F; 使用信用卡进行支付
+    PaymentStrategy.CREDIT_CARD.pay(amount);
 
-    <span class="token comment">// 使用支付宝进行支付</span>
-    <span class="token class-name">PaymentStrategy</span><span class="token punctuation">.</span><span class="token constant">ALIPAY</span><span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    &#x2F;&#x2F; 使用支付宝进行支付
+    PaymentStrategy.ALIPAY.pay(amount);
 
-    <span class="token comment">// 使用微信支付</span>
-    <span class="token class-name">PaymentStrategy</span><span class="token punctuation">.</span><span class="token constant">WECHAT</span><span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 使用微信支付
+    PaymentStrategy.WECHAT.pay(amount);
+  &#125;
+&#125;</code></pre>
 
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># output</span>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
 支付 ￥100.0 通过信用卡
 支付 ￥100.0 通过支付宝
-支付 ￥100.0 通过微信<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+支付 ￥100.0 通过微信</code></pre>
 
 <blockquote>
 <p><strong>🙋🏻‍♂️问:</strong></p>
@@ -397,54 +397,54 @@
 <p>我们可以通过枚举的<code>valueOf</code>方法</p>
 </blockquote>
 </blockquote>
-<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">double</span> amount <span class="token operator">=</span> <span class="token number">100.0</span><span class="token punctuation">;</span>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
+  public static void main(String[] args) &#123;
+    double amount &#x3D; 100.0;
 
-    <span class="token comment">// 动态选择枚举值</span>
-    <span class="token class-name">String</span> paymentMethod <span class="token operator">=</span> <span class="token string">"WECHAT"</span><span class="token punctuation">;</span>
-    <span class="token class-name">PaymentStrategy</span> strategy <span class="token operator">=</span> <span class="token class-name">PaymentStrategy</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>paymentMethod<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    &#x2F;&#x2F; 动态选择枚举值
+    String paymentMethod &#x3D; &quot;WECHAT&quot;;
+    PaymentStrategy strategy &#x3D; PaymentStrategy.valueOf(paymentMethod);
 
-    <span class="token comment">// 执行支付</span>
-    strategy<span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 执行支付
+    strategy.pay(amount);
+  &#125;
+&#125;</code></pre>
 
-<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># output</span>
-支付 ￥100.0 通过微信<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"># output
+支付 ￥100.0 通过微信</code></pre>
 
 <hr>
 <h2 id="✨使用函数式接口优化策略模式"><a href="#✨使用函数式接口优化策略模式" class="headerlink" title="✨使用函数式接口优化策略模式"></a>✨使用函数式接口优化策略模式</h2><blockquote>
 <p>在Java8中引入了函数式编程概念以及Lambda表达式</p>
 </blockquote>
-<h3 id="定义函数式接口"><a href="#定义函数式接口" class="headerlink" title="定义函数式接口"></a>定义函数式接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@FunctionalInterface</span>
-<span class="token keyword">interface</span> <span class="token class-name">PaymentStrategy</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">void</span> <span class="token function">pay</span><span class="token punctuation">(</span><span class="token keyword">double</span> amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="定义函数式接口"><a href="#定义函数式接口" class="headerlink" title="定义函数式接口"></a>定义函数式接口</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">@FunctionalInterface
+interface PaymentStrategy &#123;
+  void pay(double amount);
+&#125;</code></pre>
 
-<h3 id="具体业务实现"><a href="#具体业务实现" class="headerlink" title="具体业务实现"></a>具体业务实现</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Main</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">double</span> amount <span class="token operator">=</span> <span class="token number">100.0</span><span class="token punctuation">;</span>
+<h3 id="具体业务实现"><a href="#具体业务实现" class="headerlink" title="具体业务实现"></a>具体业务实现</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java">public class Main &#123;
+  public static void main(String[] args) &#123;
+    double amount &#x3D; 100.0;
 
-    <span class="token comment">// 使用Lambda表达式定义不同的支付策略</span>
-    <span class="token class-name">PaymentStrategy</span> creditCardStrategy <span class="token operator">=</span> <span class="token punctuation">(</span>amt<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 支付操作...</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    &#x2F;&#x2F; 使用Lambda表达式定义不同的支付策略
+    PaymentStrategy creditCardStrategy &#x3D; (amt) -&gt; &#123;
+      &#x2F;&#x2F; 支付操作...
+    &#125;;
 
-    <span class="token class-name">PaymentStrategy</span> alipayStrategy <span class="token operator">=</span> <span class="token punctuation">(</span>amt<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 支付操作...</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    PaymentStrategy alipayStrategy &#x3D; (amt) -&gt; &#123;
+      &#x2F;&#x2F; 支付操作...
+    &#125;;
 
-    <span class="token class-name">PaymentStrategy</span> wechatStrategy <span class="token operator">=</span> <span class="token punctuation">(</span>amt<span class="token punctuation">)</span> <span class="token operator">-></span> <span class="token punctuation">&#123;</span>
-      <span class="token comment">// 支付操作...</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+    PaymentStrategy wechatStrategy &#x3D; (amt) -&gt; &#123;
+      &#x2F;&#x2F; 支付操作...
+    &#125;;
 
-    <span class="token comment">// 执行支付</span>
-    creditCardStrategy<span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    alipayStrategy<span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    wechatStrategy<span class="token punctuation">.</span><span class="token function">pay</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    &#x2F;&#x2F; 执行支付
+    creditCardStrategy.pay(amount);
+    alipayStrategy.pay(amount);
+    wechatStrategy.pay(amount);
+  &#125;
+&#125;</code></pre>
 
 <hr>
 <h2 id="💥注意"><a href="#💥注意" class="headerlink" title="💥注意"></a>💥注意</h2><p>如果业务<strong>只有一个或很少数的分支行为，又或者是无需持续维护或拓展分支功能的业务</strong>，那或许该考虑是否适合用策略模式。</p>

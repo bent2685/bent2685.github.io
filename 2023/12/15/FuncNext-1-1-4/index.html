@@ -192,7 +192,7 @@
   <blockquote>
 <p>FuncNext 1.1.4</p>
 </blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">npm install func-next <span class="token operator">--</span><span class="token function">save-dev</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">npm install func-next --save-dev</code></pre>
 
 <hr>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>是一个 JavaScript 类。它提供了一些方法，可以对一个对象进行一系列的操作，包括：</p>
@@ -210,90 +210,90 @@
 </ul>
 <p>如果要使用这个类，可以通过 import 语句将它引入到你的代码中，然后创建一个 FuncNext 的实例，调用它提供的方法来对对象进行操作。</p>
 <hr>
-<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">import</span> FuncNext <span class="token keyword">from</span> <span class="token string">'func-next'</span><span class="token punctuation">;</span>
+<h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">import FuncNext from &#39;func-next&#39;;
 
-<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">gender</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">bornDate</span><span class="token operator">:</span> <span class="token string">'2003-06-03'</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
+const obj &#x3D; &#123;
+  name: &#39;Alice&#39;,
+  age: 20,
+  gender: 1,
+  bornDate: &#39;2003-06-03&#39;
+&#125;;
 
-<span class="token comment">// 深拷贝</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+&#x2F;&#x2F; 深拷贝
+const newObj &#x3D; FuncNext.of(obj).out()
 
-<span class="token comment">// 对象每个键设为指定值</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: null, age: null, gender: null, bornDate: null &#125;</span>
+&#x2F;&#x2F; 对象每个键设为指定值
+const newObj &#x3D; FuncNext.of(obj).map(x &#x3D;&gt; null).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: null, age: null, gender: null, bornDate: null &#125;
 
-<span class="token comment">// 保护(排除)指定键</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exclude</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: null, gender: null, bornDate: null &#125;;</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">exclude</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: 20, gender: null, bornDate: null &#125;</span>
+&#x2F;&#x2F; 保护(排除)指定键
+const newObj &#x3D; FuncNext.of(obj).exclude(&#39;name&#39;).map(x &#x3D;&gt; null).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: null, gender: null, bornDate: null &#125;;
+const newObj &#x3D; FuncNext.of(obj).exclude(&#39;name&#39;, &#39;age&#39;).map(x &#x3D;&gt; null).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, gender: null, bornDate: null &#125;
 
-<span class="token comment">// 覆盖或新增</span>
-<span class="token comment">//! 受保护的键不会被修改</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">coverOrAppend</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">name</span><span class="token operator">:</span><span class="token string">'jack'</span><span class="token punctuation">,</span> <span class="token literal-property property">address</span><span class="token operator">:</span> <span class="token string">'xxx'</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'jack', age: 20, gender: 1, bornDate: '2003-06-03', address: 'xxx' &#125;</span>
+&#x2F;&#x2F; 覆盖或新增
+&#x2F;&#x2F;! 受保护的键不会被修改
+const newObj &#x3D; FuncNext.of(obj).coverOrAppend(&#123;name:&#39;jack&#39;, address: &#39;xxx&#39;&#125;).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;jack&#39;, age: 20, gender: 1, bornDate: &#39;2003-06-03&#39;, address: &#39;xxx&#39; &#125;
 
-<span class="token comment">// 提取指定key组成新对象</span>
-<span class="token comment">//! 受保护的键也会被pick</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">pick</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: 20 &#125;</span>
+&#x2F;&#x2F; 提取指定key组成新对象
+&#x2F;&#x2F;! 受保护的键也会被pick
+const newObj &#x3D; FuncNext.of(obj).pick(&#39;name&#39;, &#39;age&#39;).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20 &#125;
 
-<span class="token comment">// 移除指定键</span>
-<span class="token comment">//! 受保护的键不会被移除</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">takeOut</span><span class="token punctuation">(</span><span class="token string">'name'</span><span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; gender: 1, bornDate: '2003-06-03'&#125;</span>
+&#x2F;&#x2F; 移除指定键
+&#x2F;&#x2F;! 受保护的键不会被移除
+const newObj &#x3D; FuncNext.of(obj).takeOut(&#39;name&#39;, &#39;age&#39;).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; gender: 1, bornDate: &#39;2003-06-03&#39;&#125;
 
-<span class="token comment">// 把与日期有关的值都转为时间戳</span>
-<span class="token comment">//! 受保护的键不会被转换</span>
-<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">bornDate</span><span class="token operator">:</span> <span class="token string">'2003-06-03'</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">createTime</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">dateToTimestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: 20, bornDate: 1054598400000, createTime: 1686479418509 &#125;</span>
+&#x2F;&#x2F; 把与日期有关的值都转为时间戳
+&#x2F;&#x2F;! 受保护的键不会被转换
+const obj &#x3D; &#123;
+  name: &#39;Alice&#39;,
+  age: 20,
+  bornDate: &#39;2003-06-03&#39;,
+  createTime: new Date()
+&#125;;
+const newObj &#x3D; FuncNext.of(obj).dateToTimestamp().out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, bornDate: 1054598400000, createTime: 1686479418509 &#125;
 
-<span class="token comment">// 把与日期有关的所有值都转换为自定义格式</span>
-<span class="token comment">//! 受保护的键除外</span>
-<span class="token comment">//* 结合dayjs等库使用，将是最佳实践</span>
-<span class="token comment">// 注意dateToAnyFormat接收一个T => R函数, 别忘了Return</span>
-<span class="token keyword">const</span> obj <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-  <span class="token literal-property property">name</span><span class="token operator">:</span> <span class="token string">'Alice'</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">age</span><span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">bornDate</span><span class="token operator">:</span> <span class="token string">'2003-06-03'</span><span class="token punctuation">,</span>
-  <span class="token literal-property property">createTime</span><span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">dateToAnyFormat</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: 20, bornDate: null, createTime: null &#125;</span>
+&#x2F;&#x2F; 把与日期有关的所有值都转换为自定义格式
+&#x2F;&#x2F;! 受保护的键除外
+&#x2F;&#x2F;* 结合dayjs等库使用，将是最佳实践
+&#x2F;&#x2F; 注意dateToAnyFormat接收一个T &#x3D;&gt; R函数, 别忘了Return
+const obj &#x3D; &#123;
+  name: &#39;Alice&#39;,
+  age: 20,
+  bornDate: &#39;2003-06-03&#39;,
+  createTime: new Date()
+&#125;;
+const newObj &#x3D; FuncNext.of(obj).dateToAnyFormat(x &#x3D;&gt; null).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: 20, bornDate: null, createTime: null &#125;
 
-<span class="token comment">// 遍历获取每个值</span>
-<span class="token comment">//！ 受保护的键不会被遍历</span>
-<span class="token comment">// 常用于修改, 别忘了return</span>
-<span class="token comment">// 接收一个(value, key) => newValue</span>
-<span class="token keyword">const</span> newObj <span class="token operator">=</span> FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">value<span class="token punctuation">,</span> key</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">!=</span> <span class="token string">'name'</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token keyword">null</span>
-    <span class="token keyword">return</span> value
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// newObj = &#123; name: 'Alice', age: null, gender: null, bornDate: null &#125;</span>
+&#x2F;&#x2F; 遍历获取每个值
+&#x2F;&#x2F;！ 受保护的键不会被遍历
+&#x2F;&#x2F; 常用于修改, 别忘了return
+&#x2F;&#x2F; 接收一个(value, key) &#x3D;&gt; newValue
+const newObj &#x3D; FuncNext.of(obj).map((value, key) &#x3D;&gt; &#123;
+    if (key !&#x3D; &#39;name&#39;) return null
+    return value
+&#125;).out()
+&#x2F;&#x2F; newObj &#x3D; &#123; name: &#39;Alice&#39;, age: null, gender: null, bornDate: null &#125;
 
-<span class="token comment">// 遍历获取每个值</span>
-<span class="token comment">//！受保护的键也会被遍历</span>
-<span class="token comment">// 用于消费，请勿用来修改值</span>
-<span class="token comment">// 接受一个Consumer函数, 即(value, key, isProtected:是否受保护) => void</span>
-FuncNext<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">exclude</span><span class="token punctuation">(</span><span class="token string">'gender'</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">value<span class="token punctuation">,</span> key<span class="token punctuation">,</span> isProtected</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">值: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>value<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">, 键: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>key<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string">, 是否受保护: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>isProtected<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">out</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token comment">// 值: Alice, 键: name, 是否受保护: false</span>
-<span class="token comment">// 值: 20, 键: age, 是否受保护: false</span>
-<span class="token comment">// 值: 1, 键: gender, 是否受保护: true</span>
-<span class="token comment">// 值: 2003-06-03, 键: bornDate, 是否受保护: false</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 遍历获取每个值
+&#x2F;&#x2F;！受保护的键也会被遍历
+&#x2F;&#x2F; 用于消费，请勿用来修改值
+&#x2F;&#x2F; 接受一个Consumer函数, 即(value, key, isProtected:是否受保护) &#x3D;&gt; void
+FuncNext.of(obj)
+    .exclude(&#39;gender&#39;)
+    .each((value, key, isProtected) &#x3D;&gt; &#123;
+        console.log(&#96;值: $&#123;value&#125;, 键: $&#123;key&#125;, 是否受保护: $&#123;isProtected&#125;&#96;)
+    &#125;).out()
+&#x2F;&#x2F; 值: Alice, 键: name, 是否受保护: false
+&#x2F;&#x2F; 值: 20, 键: age, 是否受保护: false
+&#x2F;&#x2F; 值: 1, 键: gender, 是否受保护: true
+&#x2F;&#x2F; 值: 2003-06-03, 键: bornDate, 是否受保护: false</code></pre>
 
 <hr>
 <h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p><strong><code>of()</code>和<code>out()</code>是 FuncNext 类中的两个起始方法。</strong></p>

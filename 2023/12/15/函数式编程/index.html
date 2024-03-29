@@ -208,30 +208,30 @@
 </li>
 </ul>
 <hr>
-<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">//* 非纯函数</span>
-<span class="token comment">// 污染外部变量</span>
-<span class="token keyword">const</span> baseNum <span class="token operator">=</span> <span class="token number">10</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">num</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> baseNum <span class="token operator">+</span> num
-<span class="token punctuation">&#125;</span>
+<h3 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F;* 非纯函数
+&#x2F;&#x2F; 污染外部变量
+const baseNum &#x3D; 10
+const add &#x3D; (num) &#x3D;&gt; &#123;
+    return baseNum + num
+&#125;
 
-<span class="token comment">//* 纯函数</span>
-<span class="token comment">// 没有污染外部变量</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">num</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> baseNum <span class="token operator">=</span> <span class="token number">10</span>
-    <span class="token keyword">return</span> baseNum <span class="token operator">+</span> num
-<span class="token punctuation">&#125;</span>
+&#x2F;&#x2F;* 纯函数
+&#x2F;&#x2F; 没有污染外部变量
+const add &#x3D; (num) &#x3D;&gt; &#123;
+    const baseNum &#x3D; 10
+    return baseNum + num
+&#125;
 
-<span class="token keyword">const</span> arr <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span>
-<span class="token comment">//* 非纯函数</span>
-arr<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token comment">// => [1, 2, 3]</span>
-<span class="token comment">// 改变原了数组</span>
+const arr &#x3D; [1, 2, 3, 4, 5, 6]
+&#x2F;&#x2F;* 非纯函数
+arr.splice(0, 3)
+&#x2F;&#x2F; &#x3D;&gt; [1, 2, 3]
+&#x2F;&#x2F; 改变原了数组
 
-<span class="token comment">//* 纯函数</span>
-arr<span class="token punctuation">.</span><span class="token function">slice</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token comment">// => [1, 2, 3]</span>
-<span class="token comment">// 返回新数组，不改变原数组</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F;* 纯函数
+arr.slice(0, 3)
+&#x2F;&#x2F; &#x3D;&gt; [1, 2, 3]
+&#x2F;&#x2F; 返回新数组，不改变原数组</code></pre>
 
 <hr>
 <h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><ol>
@@ -251,165 +251,165 @@ arr<span class="token punctuation">.</span><span class="token function">slice</s
 <li><p><strong>调用这个内部函数的时候可以访问到这个内部函数外部函数的内部成员</strong></p>
 </li>
 </ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 计算工资函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">calcSalary</span> <span class="token operator">=</span> <span class="token parameter">base</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token comment">/* 表现工资 */</span> perf<span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      	<span class="token comment">// 内部函数可以访问到外部函数(calcSalary)的base变量</span>
-        <span class="token keyword">return</span> base <span class="token operator">+</span> perf
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 计算工资函数
+const calcSalary &#x3D; base &#x3D;&gt; &#123;
+    return (&#x2F;* 表现工资 *&#x2F; perf) &#x3D;&gt; &#123;
+      	&#x2F;&#x2F; 内部函数可以访问到外部函数(calcSalary)的base变量
+        return base + perf
+    &#125;
+&#125;
 
-<span class="token keyword">const</span> getSalaryOfDeveloper <span class="token operator">=</span> <span class="token function">calcSalary</span><span class="token punctuation">(</span><span class="token number">12000</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> getSalaryOfManager <span class="token operator">=</span> <span class="token function">calcSalary</span><span class="token punctuation">(</span><span class="token number">15000</span><span class="token punctuation">)</span>
+const getSalaryOfDeveloper &#x3D; calcSalary(12000)
+const getSalaryOfManager &#x3D; calcSalary(15000)
 
-<span class="token comment">// 在一个作用域中调用函数的内部函数</span>
-<span class="token keyword">const</span> mikeSalary <span class="token operator">=</span> <span class="token function">getSalaryOfDeveloper</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span>
-<span class="token comment">// ==> 14000 </span>
-<span class="token keyword">const</span> amySalary <span class="token operator">=</span> <span class="token function">getSalaryOfDeveloper</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span>
-<span class="token comment">// ==> 15000</span>
-<span class="token keyword">const</span> jackSalary <span class="token operator">=</span> <span class="token function">getSalaryOfManager</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span>
-<span class="token comment">// =>> 18000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 在一个作用域中调用函数的内部函数
+const mikeSalary &#x3D; getSalaryOfDeveloper(2000)
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; 14000 
+const amySalary &#x3D; getSalaryOfDeveloper(3000)
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; 15000
+const jackSalary &#x3D; getSalaryOfManager(3000)
+&#x2F;&#x2F; &#x3D;&gt;&gt; 18000</code></pre>
 
 <hr>
 <h2 id="惰性调用"><a href="#惰性调用" class="headerlink" title="惰性调用"></a>惰性调用</h2><blockquote>
 <p><strong>概念：</strong>延迟表达式的求值直到实际需要的时候。这意味着表达式不会在定义时立即被计算，而是在需要其值的时候才被求值和执行。</p>
 </blockquote>
 <p>在函数式编程中，惰性计算经常用于创建无限序列或避免不必要的计算。这种方法允许程序在必要的时候才执行计算，以节省资源并提高效率。</p>
-<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 计算工资函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">calcSalary</span> <span class="token operator">=</span> <span class="token parameter">base</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token parameter">perf</span> <span class="token operator">=></span> base <span class="token operator">+</span> perf
-<span class="token punctuation">&#125;</span>
+<h3 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 计算工资函数
+const calcSalary &#x3D; base &#x3D;&gt; &#123;
+    return perf &#x3D;&gt; base + perf
+&#125;
 
-<span class="token comment">// 给予参数，但不立即执行</span>
-<span class="token keyword">const</span> getSalaryOfDeveloper <span class="token operator">=</span> <span class="token function">calcSalary</span><span class="token punctuation">(</span><span class="token number">12000</span><span class="token punctuation">)</span>
+&#x2F;&#x2F; 给予参数，但不立即执行
+const getSalaryOfDeveloper &#x3D; calcSalary(12000)
 
-<span class="token comment">// 当需要结果时，才调用函数进行计算</span>
-<span class="token keyword">const</span> mikeSalary <span class="token operator">=</span> <span class="token function">getSalaryOfDeveloper</span><span class="token punctuation">(</span><span class="token number">2000</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 当需要结果时，才调用函数进行计算
+const mikeSalary &#x3D; getSalaryOfDeveloper(2000)</code></pre>
 
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 惰性调用在正则中的例子</span>
-<span class="token keyword">const</span> <span class="token function-variable function">createRegExpTemplate</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">regStr</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> reg <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RegExp</span><span class="token punctuation">(</span>regStr<span class="token punctuation">)</span>
-    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token parameter">testValue</span><span class="token punctuation">)</span> <span class="token operator">=></span> reg<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>testValue<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">const</span> emailRegExp <span class="token operator">=</span> <span class="token function">createRegExpTemplate</span><span class="token punctuation">(</span><span class="token string">'^\\w+@[a-z0-9]+\\.[a-z]+$'</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> phoneRegExp <span class="token operator">=</span> <span class="token function">createRegExpTemplate</span><span class="token punctuation">(</span><span class="token string">'^1[34578]\\d&#123;9&#125;$'</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 惰性调用在正则中的例子
+const createRegExpTemplate &#x3D; (regStr) &#x3D;&gt; &#123;
+    const reg &#x3D; new RegExp(regStr)
+    return (testValue) &#x3D;&gt; reg.test(testValue)
+&#125;
+const emailRegExp &#x3D; createRegExpTemplate(&#39;^\\w+@[a-z0-9]+\\.[a-z]+$&#39;)
+const phoneRegExp &#x3D; createRegExpTemplate(&#39;^1[34578]\\d&#123;9&#125;$&#39;)
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">emailRegExp</span><span class="token punctuation">(</span><span class="token string">'111.com'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// ==> false</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">emailRegExp</span><span class="token punctuation">(</span><span class="token string">'helloword123@qq.com'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// ==> true</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">phoneRegExp</span><span class="token punctuation">(</span><span class="token string">'17312341234'</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// ==> true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+console.log(emailRegExp(&#39;111.com&#39;))
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; false
+console.log(emailRegExp(&#39;helloword123@qq.com&#39;))
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; true
+console.log(phoneRegExp(&#39;17312341234&#39;))
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; true</code></pre>
 
 <hr>
 <h2 id="柯理化"><a href="#柯理化" class="headerlink" title="柯理化"></a>柯理化</h2><blockquote>
 <p>柯里化是一种将使用<strong>多个参数的函数</strong>转换成<strong>一系列使用一个参数的函数</strong>的技术。它的核心思想是将一个接受多个参数的函数转换为一系列嵌套的单参数函数。</p>
 </blockquote>
 <h3 id="展现形式"><a href="#展现形式" class="headerlink" title="展现形式"></a>展现形式</h3><p>柯理化函数是建立在闭包和惰性调用的基础之上的一个概念，有了这两个理念的支持才得以实现函数柯理化。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 普通函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c</span><span class="token punctuation">)</span> <span class="token operator">=></span> a <span class="token operator">+</span> b <span class="token operator">+</span> c
-<span class="token comment">//* 柯理化函数</span>
-<span class="token comment">// 一些列一个参数的函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token parameter">a</span> <span class="token operator">=></span> <span class="token parameter">b</span> <span class="token operator">=></span> <span class="token parameter">c</span> <span class="token operator">=></span> a <span class="token operator">+</span> b <span class="token operator">+</span> c
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 普通函数
+const add &#x3D; (a, b, c) &#x3D;&gt; a + b + c
+&#x2F;&#x2F;* 柯理化函数
+&#x2F;&#x2F; 一些列一个参数的函数
+const add &#x3D; a &#x3D;&gt; b &#x3D;&gt; c &#x3D;&gt; a + b + c
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// => 6</span>
-<span class="token keyword">const</span> addBase <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">addBase</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// => 115</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">addBase</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// => 118</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+console.log(add(1)(2)(3))
+&#x2F;&#x2F; &#x3D;&gt; 6
+const addBase &#x3D; add(100)(10)
+console.log(addBase(5))
+&#x2F;&#x2F; &#x3D;&gt; 115
+console.log(addBase(8))
+&#x2F;&#x2F; &#x3D;&gt; 118</code></pre>
 
 <h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><blockquote>
 <p>多个参数的函数转换为一系列接受单个参数的函数。这种转换使得函数更加灵活、更易于复用，并且支持更为简洁的函数组合。</p>
 </blockquote>
 <h3 id="参数复用与部分应用"><a href="#参数复用与部分应用" class="headerlink" title="参数复用与部分应用"></a>参数复用与部分应用</h3><p>柯里化允许您先传递一部分参数，然后在后续调用中提供剩余参数。这对于创建更多抽象的函数非常有用。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">function</span> <span class="token function">calculateTax</span><span class="token punctuation">(</span><span class="token parameter">taxRate</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token parameter">amount</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> amount <span class="token operator">*</span> taxRate
-  <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">function calculateTax(taxRate) &#123;
+  return function(amount) &#123;
+    return amount * taxRate
+  &#125;;
+&#125;
 
-<span class="token comment">// 创建一个计算5%税率的函数</span>
-<span class="token keyword">const</span> apply5PercentTax <span class="token operator">=</span> <span class="token function">calculateTax</span><span class="token punctuation">(</span><span class="token number">0.05</span><span class="token punctuation">)</span>
+&#x2F;&#x2F; 创建一个计算5%税率的函数
+const apply5PercentTax &#x3D; calculateTax(0.05)
 
-<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">apply5PercentTax</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span>
-<span class="token keyword">const</span> res2 <span class="token operator">=</span> <span class="token function">apply5PercentTax</span><span class="token punctuation">(</span><span class="token number">200</span><span class="token punctuation">)</span>
-<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const res &#x3D; apply5PercentTax(100)
+const res2 &#x3D; apply5PercentTax(200)
+</code></pre>
 
 <p>由于闭包和惰性执行的特性，柯理化函数把一个业务流程颗粒化成一系列的小粒度业务。可以随着流程的变化惰性的赋予其他参数，让这个业务可以随着代码的执行流程变得非常可控，是函数式编程中非常重要的组成。</p>
-<h3 id="柯理化工厂"><a href="#柯理化工厂" class="headerlink" title="柯理化工厂"></a>柯理化工厂</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">curryFactory</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> <span class="token function-variable function">curried</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>args</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span>args<span class="token punctuation">.</span>length <span class="token operator">>=</span> fn<span class="token punctuation">.</span>length<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token function">fn</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-            <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>moreArgs</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">curried</span><span class="token punctuation">(</span><span class="token operator">...</span>args<span class="token punctuation">,</span> <span class="token operator">...</span>moreArgs<span class="token punctuation">)</span>
-        <span class="token punctuation">&#125;</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">;</span>
-    <span class="token keyword">return</span> curried
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<h3 id="柯理化工厂"><a href="#柯理化工厂" class="headerlink" title="柯理化工厂"></a>柯理化工厂</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const curryFactory &#x3D; (fn) &#x3D;&gt; &#123;
+    const curried &#x3D; (...args) &#x3D;&gt; &#123;
+        if (args.length &gt;&#x3D; fn.length) &#123;
+            return fn(...args)
+        &#125; else &#123;
+            return (...moreArgs) &#x3D;&gt; curried(...args, ...moreArgs)
+        &#125;
+    &#125;;
+    return curried
+&#125;</code></pre>
 
 <p>我们并不可能对多参数函数手动的实现它的柯理化，但是我们可以借助柯理化工厂来实现。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 示例函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c</span><span class="token punctuation">)</span> <span class="token operator">=></span> a <span class="token operator">+</span> b <span class="token operator">+</span> c<span class="token punctuation">;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 示例函数
+const add &#x3D; (a, b, c) &#x3D;&gt; a + b + c;
 
-<span class="token comment">// 创建柯里化版本</span>
-<span class="token keyword">const</span> curriedAdd <span class="token operator">=</span> <span class="token function">curryFactory</span><span class="token punctuation">(</span>add<span class="token punctuation">)</span><span class="token punctuation">;</span>
+&#x2F;&#x2F; 创建柯里化版本
+const curriedAdd &#x3D; curryFactory(add);
 
-<span class="token comment">// 使用柯里化函数</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">curriedAdd</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 输出: 9</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">curriedAdd</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 输出: 9</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">curriedAdd</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 输出: 9</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">curriedAdd</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment">// 输出: 9</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 使用柯里化函数
+console.log(curriedAdd(2)(3)(4)) &#x2F;&#x2F; 输出: 9
+console.log(curriedAdd(2, 3)(4)) &#x2F;&#x2F; 输出: 9
+console.log(curriedAdd(2)(3, 4)) &#x2F;&#x2F; 输出: 9
+console.log(curriedAdd(2, 3, 4)) &#x2F;&#x2F; 输出: 9</code></pre>
 
 <hr>
 <h2 id="组合-Compose"><a href="#组合-Compose" class="headerlink" title="组合(Compose)"></a>组合(Compose)</h2><blockquote>
 <p>数组合是函数式编程中的一个重要概念，它涉及将多个函数结合在一起，形成一个新的函数。这种组合允许你以一种清晰、模块化的方式构建复杂的操作。</p>
 </blockquote>
 <h3 id="展现形式-1"><a href="#展现形式-1" class="headerlink" title="展现形式"></a>展现形式</h3><p>在函数组合中，两个或多个函数按照一定的顺序合并在一起，使得每个函数的输出成为下一个函数的输入，从而形成一个新的函数。这种组合可以简化代码、提高可读性，并且可以减少中间变量的使用。<strong>一个简单的例子：</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 简单的组合函数工厂</span>
-<span class="token keyword">const</span> <span class="token function-variable function">compose</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">f<span class="token punctuation">,</span> g</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token function">g</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 简单的组合函数工厂
+const compose &#x3D; (f, g) &#x3D;&gt; x &#x3D;&gt; f(g(x))
 
-<span class="token comment">// 两个纯函数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">add5</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">+</span> <span class="token number">5</span>
-<span class="token keyword">const</span> <span class="token function-variable function">multiply</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> x <span class="token operator">*</span> <span class="token number">2</span>
+&#x2F;&#x2F; 两个纯函数
+const add5 &#x3D; x &#x3D;&gt; x + 5
+const multiply &#x3D; (x) &#x3D;&gt; x * 2
 
-<span class="token comment">// 组合函数并按顺序执行</span>
-<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">compose</span><span class="token punctuation">(</span>add5<span class="token punctuation">,</span> multiply<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
-<span class="token comment">// => 25</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 组合函数并按顺序执行
+const res &#x3D; compose(add5, multiply)(10)
+console.log(res)
+&#x2F;&#x2F; &#x3D;&gt; 25</code></pre>
 
 <p>从这个简单的例子可以发现，函数组合其实就是字面意思，将多个函数组合在一起形成一个新的函数，当组合多的时候，纯函数的特点就体现出来的。这就是为什么函数式编程提倡纯函数，提倡无作用函数的重要原因。</p>
 <h3 id="多函数组合"><a href="#多函数组合" class="headerlink" title="多函数组合"></a>多函数组合</h3><p>往往我们需要组合多个纯函数，那上面的简单组合工厂就不适用了，稍作调整：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">compose</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter"><span class="token operator">...</span>fns</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> fns<span class="token punctuation">.</span><span class="token function">reduceRight</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">acc<span class="token punctuation">,</span> fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fn</span><span class="token punctuation">(</span>acc<span class="token punctuation">)</span><span class="token punctuation">,</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const compose &#x3D; (...fns) &#x3D;&gt; (x) &#x3D;&gt; &#123;
+    return fns.reduceRight((acc, fn) &#x3D;&gt; fn(acc), x);
+&#125;
 
-<span class="token keyword">const</span> <span class="token function-variable function">add5</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">+</span> <span class="token number">5</span>
-<span class="token keyword">const</span> <span class="token function-variable function">multiply</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">*</span> <span class="token number">2</span>
-<span class="token keyword">const</span> <span class="token function-variable function">desc10</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">-</span> <span class="token number">10</span>
+const add5 &#x3D; x &#x3D;&gt; x + 5
+const multiply &#x3D; x &#x3D;&gt; x * 2
+const desc10 &#x3D; x &#x3D;&gt; x - 10
 
-<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">compose</span><span class="token punctuation">(</span>add5<span class="token punctuation">,</span> multiply<span class="token punctuation">,</span> desc10<span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
-<span class="token comment">// => 5</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const res &#x3D; compose(add5, multiply, desc10)(10)
+console.log(res)
+&#x2F;&#x2F; &#x3D;&gt; 5</code></pre>
 
 <hr>
 <h2 id="管道-Pipe"><a href="#管道-Pipe" class="headerlink" title="管道(Pipe)"></a>管道(Pipe)</h2><blockquote>
 <p>管道(Pipe)，它很类似于组合。但更强调数据的流动和函数的串联，不会创建新的函数。</p>
 </blockquote>
 <h3 id="展现形式-2"><a href="#展现形式-2" class="headerlink" title="展现形式"></a>展现形式</h3><p>函数管道强调数据流向的方向，一个函数的输出成为下一个函数的输入，从而形成一个数据流水线。<strong>一个简单的例子：</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">add5</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> x <span class="token operator">+</span> <span class="token number">5</span>
-<span class="token keyword">const</span> <span class="token function-variable function">multiply</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">x</span><span class="token punctuation">)</span> <span class="token operator">=></span> x <span class="token operator">*</span> <span class="token number">2</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const add5 &#x3D; (x) &#x3D;&gt; x + 5
+const multiply &#x3D; (x) &#x3D;&gt; x * 2
 
-<span class="token keyword">const</span> res <span class="token operator">=</span> <span class="token function">multiply</span><span class="token punctuation">(</span><span class="token function">add5</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span>
-<span class="token comment">// => 16</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const res &#x3D; multiply(add5(3))
+console.log(res)
+&#x2F;&#x2F; &#x3D;&gt; 16</code></pre>
 
 <p>可以看到它和组合的展现形式有所不同，它是从前往后，而非从而往前。和组合比调换了执行顺序，也就是说：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 从</span>
-<span class="token keyword">const</span> <span class="token function-variable function">compose</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">f<span class="token punctuation">,</span> g</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token function">g</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span>
-<span class="token comment">// 变为</span>
-<span class="token keyword">const</span> <span class="token function-variable function">pipe</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">f<span class="token punctuation">,</span> g</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token function">g</span><span class="token punctuation">(</span><span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 从
+const compose &#x3D; (f, g) &#x3D;&gt; x &#x3D;&gt; f(g(x))
+&#x2F;&#x2F; 变为
+const pipe &#x3D; (f, g) &#x3D;&gt; x &#x3D;&gt; g(f(x))</code></pre>
 
 <h3 id="管道和组合的区别"><a href="#管道和组合的区别" class="headerlink" title="管道和组合的区别"></a>管道和组合的区别</h3><p>在广义上，管道和组合其实是同一个作用，它们都是把多个函数组合在一起来执行一系列的操作。它们的实现方式可能有些微小的差别，主要在于函数执行顺序上，组合通常从右到左执行函数，而管道通常从左到右执行函数。很多时候甚至都不对它们不做区分，只不过从语义上对它们的职责进行了分化，从而导致叫法不同。例如，通常组合不会组合很多的函数，当组合的函数多了，我们可以称之为管道。</p>
 <hr>
@@ -425,210 +425,210 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <li><strong>遵循同态性：</strong> <code>map</code> 方法保持了函子对值的变换，并且可以链接多次 <code>map</code> 调用而不改变函子的结构。</li>
 </ul>
 <h3 id="具体形式"><a href="#具体形式" class="headerlink" title="具体形式"></a>具体形式</h3><h4 id="Pointed函子"><a href="#Pointed函子" class="headerlink" title="Pointed函子"></a>Pointed函子</h4><p>实现了<code>of</code>静态方法的函子被称为<strong>Pointed函子</strong>，未实现的则为普通函子。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Pointed</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 私有</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">class Pointed &#123;
+  constructor(value) &#123;
+    &#x2F;&#x2F; 私有
+    this._value &#x3D; value
+  &#125;
 
-  <span class="token comment">// 契约的map方法</span>
-  <span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  	<span class="token comment">// fn: 传入的纯函数</span>
-    <span class="token keyword">return</span> Pointed<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
+  &#x2F;&#x2F; 契约的map方法
+  map(fn) &#123;
+  	&#x2F;&#x2F; fn: 传入的纯函数
+    return Pointed.of(fn(this._value))
+  &#125;
 
-  <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Pointed</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  static of(value) &#123;
+    return new Pointed(value)
+  &#125;
+&#125;
 
-<span class="token keyword">let</span> num <span class="token operator">=</span> Pointed<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+let num &#x3D; Pointed.of(10).map(x &#x3D;&gt; x + 1).map(x &#x3D;&gt; x * 2)</code></pre>
 
 <h4 id="Maybe函子"><a href="#Maybe函子" class="headerlink" title="Maybe函子"></a>Maybe函子</h4><blockquote>
 <p>Maybe 会先检查自己的值是否为空，然后才调用传进来的函数，这样处理空值就不会出错了。Maybe 常用在那些可能无法成功返回结果的函数中；可以避免使用命令式的 if…else 语句，可以用 Maybe(null) 来表示失败，但却不能告诉我们太多有效信息，譬如：失败的原因是什么？是哪儿造成失败的？Either 函子能帮助我们解决这样的问题。</p>
 </blockquote>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Maybe</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">static</span> <span class="token keyword">of</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Maybe</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">class Maybe &#123;
+  static of (value) &#123;
+    return new Maybe(value)
+  &#125;
 
-  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
+  constructor (value) &#123;
+    this._value &#x3D; value
+  &#125;
 
-  <span class="token function">map</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token comment">// 检查自己的值是否为空</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">?</span> Maybe<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">:</span> Maybe<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  map (fn) &#123;
+    &#x2F;&#x2F; 检查自己的值是否为空
+    return this._value ? Maybe.of(fn(this._value)) : Maybe.of(null)
+  &#125;
+&#125;
 
-<span class="token keyword">let</span> toUpper <span class="token operator">=</span> Maybe<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> x<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+let toUpper &#x3D; Maybe.of(null).map(x &#x3D;&gt; x.toUpperCase())
 
-<span class="token comment">// 输出：Maybe &#123; _value: null &#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>toUpper<span class="token punctuation">)</span>
+&#x2F;&#x2F; 输出：Maybe &#123; _value: null &#125;
+console.log(toUpper)
 
-<span class="token comment">// 用在可能会无法成功返回结果的函数中</span>
-<span class="token keyword">function</span> <span class="token function">getFirst</span> <span class="token punctuation">(</span><span class="token parameter">arr</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">return</span> Maybe<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span>
-<span class="token keyword">let</span> firstElement <span class="token operator">=</span> <span class="token function">getFirst</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">)</span>
-<span class="token comment">// 输出：Maybe &#123; _value: null &#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>firstElement<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+&#x2F;&#x2F; 用在可能会无法成功返回结果的函数中
+function getFirst (arr) &#123;
+  return Maybe.of(arr[0])
+&#125;
+let firstElement &#x3D; getFirst([]).map(x &#x3D;&gt; x + 3)
+&#x2F;&#x2F; 输出：Maybe &#123; _value: null &#125;
+console.log(firstElement)</code></pre>
 
 <h4 id="Either函子"><a href="#Either函子" class="headerlink" title="Either函子"></a>Either函子</h4><blockquote>
 <p>函数式编程里面，使用 Either 函子代替条件运算（if…else）；另一个用途是代替 try…catch，使用左值表示错误。</p>
 </blockquote>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Left</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Left</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">map</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">class Left &#123;
+  static of(value) &#123;
+    return new Left(value)
+  &#125;
+  constructor (value) &#123;
+    this._value &#x3D; value
+  &#125;
+  map (fn) &#123;
+    return this
+  &#125;
+&#125;
 
-<span class="token keyword">class</span> <span class="token class-name">Right</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">static</span> <span class="token keyword">of</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Right</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">map</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+class Right &#123;
+  static of (value) &#123;
+    return new Right(value)
+  &#125;
+  constructor (value) &#123;
+    this._value &#x3D; value
+  &#125;
+  map (fn) &#123;
+    return Right.of(fn(this._value))
+  &#125;
+&#125;</code></pre>
 
 <p>上面所述就是<strong>Either函子</strong>：Left表示错误函子，Right表示正确函子。<strong>Either函子</strong>通常用于函数的返回值例如：</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-    <span class="token operator">?</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-    <span class="token operator">:</span> Left<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">'not even'</span><span class="token punctuation">)</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const isEven &#x3D; x &#x3D;&gt; x % 2 &#x3D;&#x3D;&#x3D; 0
+    ? Right.of(x)
+    : Left.of(&#39;not even&#39;)
 
-<span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">)</span>
-<span class="token comment">// ==> 输出：2</span>
+isEven(2).map(console.log)
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; 输出：2
 
-<span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">)</span>
-<span class="token comment">// ==> 不输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+isEven(3).map(console.log)
+&#x2F;&#x2F; &#x3D;&#x3D;&gt; 不输出</code></pre>
 
 <p>如上例子，将函数的返回值改为Either函子，函数满足您的逻辑正确，则执行Right函子的map反之则执行Left函子的map语句(直接返回当前实力，也就是说被截断。)</p>
 <p>那么，又如何判断函数返回的函子是Right还是Left呢？<strong>两种方法：</strong></p>
 <ul>
 <li><p><strong>标记函子</strong></p>
 <p>这个方法简单粗暴，给对应Either函子一个标识即可。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Left</span> <span class="token punctuation">&#123;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">class Left &#123;
   
-  <span class="token function">isLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span>
-  <span class="token function">isRight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span>
+  isLeft() &#123; return true &#125;
+  isRight() &#123; return false &#125;
   
-  <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Left</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">map</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">this</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  static of(value) &#123;
+    return new Left(value)
+  &#125;
+  constructor (value) &#123;
+    this._value &#x3D; value
+  &#125;
+  map (fn) &#123;
+    return this
+  &#125;
+&#125;
 
-<span class="token keyword">class</span> <span class="token class-name">Right</span> <span class="token punctuation">&#123;</span>
-  <span class="token function">isLeft</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token boolean">false</span> <span class="token punctuation">&#125;</span>
-  <span class="token function">isRight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span> <span class="token keyword">return</span> <span class="token boolean">true</span> <span class="token punctuation">&#125;</span>
+class Right &#123;
+  isLeft() &#123; return false &#125;
+  isRight() &#123; return true &#125;
   
-  <span class="token keyword">static</span> <span class="token keyword">of</span> <span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Right</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">constructor</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-  <span class="token punctuation">&#125;</span>
-  <span class="token function">map</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">return</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+  static of (value) &#123;
+    return new Right(value)
+  &#125;
+  constructor (value) &#123;
+    this._value &#x3D; value
+  &#125;
+  map (fn) &#123;
+    return Right.of(fn(this._value))
+  &#125;
+&#125;
 
-<span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-    <span class="token operator">?</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-    <span class="token operator">:</span> Left<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token string">'not even'</span><span class="token punctuation">)</span>
+const isEven &#x3D; x &#x3D;&gt; x % 2 &#x3D;&#x3D;&#x3D; 0
+    ? Right.of(x)
+    : Left.of(&#39;not even&#39;)
 
-<span class="token keyword">const</span> resFunctor <span class="token operator">=</span> <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-<span class="token keyword">if</span> <span class="token punctuation">(</span>resFunctor<span class="token punctuation">.</span><span class="token function">isRight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  resFunctor<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>console<span class="token punctuation">.</span>log<span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span> <span class="token keyword">else</span> <span class="token punctuation">&#123;</span>
-  <span class="token comment">// 执行错误逻辑</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const resFunctor &#x3D; isEven(2)
+if (resFunctor.isRight()) &#123;
+  resFunctor.map(console.log)
+&#125; else &#123;
+  &#x2F;&#x2F; 执行错误逻辑
+&#125;</code></pre>
 
 <p>这种传统方式，不够灵活，可以试试使用<strong>fold方法</strong>来解决问题</p>
 </li>
 <li><p><strong>fold方法</strong></p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">class</span> <span class="token class-name">Left</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Left</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">class Left &#123;
+    static of(value) &#123;
+        return new Left(value);
+    &#125;
 
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-    <span class="token punctuation">&#125;</span>
+    constructor(value) &#123;
+        this._value &#x3D; value
+    &#125;
 
-    <span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">this</span>
-    <span class="token punctuation">&#125;</span>
+    map(fn) &#123;
+        return this
+    &#125;
 
-    <span class="token function">fold</span><span class="token punctuation">(</span><span class="token parameter">leftFn<span class="token punctuation">,</span> rightFn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token function">leftFn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+    fold(leftFn, rightFn) &#123;
+        return leftFn(this._value)
+    &#125;
+&#125;
 
-<span class="token keyword">class</span> <span class="token class-name">Right</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">static</span> <span class="token keyword">of</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Right</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
+class Right &#123;
+    static of(value) &#123;
+        return new Right(value)
+    &#125;
 
-    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>_value <span class="token operator">=</span> value
-    <span class="token punctuation">&#125;</span>
+    constructor(value) &#123;
+        this._value &#x3D; value
+    &#125;
 
-    <span class="token function">map</span><span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span>
+    map(fn) &#123;
+        return Right.of(fn(this._value))
+    &#125;
 
-    <span class="token function">fold</span><span class="token punctuation">(</span><span class="token parameter">leftFn<span class="token punctuation">,</span> rightFn</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-        <span class="token keyword">return</span> <span class="token function">rightFn</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>_value<span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
+    fold(leftFn, rightFn) &#123;
+        return rightFn(this._value);
+    &#125;
+&#125;
 
-<span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token parameter">x</span> <span class="token operator">=></span> x <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-    <span class="token operator">?</span> Right<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span>
-    <span class="token operator">:</span> Left<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">error: </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>x<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> is not even</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
+const isEven &#x3D; x &#x3D;&gt; x % 2 &#x3D;&#x3D;&#x3D; 0
+    ? Right.of(x)
+    : Left.of(&#96;error: $&#123;x&#125; is not even&#96;)
 
-<span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fold</span><span class="token punctuation">(</span>
-    <span class="token comment">// 直接输出错误信息</span>
-    console<span class="token punctuation">.</span>log<span class="token punctuation">,</span>
-    <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>x<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 为偶数，做一些额外处理</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
-        <span class="token comment">// ......</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">)</span>
-<span class="token comment">// => 2 为偶数，做一些额外处理</span>
-<span class="token comment">// => .....其他额外处理输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+isEven(2).fold(
+    &#x2F;&#x2F; 直接输出错误信息
+    console.log,
+    x &#x3D;&gt; &#123;
+        console.log(&#96;$&#123;x&#125; 为偶数，做一些额外处理&#96;)
+        &#x2F;&#x2F; ......
+    &#125;
+)
+&#x2F;&#x2F; &#x3D;&gt; 2 为偶数，做一些额外处理
+&#x2F;&#x2F; &#x3D;&gt; .....其他额外处理输出</code></pre>
 
 <p>如果对错误事件想要进行额外的特殊处理，改怎么办？</p>
 <p>无需变动上方代码，将特殊处理的逻辑传给<code>leftFn</code>即可。</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fold</span><span class="token punctuation">(</span>
-    <span class="token comment">// 直接输出错误信息</span>
-    <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>x<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 不为偶数，做一些额外特殊处理</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
-      <span class="token comment">// ......</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
-    <span class="token parameter">x</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token template-punctuation string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">$&#123;</span>x<span class="token interpolation-punctuation punctuation">&#125;</span></span><span class="token string"> 为偶数，做一些额外处理</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">)</span>
-        <span class="token comment">// ......</span>
-    <span class="token punctuation">&#125;</span>
-<span class="token punctuation">)</span>
-<span class="token comment">// => 3 不为偶数，做一些额外特殊处理</span>
-<span class="token comment">// => .....其他额外处理输出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">isEven(3).fold(
+    &#x2F;&#x2F; 直接输出错误信息
+    () &#x3D;&gt; &#123;
+      console.log(&#96;$&#123;x&#125; 不为偶数，做一些额外特殊处理&#96;)
+      &#x2F;&#x2F; ......
+    &#125;,
+    x &#x3D;&gt; &#123;
+        console.log(&#96;$&#123;x&#125; 为偶数，做一些额外处理&#96;)
+        &#x2F;&#x2F; ......
+    &#125;
+)
+&#x2F;&#x2F; &#x3D;&gt; 3 不为偶数，做一些额外特殊处理
+&#x2F;&#x2F; &#x3D;&gt; .....其他额外处理输出</code></pre>
 
 <p>这样就可以很优雅的处理分支和异常</p>
 </li>
@@ -638,55 +638,55 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </blockquote>
 <ul>
 <li><p>所用函子</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> Either <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
-    <span class="token function-variable function">Left</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token function-variable function">map</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> Either<span class="token punctuation">.</span><span class="token function">Left</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function-variable function">fold</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">fn<span class="token punctuation">,</span> _</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fn</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function-variable function">chain</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> Either<span class="token punctuation">.</span><span class="token function">Left</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    <span class="token function-variable function">Right</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">value</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
-        <span class="token function-variable function">map</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> Either<span class="token punctuation">.</span><span class="token function">Right</span><span class="token punctuation">(</span><span class="token function">fn</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-        <span class="token function-variable function">fold</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">_<span class="token punctuation">,</span> fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fn</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span>
-      	<span class="token comment">//+ 用于保持函子的结构</span>
-        <span class="token function-variable function">chain</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token parameter">fn</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token function">fn</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span>
-    <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const Either &#x3D; &#123;
+    Left: (value) &#x3D;&gt; (&#123;
+        map: (fn) &#x3D;&gt; Either.Left(value),
+        fold: (fn, _) &#x3D;&gt; fn(value),
+        chain: (fn) &#x3D;&gt; Either.Left(value)
+    &#125;),
+    Right: (value) &#x3D;&gt; (&#123;
+        map: (fn) &#x3D;&gt; Either.Right(fn(value)),
+        fold: (_, fn) &#x3D;&gt; fn(value),
+      	&#x2F;&#x2F;+ 用于保持函子的结构
+        chain: (fn) &#x3D;&gt; fn(value)
+    &#125;)
+&#125;</code></pre>
 </li>
 <li><p>业务</p>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// 是否为偶数</span>
-<span class="token keyword">const</span> <span class="token function-variable function">isEven</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span>
-    <span class="token operator">?</span> Either<span class="token punctuation">.</span><span class="token function">Right</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
-    <span class="token operator">:</span> Either<span class="token punctuation">.</span><span class="token function">Left</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
-<span class="token comment">// 是否大于2</span>
-<span class="token keyword">const</span> <span class="token function-variable function">isBiggerThan2</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">></span> <span class="token number">2</span>
-		<span class="token operator">?</span> Either<span class="token punctuation">.</span><span class="token function">Right</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
-    <span class="token operator">:</span> Either<span class="token punctuation">.</span><span class="token function">Left</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span>
-<span class="token comment">// 减半</span>
-<span class="token keyword">const</span> <span class="token function-variable function">half</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">/</span> <span class="token number">2</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">&#x2F;&#x2F; 是否为偶数
+const isEven &#x3D; (n) &#x3D;&gt; n % 2 &#x3D;&#x3D;&#x3D; 0
+    ? Either.Right(n)
+    : Either.Left(n)
+&#x2F;&#x2F; 是否大于2
+const isBiggerThan2 &#x3D; (n) &#x3D;&gt; n &gt; 2
+		? Either.Right(n)
+    : Either.Left(n)
+&#x2F;&#x2F; 减半
+const half &#x3D; (n) &#x3D;&gt; n &#x2F; 2
 
-<span class="token keyword">const</span> result <span class="token operator">=</span> <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">chain</span><span class="token punctuation">(</span>isBiggerThan2<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>half<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">fold</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token parameter">n</span> <span class="token operator">=></span> n<span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span>
-<span class="token comment">// => 7</span>
+const result &#x3D; isEven(10)
+    .chain(isBiggerThan2)
+    .map(half)
+    .map((n) &#x3D;&gt; n + 2)
+    .fold(() &#x3D;&gt; 0, n &#x3D;&gt; n)
+console.log(result)
+&#x2F;&#x2F; &#x3D;&gt; 7
 
-<span class="token keyword">const</span> result2 <span class="token operator">=</span> <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">chain</span><span class="token punctuation">(</span>isBiggerThan2<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>half<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">fold</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token parameter">n</span> <span class="token operator">=></span> n<span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result2<span class="token punctuation">)</span>
-<span class="token comment">// => 0</span>
+const result2 &#x3D; isEven(2)
+    .chain(isBiggerThan2)
+    .map(half)
+    .map((n) &#x3D;&gt; n + 2)
+    .fold(() &#x3D;&gt; 0, n &#x3D;&gt; n)
+console.log(result2)
+&#x2F;&#x2F; &#x3D;&gt; 0
 
-<span class="token keyword">const</span> result3 <span class="token operator">=</span> <span class="token function">isEven</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">chain</span><span class="token punctuation">(</span>isBiggerThan2<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>half<span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">)</span>
-    <span class="token punctuation">.</span><span class="token function">fold</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token parameter">n</span> <span class="token operator">=></span> n<span class="token punctuation">)</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result3<span class="token punctuation">)</span>
-<span class="token comment">// => 0</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+const result3 &#x3D; isEven(1)
+    .chain(isBiggerThan2)
+    .map(half)
+    .map((n) &#x3D;&gt; n + 2)
+    .fold(() &#x3D;&gt; 0, n &#x3D;&gt; n)
+console.log(result3)
+&#x2F;&#x2F; &#x3D;&gt; 0</code></pre>
 
 <p>可以发现，当中途出现，<code>Either.Left</code>时，就会将<code>Either.Right.map()</code>更改为<code>Either.Left.map()</code>，也就是说不对值执行map中传递的纯函数返回函子本身(等价于跳过)，最终被<code>Either.Left.fold()</code>劫持到。</p>
 </li>

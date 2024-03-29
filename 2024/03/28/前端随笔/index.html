@@ -15,7 +15,7 @@
   
   <link rel="canonical" href="https://bent2685.github.io/2024/03/28/%E5%89%8D%E7%AB%AF%E9%9A%8F%E7%AC%94/">
   
-  <meta name="description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo = &amp;#123; a: 1, b: 2 &amp;#125; const bar = &amp;#123; b: 3, c: 4&amp;#125;  // -&gt; 1 Objec">
+  <meta name="description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo &amp;#x3D; &amp;#123; a: 1, b: 2 &amp;#125; const bar &amp;#x3D; &amp;#123; b: 3, c: 4&amp;#125;  &amp;#x">
   
   
   <meta name="author" content="John Doe">
@@ -26,14 +26,14 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="前端随笔" />
   
-  <meta property="og:description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo = &amp;#123; a: 1, b: 2 &amp;#125; const bar = &amp;#123; b: 3, c: 4&amp;#125;  // -&gt; 1 Objec">
+  <meta property="og:description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo &amp;#x3D; &amp;#123; a: 1, b: 2 &amp;#125; const bar &amp;#x3D; &amp;#123; b: 3, c: 4&amp;#125;  &amp;#x">
   
   <meta property="og:url" content="https://bent2685.github.io/2024/03/28/%E5%89%8D%E7%AB%AF%E9%9A%8F%E7%AC%94/" />
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="前端随笔">
   
-  <meta name="twitter:description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo = &amp;#123; a: 1, b: 2 &amp;#125; const bar = &amp;#123; b: 3, c: 4&amp;#125;  // -&gt; 1 Objec">
+  <meta name="twitter:description" content="2024-03-28 更新  「记录一些可爱或可癌的代码」  Javascript两个对象间变量值的追加和覆盖 覆盖并追加  const foo &amp;#x3D; &amp;#123; a: 1, b: 2 &amp;#125; const bar &amp;#x3D; &amp;#123; b: 3, c: 4&amp;#125;  &amp;#x">
   
   
   
@@ -197,61 +197,62 @@
 <h2 id="Javascript"><a href="#Javascript" class="headerlink" title="Javascript"></a>Javascript</h2><h4 id="两个对象间变量值的追加和覆盖"><a href="#两个对象间变量值的追加和覆盖" class="headerlink" title="两个对象间变量值的追加和覆盖"></a>两个对象间变量值的追加和覆盖</h4><ul>
 <li>覆盖并追加</li>
 </ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">a</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">b</span><span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">const</span> bar <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">b</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">c</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const foo &#x3D; &#123; a: 1, b: 2 &#125;
+const bar &#x3D; &#123; b: 3, c: 4&#125;
 
-<span class="token comment">// -> 1</span>
-Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>bar<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">key</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  foo<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> bar<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+&#x2F;&#x2F; -&gt; 1
+Object.keys(bar).forEach(key &#x3D;&gt; &#123;
+  foo[key] &#x3D; bar[key]
+&#125;)
 
-<span class="token comment">// or 2</span>
-<span class="token keyword">const</span> foo2 <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token operator">...</span>foo<span class="token punctuation">,</span> <span class="token operator">...</span>bar<span class="token punctuation">&#125;</span>
+&#x2F;&#x2F; or 2
+const foo2 &#x3D; &#123;...foo, ...bar&#125;
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span> <span class="token comment">// &#123; a:1, b:3, c:4 &#125;</span>
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo2<span class="token punctuation">)</span> <span class="token comment">// &#123; a:1, b:3, c:4 &#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+console.log(foo) &#x2F;&#x2F; &#123; a:1, b:3, c:4 &#125;
+console.log(foo2) &#x2F;&#x2F; &#123; a:1, b:3, c:4 &#125;</code></pre>
 
 <ul>
 <li>仅覆盖</li>
 </ul>
-<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> foo <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">a</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token literal-property property">b</span><span class="token operator">:</span> <span class="token number">2</span> <span class="token punctuation">&#125;</span>
-<span class="token keyword">const</span> bar <span class="token operator">=</span> <span class="token punctuation">&#123;</span> <span class="token literal-property property">b</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token literal-property property">c</span><span class="token operator">:</span> <span class="token number">4</span><span class="token punctuation">&#125;</span>
+<pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">const foo &#x3D; &#123; a: 1, b: 2 &#125;
+const bar &#x3D; &#123; b: 3, c: 4&#125;
 
-Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">key</span> <span class="token operator">=></span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span><span class="token punctuation">(</span>key <span class="token keyword">in</span> bar<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span>
-  foo<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> bar<span class="token punctuation">[</span>key<span class="token punctuation">]</span>
-<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+Object.keys(foo).forEach(key &#x3D;&gt; &#123;
+  if (!(key in bar)) return
+  foo[key] &#x3D; bar[key]
+&#125;)
 
-console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>foo<span class="token punctuation">)</span> <span class="token comment">// &#123; a:1, b:3 &#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+console.log(foo) &#x2F;&#x2F; &#123; a:1, b:3 &#125;</code></pre>
 
 <hr>
 <h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><h4 id="滚动字幕"><a href="#滚动字幕" class="headerlink" title="滚动字幕"></a>滚动字幕</h4><p>给需要滚动的字幕设置<code>display: inline-block;</code>这样就可以通过<code>100%</code>相对量拿到文本的相对宽度</p>
-<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>container<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>scrolling-text<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>滚动字幕~~滚动字~~滚动~~滚！！！<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-	<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">></span></span>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup">&lt;template&gt;
+	&lt;div class&#x3D;&quot;container&quot;&gt;
+  	&lt;p class&#x3D;&quot;scrolling-text&quot;&gt;滚动字幕~~滚动字~~滚动~~滚！！！&lt;&#x2F;p&gt;
+	&lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
 
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style"><span class="token language-css">
-<span class="token selector">.container</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
-  <span class="token property">overflow</span><span class="token punctuation">:</span> hidden<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
-<span class="token selector">.scrolling-text</span> <span class="token punctuation">&#123;</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> inline-block<span class="token punctuation">;</span>
-  <span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>
-  <span class="token property">animation</span><span class="token punctuation">:</span> scroll-h 10s linear infinite<span class="token punctuation">;</span>
-<span class="token punctuation">&#125;</span>
+&lt;style&gt;
+.container &#123;
+  width: 300px;
+  overflow: hidden;
+&#125;
+.scrolling-text &#123;
+  display: inline-block;
+  white-space: nowrap;
+  animation: scroll-h 10s linear infinite;
+&#125;
   
-<span class="token atrule"><span class="token rule">@keyframes</span> scroll-h</span> <span class="token punctuation">&#123;</span>
-  <span class="token selector">0%</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span>0<span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-  <span class="token selector">100%</span> <span class="token punctuation">&#123;</span>
-    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translateX</span><span class="token punctuation">(</span><span class="token function">calc</span><span class="token punctuation">(</span>-100% + 300px<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span>
-</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+@keyframes scroll-h &#123;
+  0% &#123;
+    transform: translateX(0);
+  &#125;
+  100% &#123;
+    transform: translateX(calc(-100% + 300px));
+  &#125;
+&#125;
+&lt;&#x2F;style&gt;</code></pre>
+
 
   <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a>, <a class="classtest-link" href="/tags/%E9%9A%8F%E7%AC%94/" rel="tag">随笔</a> — 2024年3月28日</p>
   
