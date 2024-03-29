@@ -49,14 +49,12 @@
 
 .highlight table {
     display: block;
-    font-weight: 800;
 }
 
 
 .highlight table tbody {
     display: block;
     width: 100%;
-    font-weight: 800;
     overflow: auto;
 
 }
