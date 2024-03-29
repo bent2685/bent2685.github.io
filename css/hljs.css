@@ -34,7 +34,6 @@
 
 .highlight {
     width: 100%;
-    overflow-x: auto;
     margin: 0;
     margin-block-start: 0.83em;
     margin-block-end: 0.83em;
@@ -58,10 +57,13 @@
     display: block;
     width: 100%;
     font-weight: 800;
+    overflow: auto;
+
 }
 
 .highlight table .code {
     width: 100%;
+    padding-right: 16px;
 }
 
 .highlight th,td {
@@ -138,4 +140,9 @@
 }
 .highlight .gutter .line {
     color: var(--code-linenumber-color);
+}
+
+
+.darkmode .highlight {
+    border: 1px solid #363333;
 }
