@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>局部打印实现</title>
+  
+  <link rel="canonical" href="https://bent2685.github.io/2024/03/30/%E5%B1%80%E9%83%A8%E6%89%93%E5%8D%B0%E5%AE%9E%E7%8E%B0/">
+  
+  <meta name="description" content="引言: 通常实现打印功能，我们会通过window.print()来实现，但是这个方法没办法做到局部打印，例如我想打印一个dom的内容。其实只需要做一些简单处理便可以实现打印了。    方案一(🤔) 将页面DOM临时替换成局部DOM  12345678910111213&amp;lt;body&amp;gt;  &amp;">
+  
+  
+  <meta name="author" content="John Doe">
+  
+  
+  
+  <meta property="og:site_name" content="Bent灵感" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="局部打印实现" />
+  
+  <meta property="og:description" content="引言: 通常实现打印功能，我们会通过window.print()来实现，但是这个方法没办法做到局部打印，例如我想打印一个dom的内容。其实只需要做一些简单处理便可以实现打印了。    方案一(🤔) 将页面DOM临时替换成局部DOM  12345678910111213&amp;lt;body&amp;gt;  &amp;">
+  
+  <meta property="og:url" content="https://bent2685.github.io/2024/03/30/%E5%B1%80%E9%83%A8%E6%89%93%E5%8D%B0%E5%AE%9E%E7%8E%B0/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="局部打印实现">
+  
+  <meta name="twitter:description" content="引言: 通常实现打印功能，我们会通过window.print()来实现，但是这个方法没办法做到局部打印，例如我想打印一个dom的内容。其实只需要做一些简单处理便可以实现打印了。    方案一(🤔) 将页面DOM临时替换成局部DOM  12345678910111213&amp;lt;body&amp;gt;  &amp;">
+  
+  
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/03/30/%E5%B1%80%E9%83%A8%E6%89%93%E5%8D%B0%E5%AE%9E%E7%8E%B0/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
+<link rel="stylesheet" href="/css/prism-dark.css">
+ -->
+  <!-- 
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+ -->
+  <!-- User css -->
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #8F2323;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #8F2323 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #8F2323;
+  }
+  .nanobar .bar {
+    background: #8F2323;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #8F2323;
+    border-color: #8F2323;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #8F2323;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌒</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>🌝</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi Folks.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>局部打印实现</h2>
+
+  <blockquote>
+<p><strong>引言:</strong> 通常实现打印功能，我们会通过<code>window.print()</code>来实现，但是这个方法没办法做到局部打印，例如我想打印一个dom的内容。其实只需要做一些简单处理便可以实现打印了。 </p>
+</blockquote>
+<hr>
+<h2 id="方案一-🤔"><a href="#方案一-🤔" class="headerlink" title="方案一(🤔)"></a>方案一(🤔)</h2><blockquote>
+<p>将页面DOM临时替换成局部DOM</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello Word<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;printPage()&quot;</span>&gt;</span>打印页面<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;print-area&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>例如上方的结构，我想打印<code>.print-area</code>的内容，我可以这么操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">printPage</span> = (<span class="params"></span>) =&gt;&#123;</span><br><span class="line">  <span class="keyword">const</span> printAreaDom = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&#x27;.print-area&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> originContent <span class="comment">/* 原始内容 */</span> = <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">innerHTML</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将页面DOM临时替换成局部DOM</span></span><br><span class="line marked">  <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">innerHTML</span> = printAreaDom.<span class="property">innerHTML</span></span><br><span class="line">  <span class="comment">// 执行打印</span></span><br><span class="line">  <span class="variable language_">window</span>.<span class="title function_">print</span>()</span><br><span class="line">  <span class="comment">// 复原</span></span><br><span class="line">  <span class="variable language_">document</span>.<span class="property">body</span>.<span class="property">innerHTML</span> = originContent </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样做虽然能够打印出想要的内容，但是在复杂的环境下，可能会导致dom中的监听事件丢失。</p>
+<hr>
+<h2 id="方案二-🤩"><a href="#方案二-🤩" class="headerlink" title="方案二(🤩)"></a>方案二(🤩)</h2><blockquote>
+<p>使用CSS媒体查询<code>@print</code></p>
+</blockquote>
+<p>直接贴代码:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">    <span class="keyword">@media</span> print &#123;</span></span><br><span class="line marked"><span class="language-css">      <span class="selector-pseudo">:has</span>(<span class="selector-class">.print-area</span>)&gt; <span class="selector-pseudo">:not</span>(<span class="selector-class">.print-area</span>)<span class="selector-pseudo">:not</span>(<span class="selector-pseudo">:has</span>(<span class="selector-class">.print-area</span>)) &#123;</span></span><br><span class="line marked"><span class="language-css">        <span class="attribute">display</span>: none;</span></span><br><span class="line marked"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">      <span class="selector-class">.print-area</span> &#123;</span></span><br><span class="line"><span class="language-css">        <span class="attribute">padding</span>: <span class="number">32px</span>;</span></span><br><span class="line"><span class="language-css">      &#125;</span></span><br><span class="line"><span class="language-css">    &#125;</span></span><br><span class="line"><span class="language-css">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello Word<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">&quot;printPage()&quot;</span>&gt;</span>打印页面<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;print-area&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。把自己当傻瓜，不懂就问，你会学的更多。</span><br><span class="line">        <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">function</span> <span class="title function_">printPage</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="variable language_">window</span>.<span class="title function_">print</span>();</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>经过如上的媒体查询设置，<code>window.print()</code>就只会打印<code>.print-area</code>中的内容了，其他的内容就会被隐藏。它的作用是选择拥有类名为 <code>.print-area</code> 的祖先元素但不是 <code>.print-area</code> 类型的子孙元素。换句话说，它选择了所有不包含 <code>.print-area</code> 类的元素，并且这些元素的祖先元素中有包含 <code>.print-area</code> 类的元素。对于这些元素，将它们的 <code>display</code> 属性设置为 <code>none</code>，在打印时隐藏它们。*<strong>不过要注意的是</strong>，该方法只适用于支持<code>:has</code>选择器的运行环境下，好在目前的主流浏览器都支持这个特性，应用MDN里的一句话:</p>
+<blockquote>
+<p>Since December 2023, this feature works across the latest devices and browser versions. This feature might not work in older devices or browsers.</p>
+<p>译: 自2023年12月起，此功能适用于最新设备和浏览器版本。此功能可能无法在较旧的设备或浏览器中工作。</p>
+</blockquote>
+<h3 id="兼容性明细"><a href="#兼容性明细" class="headerlink" title="兼容性明细"></a>兼容性明细</h3><p><img src="/../images/%E5%B1%80%E9%83%A8%E6%89%93%E5%8D%B0%E5%AE%9E%E7%8E%B0.assets/image-20240330190658198.png" alt="image-20240330190658198"></p>
+<p><strong>「在没有IE的新时代里，放心使用」</strong></p>
+<p>若是对兼容性有苛刻的要求的话，可以使用成熟的三方库实现打印。在Electron、Tauri、uniapp这种跨平台框架中，应该去尝试使用像<code>:has</code>选择器这样的新花样来帮助我们的屎山代码化繁为简。</p>
+<hr>
+<h2 id="🔗"><a href="#🔗" class="headerlink" title="🔗;"></a>🔗;</h2><blockquote>
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/:has">MDN对:has()选择器的介绍</a></p>
+</blockquote>
+<hr>
+<h1 id="👋"><a href="#👋" class="headerlink" title="👋;"></a>👋;</h1>
+  <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年3月30日</p>
+  
+
+
+        </div>
+        <!-- <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div> -->
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/bent2685" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
