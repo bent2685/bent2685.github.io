@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>惰性调用</title>
+  
+  <link rel="canonical" href="https://bent2685.github.io/2024/04/13/%E6%83%B0%E6%80%A7%E8%B0%83%E7%94%A8/">
+  
+  <meta name="description" content="业务场景中，有些地方非常适合函数的惰性调用。利用惰性调用来优雅的实现代码的解耦合，同时也能快速的完成业务，准备下班。   介绍所谓惰性调用也可以说是分步函数或者分段函数，从字面意思可以看出就是将一个功能点分两个或多个步骤完成。举个简单的分段函数例子： 1const foo = a =&amp;gt; b =">
+  
+  
+  <meta name="author" content="John Doe">
+  
+  
+  
+  <meta property="og:site_name" content="Bent灵感" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="惰性调用" />
+  
+  <meta property="og:description" content="业务场景中，有些地方非常适合函数的惰性调用。利用惰性调用来优雅的实现代码的解耦合，同时也能快速的完成业务，准备下班。   介绍所谓惰性调用也可以说是分步函数或者分段函数，从字面意思可以看出就是将一个功能点分两个或多个步骤完成。举个简单的分段函数例子： 1const foo = a =&amp;gt; b =">
+  
+  <meta property="og:url" content="https://bent2685.github.io/2024/04/13/%E6%83%B0%E6%80%A7%E8%B0%83%E7%94%A8/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="惰性调用">
+  
+  <meta name="twitter:description" content="业务场景中，有些地方非常适合函数的惰性调用。利用惰性调用来优雅的实现代码的解耦合，同时也能快速的完成业务，准备下班。   介绍所谓惰性调用也可以说是分步函数或者分段函数，从字面意思可以看出就是将一个功能点分两个或多个步骤完成。举个简单的分段函数例子： 1const foo = a =&amp;gt; b =">
+  
+  
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/04/13/%E6%83%B0%E6%80%A7%E8%B0%83%E7%94%A8/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
+<link rel="stylesheet" href="/css/prism-dark.css">
+ -->
+  <!-- 
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+ -->
+  <!-- User css -->
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #8F2323;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #8F2323 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #8F2323;
+  }
+  .nanobar .bar {
+    background: #8F2323;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #8F2323;
+    border-color: #8F2323;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #8F2323;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌒</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>🌝</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi Folks.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>惰性调用</h2>
+
+  <blockquote>
+<p>业务场景中，有些地方非常适合函数的惰性调用。利用惰性调用来优雅的实现代码的解耦合，同时也能快速的完成业务，<strong>准备下班。</strong></p>
+</blockquote>
+<hr>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>所谓<strong>惰性调用</strong>也可以说是<strong>分步函数</strong>或者<strong>分段函数</strong>，从字面意思可以看出就是将一个功能点分两个或多个步骤完成。举个简单的分段函数例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">foo</span> = a =&gt; <span class="function"><span class="params">b</span> =&gt;</span> a + b </span><br></pre></td></tr></table></figure>
+
+<p>从这个例子能看出来，所谓分段函数就是我们通俗的讲的<strong>闭包</strong>，所谓闭包简单的讲就是函数内返回一个函数或者调用一个内部函数，在这个<strong>闭包作用域</strong>内会将变量的值锁住，即闭包内层函数可以获取到闭包外层函数的局部变量。<strong>这个理论是我根据自己的理解瞎讲的，自认为有点说法。</strong></p>
+<h3 id="实践一下"><a href="#实践一下" class="headerlink" title="实践一下"></a>实践一下</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">foo</span> = a =&gt; =&gt; a + b</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bar = <span class="title function_">foo</span>(<span class="number">1</span>)</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">bar</span>(<span class="number">1</span>))  <span class="comment">// 3(因为1+1=3)</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，这个分段函数被分成了两步执行，执行第二步的时候也能获取到第一段传进来的值。这个就是简单的分段函数。</p>
+<hr>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>扯了那么多没用，实践大于理论。来个demo看看。</p>
+<p><img src="/../images/%E6%83%B0%E6%80%A7%E8%B0%83%E7%94%A8.assets/image-20240413211842629.png" alt="image-20240413211842629"></p>
+<blockquote>
+<p>比如上面这个例子，点击列表项的选择按钮，在弹出模态框中选择合适项填充到列表项中。像这样的例子在erp系统中是非常常见的，如何使用函数惰性调用的方式来优雅的完成业务？<strong>看接下来的操作：</strong></p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;list&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(item, index) in arrs&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123; index + 1 &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;name&quot;</span>&gt;</span>&#123;&#123; item.name || &#x27;unset&#x27; &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;cat&quot;</span>&gt;</span>&#123;&#123; item.category || &#x27;unset&#x27; &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;xxx&quot;</span>&gt;</span>&#123;&#123; item.xxx || &#x27;unset&#x27; &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- ...... --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;showModal(item)&quot;</span>&gt;</span>choose<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"> <span class="tag">&lt;<span class="name">XXXSelectModal</span> <span class="attr">ref</span>=<span class="string">&quot;modalRef&quot;</span> @<span class="attr">onGet</span>=<span class="string">&quot;handleGet&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">setup</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> arrs <span class="comment">/* 列表项 */</span> = <span class="title function_">ref</span>([......])</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">let</span> callback = <span class="literal">null</span></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> modalRef = <span class="title function_">ref</span>(<span class="literal">null</span>)</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> <span class="title function_">showModal</span> = item =&gt; &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 定义第二段函数(仅定义，不执行)</span></span></span><br><span class="line"><span class="language-javascript">    callback = <span class="function"><span class="params">target</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 用选中的值覆盖列表项</span></span></span><br><span class="line"><span class="language-javascript">      <span class="comment">// 在此作用域中能够拿到item的值</span></span></span><br><span class="line"><span class="language-javascript">      <span class="title class_">Object</span>.<span class="title function_">keys</span>(item).<span class="title function_">forEach</span>(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">if</span> (!target[key]) <span class="keyword">return</span></span></span><br><span class="line"><span class="language-javascript">        item[key] = target[key]</span></span><br><span class="line"><span class="language-javascript">      &#125;)</span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">    </span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 打开模态框</span></span></span><br><span class="line"><span class="language-javascript">    modalRef.<span class="property">value</span>.<span class="title function_">show</span>()</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">  </span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> handleGet <span class="comment">/* 拿到选中值 */</span> = <span class="function">(<span class="params">slectedValue</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// 执行第二段函数，传递第二个参数</span></span></span><br><span class="line"><span class="language-javascript">    callback &amp;&amp; <span class="title function_">callback</span>(slectedValue)</span></span><br><span class="line"><span class="language-javascript">    callback = <span class="literal">null</span></span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到通过函数的分段执行，可以很轻松的实现业务的调用，这只是一个最简单的例子，在实际业务中往往会有更复杂更抽象的业务。掌握这个简单的操作可以省心很多。</p>
+<hr>
+<h2 id="🔺难度UP"><a href="#🔺难度UP" class="headerlink" title="🔺难度UP"></a>🔺难度UP</h2><p><strong>「作为一个喜欢装逼的bugger，多少得写点让人觉得很屌的东西来展示下自己。」</strong></p>
+<p>函数分段执行也就是控制一个复杂函数的粒度，对于复杂函数的分段惰性操作，我们可以称之为<strong>函数柯理化</strong>。来点模拟业务处理的demo:</p>
+<blockquote>
+<p><strong>业务1：</strong>从这个数据中提取出所有name和age集合</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据</span></span><br><span class="line"><span class="keyword">const</span> data = [&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Bent&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Jack&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">22</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Mike&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">33</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实现定义好提取属性值的柯里化函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getField</span> = field =&gt; <span class="function"><span class="params">obj</span> =&gt;</span> obj[field]</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> nameArr = data.<span class="title function_">map</span>(<span class="title function_">getField</span>(<span class="string">&#x27;name&#x27;</span>))</span><br><span class="line"><span class="keyword">const</span> ageArr = data.<span class="title function_">map</span>(<span class="title function_">getField</span>(<span class="string">&#x27;age&#x27;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>当然你可以直接…</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> ageArr = data.<span class="title function_">map</span>(<span class="function"><span class="params">el</span> =&gt;</span> el.<span class="property">age</span>)</span><br><span class="line"><span class="keyword">const</span> nameArr = data.<span class="title function_">map</span>(<span class="function"><span class="params">el</span> =&gt;</span> el.<span class="property">name</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>业务2：</strong>根据不用场景需求来给对象数组按照字段排序</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 数据</span></span><br><span class="line"><span class="keyword">const</span> data = [&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Bent&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">18</span>,</span><br><span class="line">  <span class="attr">balance</span>: <span class="number">2284</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Jack&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">22</span>,</span><br><span class="line">  <span class="attr">balance</span>: <span class="number">1232</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="string">&#x27;Mike&#x27;</span>,</span><br><span class="line">  <span class="attr">age</span>: <span class="number">33</span>,</span><br><span class="line">  <span class="attr">balance</span>: <span class="number">4523</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 提前定义好柯里化函数</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">execSort</span> = (<span class="params">field, mode = <span class="string">&#x27;asc&#x27;</span></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">a, b</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&#x27;desc&#x27;</span>) <span class="keyword">return</span> b[field] - a[field]</span><br><span class="line">    <span class="keyword">if</span> (mode == <span class="string">&#x27;asc&#x27;</span>) <span class="keyword">return</span> a[field] - b[field]</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 按照年龄升序</span></span><br><span class="line">data.<span class="title function_">sort</span>(<span class="title function_">execSort</span>(<span class="string">&#x27;age&#x27;</span>))</span><br><span class="line"><span class="comment">// 按照年龄降序</span></span><br><span class="line">data.<span class="title function_">sort</span>(<span class="title function_">execSort</span>(<span class="string">&#x27;age&#x27;</span>, <span class="string">&#x27;desc&#x27;</span>))</span><br><span class="line"><span class="comment">// 按照.....</span></span><br></pre></td></tr></table></figure>
+
+<p>当然你可以直接…</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按照年龄降序</span></span><br><span class="line">data.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.<span class="property">age</span> - a.<span class="property">age</span>)</span><br><span class="line"><span class="comment">// 按照年龄升序</span></span><br><span class="line">data.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> a.<span class="property">age</span> - b.<span class="property">age</span>)</span><br><span class="line"><span class="comment">// 按照余额降序</span></span><br><span class="line">data.<span class="title function_">sort</span>(<span class="function">(<span class="params">a, b</span>) =&gt;</span> b.<span class="property">balance</span> - a.<span class="property">balance</span>)</span><br><span class="line"><span class="comment">// 按照.....</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>业务3：</strong>在每次网络请求前开启加载效果，请求结束后关闭加载效果。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// src/utils/loading.js</span></span><br><span class="line"><span class="comment">// 提前定义好工具函数并且导出</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="title function_">withLoading</span> = (<span class="params">fn</span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">...args</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="title function_">showLoading</span>()</span><br><span class="line">      <span class="keyword">const</span> res = <span class="title function_">fn</span>(...args)</span><br><span class="line">      <span class="keyword">if</span> (res <span class="keyword">instanceof</span> <span class="title class_">Promise</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">then</span>(<span class="function"><span class="params">resFix</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="title function_">hideLoading</span>()</span><br><span class="line">          <span class="keyword">return</span> resFix</span><br><span class="line">        &#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="title function_">hideLoading</span>()</span><br><span class="line">          <span class="keyword">throw</span> e</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">      <span class="title function_">hideLoading</span>()</span><br><span class="line">      <span class="keyword">throw</span> e</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在业务中引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; withLoading &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/loading&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 伴随加载</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getDataWithLoading</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">withLoading</span>($axios.<span class="property">blog</span>.<span class="property">getBlogById</span>)(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 不伴随加载</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getData</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> $axios.<span class="property">blog</span>.<span class="title function_">getBlogById</span>(<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 我可以自由的控制一个异步函数是否要伴随加载效果</span></span><br><span class="line"><span class="title function_">getData</span>()</span><br><span class="line"><span class="title function_">getDataWithLoading</span>()</span><br></pre></td></tr></table></figure>
+
+<p>这时候你就会发现，用常规的方式没办法做到这么优雅的解耦，传统的方式你通常会这样实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">getDataWithLoading</span> = <span class="keyword">async</span> (<span class="params"></span>) =&gt; &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="title function_">showLoading</span>()</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> $axios.<span class="property">blog</span>.<span class="title function_">getBlogById</span>(<span class="number">1</span>)</span><br><span class="line">    <span class="title function_">hideLoading</span>()</span><br><span class="line">    <span class="keyword">return</span> res.<span class="property">data</span></span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="title function_">hideLoading</span>()</span><br><span class="line">    <span class="keyword">throw</span> e</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getData</span>()</span><br><span class="line"><span class="comment">// 糟糕～每次我想要加载效果都要写这么一坨！</span></span><br></pre></td></tr></table></figure>
+
+<p>这是函数柯理化的作用就体现出来了，<code>withLoading</code>这个函数是一个纯函数，主要的作用就是给异步操作提供加载效果，它不会对作用域造成污染。还不赶紧用起来？</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数的惰性调用能够让你和其他函数进行很好的组合工作，但是最好做到每个函数的单一职责，避免对作用域造成污染或者减少作用域污染。本文主要提供<code>FP(函数式编程)</code>的思路，让您在遇到问题的同时有一些巧妙的解决办法……如果你对函数式编程比较感兴趣的话，可以看看我之前写的文章。「<a href="https://bent2685.github.io/2023/12/15/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">文章:函数式编程</a>」在这篇文章里你会看到一些更有意思的东西。</p>
+<hr>
+<h1 id="👋"><a href="#👋" class="headerlink" title="👋 ;"></a>👋 ;</h1>
+  <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年4月13日</p>
+  
+
+
+        </div>
+        <!-- <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div> -->
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/bent2685" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
