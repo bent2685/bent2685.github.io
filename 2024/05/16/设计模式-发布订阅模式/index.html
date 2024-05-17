@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>设计模式|发布订阅模式</title>
+  
+  <link rel="canonical" href="https://bent2685.github.io/2024/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/">
+  
+  <meta name="description" content="「奇怪？发布订阅模式并没在23种设计模式内？」  事实上发布订阅模式是观察者模式的一种变种，又或是说，发布订阅模式就是观察者模式。当然江湖上这个话题一直争论不休。要说区别，实际上就是发布订阅模式多了一个注册中心而已。   ✍🏻定义所谓定义就是最枯燥，最无聊的东西。诣在把一个东西说的高大上，今天比较">
+  
+  
+  <meta name="author" content="John Doe">
+  
+  
+  
+  <meta property="og:site_name" content="Bent灵感" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="设计模式|发布订阅模式" />
+  
+  <meta property="og:description" content="「奇怪？发布订阅模式并没在23种设计模式内？」  事实上发布订阅模式是观察者模式的一种变种，又或是说，发布订阅模式就是观察者模式。当然江湖上这个话题一直争论不休。要说区别，实际上就是发布订阅模式多了一个注册中心而已。   ✍🏻定义所谓定义就是最枯燥，最无聊的东西。诣在把一个东西说的高大上，今天比较">
+  
+  <meta property="og:url" content="https://bent2685.github.io/2024/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="设计模式|发布订阅模式">
+  
+  <meta name="twitter:description" content="「奇怪？发布订阅模式并没在23种设计模式内？」  事实上发布订阅模式是观察者模式的一种变种，又或是说，发布订阅模式就是观察者模式。当然江湖上这个话题一直争论不休。要说区别，实际上就是发布订阅模式多了一个注册中心而已。   ✍🏻定义所谓定义就是最枯燥，最无聊的东西。诣在把一个东西说的高大上，今天比较">
+  
+  
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
+<link rel="stylesheet" href="/css/prism-dark.css">
+ -->
+  <!-- 
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+ -->
+  <!-- User css -->
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #8F2323;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #8F2323 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #8F2323;
+  }
+  .nanobar .bar {
+    background: #8F2323;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #8F2323;
+    border-color: #8F2323;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #8F2323;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌒</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>🌝</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi Folks.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>设计模式|发布订阅模式</h2>
+
+  <p><strong>「奇怪？发布订阅模式并没在23种设计模式内？」</strong></p>
+<blockquote>
+<p>事实上发布订阅模式是观察者模式的一种变种，又或是说，发布订阅模式就是观察者模式。当然江湖上这个话题一直争论不休。要说区别，实际上就是发布订阅模式多了一个注册中心而已。</p>
+</blockquote>
+<hr>
+<h2 id="✍🏻定义"><a href="#✍🏻定义" class="headerlink" title="✍🏻定义"></a>✍🏻定义</h2><p>所谓定义就是最枯燥，最无聊的东西。诣在把一个东西说的高大上，今天比较懒，太多字了不想写。所以就略过吧，大家可以自己意淫或者等文末看看我有没有心情总结。</p>
+<hr>
+<h2 id="⭐️表现形式"><a href="#⭐️表现形式" class="headerlink" title="⭐️表现形式"></a>⭐️表现形式</h2><p>在这篇文章中，我想使用<code>Javascript</code>来展示，首先发布订阅模式是一种松耦合的设计模式。通常有两个角色：</p>
+<ul>
+<li><strong>发布者(Publisher):</strong> 负责发布事件或消息。</li>
+<li><strong>订阅者(Subscriber):</strong> 负责订阅事件或消息，并在事件发生时执行相应的操作。</li>
+</ul>
+<p>发布者和订阅者可以是<code>一对一</code>也可以是<code>一对多</code>关系。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">EventEmitter</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">events</span> = &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 订阅事件</span></span><br><span class="line">    <span class="title function_">on</span>(<span class="params">event, listener</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">events</span>[event]) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">events</span>[event] = [];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">events</span>[event].<span class="title function_">push</span>(listener);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 发布事件</span></span><br><span class="line">    <span class="title function_">emit</span>(<span class="params">event, ...args</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">events</span>[event]) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">events</span>[event].<span class="title function_">forEach</span>(<span class="function"><span class="params">listener</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="title function_">listener</span>(...args);</span><br><span class="line">            &#125;);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取消订阅事件</span></span><br><span class="line">    <span class="title function_">off</span>(<span class="params">event, listener</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">events</span>[event]) &#123;</span><br><span class="line">            <span class="variable language_">this</span>.<span class="property">events</span>[event] = <span class="variable language_">this</span>.<span class="property">events</span>[event]</span><br><span class="line">            .<span class="title function_">filter</span>(<span class="function"><span class="params">l</span> =&gt;</span> l !== listener);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个事件管理器实例</span></span><br><span class="line"><span class="keyword">const</span> eventEmitter = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅事件</span></span><br><span class="line">eventEmitter.<span class="title function_">on</span>(<span class="string">&#x27;message&#x27;</span>, <span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Received message:&#x27;</span>, data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 发布事件</span></span><br><span class="line">eventEmitter.<span class="title function_">emit</span>(<span class="string">&#x27;message&#x27;</span>, <span class="string">&#x27;Hello, world!&#x27;</span>);</span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">// Received message: Hello, world!</span></span><br></pre></td></tr></table></figure>
+
+<p>这就是最基本的发布订阅模式结构。再来个实际的例子吧。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Child</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">listeners</span> = []</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_">addListener</span>(<span class="params">listener</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">listeners</span>.<span class="title function_">push</span>(listener)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 广播</span></span><br><span class="line">    <span class="title function_">broadcast</span>(<span class="params">event, msg</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">listeners</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">listener</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (!listener.<span class="property">events</span>[event]) <span class="keyword">return</span></span><br><span class="line">            listener.<span class="property">events</span>[event](msg)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Parent</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">name</span> = name</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">events</span> = &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="title function_">on</span>(<span class="params">event, callback</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!<span class="variable language_">this</span>.<span class="property">events</span>[event]) <span class="variable language_">this</span>.<span class="property">events</span>[event] = callback</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个孩子和父母的例子，父母就是孩子的订阅者。孩子就是发布者。现在我们让孩子和他的发布者发生关系。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="variable">child</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Child</span>(<span class="string">&#x27;子涵&#x27;</span>);</span><br><span class="line"><span class="type">const</span> <span class="variable">dad</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Parent</span>(<span class="string">&#x27;子涵爸爸&#x27;</span>);</span><br><span class="line"><span class="type">const</span> <span class="variable">mom</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Parent</span>(<span class="string">&#x27;子涵妈妈&#x27;</span>);</span><br><span class="line">child.addListener(dad);</span><br><span class="line">child.addListener(mom);</span><br></pre></td></tr></table></figure>
+
+<p>这对父母的孩子很聪明，叫做子涵。一天孩子哭了。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听孩子哭了的事件</span></span><br><span class="line">dad.<span class="title function_">on</span>(<span class="string">&#x27;cry&#x27;</span>, <span class="function">(<span class="params">msg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;别哭了宝贝，妈妈这就来了&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line">mom.<span class="title function_">on</span>(<span class="string">&#x27;cry&#x27;</span>, <span class="function">(<span class="params">msg</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;别哭了傻种，爸爸来打你了&#x27;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">child.<span class="title function_">broadcast</span>(<span class="string">&#x27;cry&#x27;</span>, <span class="string">&#x27;我好饿&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// output: </span></span><br><span class="line"><span class="comment">// 别哭了宝贝，妈妈这就来了</span></span><br><span class="line"><span class="comment">// 别哭了傻种，爸爸来打你了</span></span><br></pre></td></tr></table></figure>
+
+<p>于是，在得到父母的关爱后，子涵立马不哭了。这就是一个发布订阅模式的例子。<strong>孩子作为事件的发布者，维护了事件中心。父母作为事件的订阅者，监听孩子发布&#x2F;广播的数据。当然，广播的粒度也可以自定义。</strong></p>
+<hr>
+<p>好了，有点累了。今天的的博客就到这吧……等我下回心血来潮了再来继续写吧。</p>
+<h1 id="🫵未完待续"><a href="#🫵未完待续" class="headerlink" title="🫵未完待续;"></a>🫵未完待续;</h1>
+  <p><a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年5月16日</p>
+  
+
+
+        </div>
+        <!-- <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div> -->
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/bent2685" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
