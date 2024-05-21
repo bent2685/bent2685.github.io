@@ -198,6 +198,20 @@
 </blockquote>
 <hr>
 <h2 id="✍🏻定义"><a href="#✍🏻定义" class="headerlink" title="✍🏻定义"></a>✍🏻定义</h2><p>所谓定义就是最枯燥，最无聊的东西。诣在把一个东西说的高大上，今天比较懒，太多字了不想写。所以就略过吧，大家可以自己意淫或者等文末看看我有没有心情总结。</p>
+<p><strong>「好吧，让GPT写吧」</strong></p>
+<blockquote>
+<p><strong>🙋‍♂️Q: 发布订阅模式是什么，能讲一下定义吗？</strong></p>
+<blockquote>
+<p><strong>🤖GPT:</strong></p>
+<p>发布订阅模式（Publish-Subscribe Pattern）是一种消息传递模式，允许发送方（发布者）和接收方（订阅者）之间进行松耦合通信。通过这种模式，发布者不需要知道订阅者的存在，反之亦然。</p>
+<p>发布订阅模式通过一个中介（通常称为事件总线或消息代理）来管理消息的发布和订阅。以下是该模式的核心要素：</p>
+<ol>
+<li><strong>发布者（Publisher）</strong>：发布者将消息发送到中介，而不直接发送给订阅者。发布者只需要知道消息的类型，而不需要知道谁会接收这些消息。</li>
+<li><strong>订阅者（Subscriber）</strong>：订阅者向中介注册自己感兴趣的消息类型。当相应的消息发布时，中介会通知所有订阅了该消息类型的订阅者。</li>
+<li><strong>中介（Mediator&#x2F;Message Broker）</strong>：中介负责管理消息的发布和订阅。它接收来自发布者的消息，并将这些消息传递给所有订阅了该消息的订阅者。</li>
+</ol>
+</blockquote>
+</blockquote>
 <hr>
 <h2 id="⚽️场景"><a href="#⚽️场景" class="headerlink" title="⚽️场景"></a>⚽️场景</h2><p>发布订阅模式和观察者模式在实际场景中应用的很广泛。在常用的框架内也有很多体现。例如Vue中的<code>watch</code>、<code>computed</code>; 我们常用的各种消息总线，例如: <code>bus总线</code>;Electron的IpcRenderer和IpcMain间的通信模式; 各种状态管理工具……太多了。</p>
 <hr>
