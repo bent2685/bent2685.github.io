@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+
+  <!-- Minima -->
+  <!-- Hexo theme created by @adisaktijrs -->
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+
+  
+  <title>CSS BEM命名规范</title>
+  
+  <link rel="canonical" href="https://bent2685.github.io/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/">
+  
+  <meta name="description" content="BEM（Block, Element, Modifier）是一种命名规范，用于创建可维护和可重用的 CSS 代码。它通过将 CSS 类名组织成独立的块、元素和修饰符，使代码更具结构性和一致性。  BEM 的基本概念 块（Block）：页面中独立存在的功能性块，块可以包含元素和修饰符。块的命名是唯一的">
+  
+  
+  <meta name="author" content="John Doe">
+  
+  
+  
+  <meta property="og:site_name" content="Bent灵感" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="CSS BEM命名规范" />
+  
+  <meta property="og:description" content="BEM（Block, Element, Modifier）是一种命名规范，用于创建可维护和可重用的 CSS 代码。它通过将 CSS 类名组织成独立的块、元素和修饰符，使代码更具结构性和一致性。  BEM 的基本概念 块（Block）：页面中独立存在的功能性块，块可以包含元素和修饰符。块的命名是唯一的">
+  
+  <meta property="og:url" content="https://bent2685.github.io/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" />
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CSS BEM命名规范">
+  
+  <meta name="twitter:description" content="BEM（Block, Element, Modifier）是一种命名规范，用于创建可维护和可重用的 CSS 代码。它通过将 CSS 类名组织成独立的块、元素和修饰符，使代码更具结构性和一致性。  BEM 的基本概念 块（Block）：页面中独立存在的功能性块，块可以包含元素和修饰符。块的命名是唯一的">
+  
+  
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" />
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Preload fonts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="preload" href="/fonts/dm-serif-display-v4-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/inter-v2-latin-regular.woff2" as="font" type="font/woff2" crossorigin>
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+<link rel="stylesheet" href="/css/normalize.css">
+
+  
+<link rel="stylesheet" href="/css/skeleton.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+<link rel="stylesheet" href="/css/hljs.css">
+
+  <!-- 
+<link rel="stylesheet" href="/css/prism-dark.css">
+ -->
+  <!-- 
+<link rel="stylesheet" href="/css/prism-line-numbers.css">
+ -->
+  <!-- User css -->
+  
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+
+  <!-- Custom Theme Color Style
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <style>
+  a:not(.icon) {
+    text-decoration-color: #8F2323;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0) 50%,
+      #8F2323 50%
+    );
+  }
+  blockquote {
+    border-left: 8px solid #8F2323;
+  }
+  .nanobar .bar {
+    background: #8F2323;
+  }
+  .button.button-primary:hover,
+  button.button-primary:hover,
+  input[type="submit"].button-primary:hover,
+  input[type="reset"].button-primary:hover,
+  input[type="button"].button-primary:hover,
+  .button.button-primary:focus,
+  button.button-primary:focus,
+  input[type="submit"].button-primary:focus,
+  input[type="reset"].button-primary:focus,
+  input[type="button"].button-primary:focus {
+    background-color: #8F2323;
+    border-color: #8F2323;
+  }
+  input[type="email"]:focus,
+  input[type="number"]:focus,
+  input[type="search"]:focus,
+  input[type="text"]:focus,
+  input[type="tel"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  textarea:focus,
+  select:focus {
+    border: 1px solid #8F2323;
+  }
+</style>
+
+  <!-- Google Analytics (With Privacy Settings On)
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  
+
+  
+  <script src="/js/pic.min.js" defer></script>
+  
+
+  
+
+<meta name="generator" content="Hexo 7.0.0"></head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div>
+
+        <div class="row">
+  <div class="two columns" style="max-width: 50px">
+    <h1 class="mt-2 mode">
+      <div onclick=setDarkMode(true) id="darkBtn">🌒</div>
+      <div onclick=setDarkMode(false) id="lightBtn" class=hidden>🌝</div>
+      <script >
+        if (localStorage.getItem('preferredTheme') == 'dark') {
+          setDarkMode(true)
+        }
+        function setDarkMode(isDark) {
+          var darkBtn = document.getElementById('darkBtn')
+          var lightBtn = document.getElementById('lightBtn')
+          if (isDark) {
+            lightBtn.style.display = "block"
+            darkBtn.style.display = "none"
+            localStorage.setItem('preferredTheme', 'dark');
+          } else {
+            lightBtn.style.display = "none"
+            darkBtn.style.display = "block"
+            localStorage.removeItem('preferredTheme');
+          }
+          document.body.classList.toggle("darkmode");
+        }
+      </script>
+    </h1>
+  </div>
+
+  <div class="six columns ml-1">
+    <h1 class="mt-2">
+      Hi Folks.
+    </h1>
+  </div>
+
+  <div class="twelve columns">
+    <div class="row">
+      <div class="nine columns left">
+        <a href="/">Home</a>
+        
+          
+          <a href="/about" class="ml">About</a>
+          
+        
+        
+          
+            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+          
+        
+      </div>
+    </div>
+    <hr style="margin-bottom: 2.6rem">
+  </div>
+</div>
+
+        <div class="trans">
+            <h2>CSS BEM命名规范</h2>
+
+  <blockquote>
+<p>BEM（Block, Element, Modifier）是一种命名规范，用于创建可维护和可重用的 CSS 代码。它通过将 CSS 类名组织成独立的块、元素和修饰符，使代码更具结构性和一致性。</p>
+</blockquote>
+<h2 id="BEM-的基本概念"><a href="#BEM-的基本概念" class="headerlink" title="BEM 的基本概念"></a>BEM 的基本概念</h2><ol>
+<li><strong>块（Block）</strong>：页面中独立存在的功能性块，块可以包含元素和修饰符。块的命名是唯一的，并且不依赖于页面的其他部分。</li>
+<li><strong>元素（Element）</strong>：块的一部分，完成某项具体功能。元素的命名依赖于块，表示为块名后加双下划线和元素名。</li>
+<li><strong>修饰符（Modifier）</strong>：用于定义块或元素的不同状态或外观。修饰符的命名依赖于块或元素，表示为块名或元素名后加双横线和修饰符名。</li>
+</ol>
+<hr>
+<h2 id="BEM-命名规则"><a href="#BEM-命名规则" class="headerlink" title="BEM 命名规则"></a>BEM 命名规则</h2><ul>
+<li>块（Block）：<code>.block</code></li>
+<li>元素（Element）：<code>.block__element</code></li>
+<li>修饰符（Modifier）：<code>.block--modifier</code> 或 <code>.block__element--modifier</code></li>
+</ul>
+<hr>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是一个使用 BEM 命名规范的示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--primary&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;button__text&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在这个例子中：</p>
+<ul>
+<li><code>button</code> 是一个块，表示按钮。</li>
+<li><code>button__text</code> 是块 <code>button</code> 的一个元素，表示按钮的文本。</li>
+<li><code>button--primary</code> 是块 <code>button</code> 的一个修饰符，表示按钮的主要样式。</li>
+</ul>
+<hr>
+<h2 id="详细说明"><a href="#详细说明" class="headerlink" title="详细说明"></a>详细说明</h2><h3 id="块（Block）"><a href="#块（Block）" class="headerlink" title="块（Block）"></a>块（Block）</h3><p>块是页面中独立存在的功能性单元。块名应该简洁、描述性强，通常是一个名词。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="元素（Element）"><a href="#元素（Element）" class="headerlink" title="元素（Element）"></a>元素（Element）</h3><p>元素是块的一部分，用于完成某项具体功能。元素名应该紧跟块名，用双下划线 <code>__</code> 分隔，通常是名词或形容词。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__link&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="修饰符（Modifier）"><a href="#修饰符（Modifier）" class="headerlink" title="修饰符（Modifier）"></a>修饰符（Modifier）</h3><p>修饰符用于定义块或元素的不同状态或外观。修饰符名应该紧跟块名或元素名，用双横线 <code>--</code> 分隔，通常是形容词或描述状态的词语。例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--large&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--disabled&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__item menu__item--active&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="BEM-的优点"><a href="#BEM-的优点" class="headerlink" title="BEM 的优点"></a>BEM 的优点</h2><ol>
+<li><strong>可读性</strong>：通过明确的命名规则，使 CSS 类名更具描述性和一致性，便于理解和维护。</li>
+<li><strong>可重用性</strong>：通过将块、元素和修饰符分离，使组件更易于重用。</li>
+<li><strong>可维护性</strong>：通过将样式拆分成独立的块、元素和修饰符，减少了样式冲突和依赖，使代码更易于维护和扩展。</li>
+</ol>
+<p>另外，再是使用<code>Sass/scss</code>、<code>Less</code>等预编译CSS库的时候。BEM能让代码逻辑清晰的同时能够更加有层次化，例如:</p>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  &amp;__icon &#123;&#125;</span><br><span class="line">  &amp;__text &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--active</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="selector-class">.disabled</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--primary</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--warning</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--info</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="selector-pseudo">:not</span>(&amp;--disabled) &#123;</span><br><span class="line">    &amp;<span class="selector-pseudo">:hover</span> &#123;&#125;</span><br><span class="line">    &amp;<span class="selector-pseudo">:active</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 加载</span></span><br><span class="line">  &amp;__spin &#123;</span><br><span class="line">    &amp;<span class="attr">--loading</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>BEM 命名规范是一种有效的 CSS 命名方法，通过将样式组织成独立的块、元素和修饰符，使代码更加结构化和可维护。无论是小型项目还是大型项目，BEM 都能帮助开发者编写更清晰、更易于维护的 CSS 代码。</p>
+<hr>
+<h1 id="👋"><a href="#👋" class="headerlink" title="👋 ;"></a>👋 ;</h1>
+  <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年5月21日</p>
+  
+
+
+        </div>
+        <!-- <div class="row mt-2">
+  <h3>Search</h3>
+  <div><input id="search-text" title="search" class="search-text" type="text" placeholder="search......"></div>
+  <div style="margin-top: 1.5rem;">
+    <ul id="result"></ul>
+  </div>
+</div> -->
+        <div class="row mt-2">
+  
+    <div class="eight columns">
+      <p id="madewith">Made with ❤ and
+        <a class="footer-link icon" href="https://hexo.io" target="_blank" style="text-decoration: none;" rel="noreferrer" aria-label="Hexo.io">
+        <svg class="hexo svg-hov" width="14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>Hexo.js</title><path d="M12 .007L1.57 6.056V18.05L12 23.995l10.43-6.049V5.952L12 .007zm4.798 17.105l-.939.521-.939-.521V12.94H9.08v4.172l-.94.521-.938-.521V6.89l.939-.521.939.521v4.172h5.84V6.89l.94-.521.938.521v10.222z"/></svg>
+        </a>
+        
+        at <a href="https://en.wikipedia.org/wiki/Earth" target="_blank" rel="noreferrer">Earth</a>.</p>
+        
+    </div>
+
+    <!-- Sepcial thanks to https://simpleicons.org/ for the icons -->
+    <div class="four columns mb-3 posisi" >
+      
+      <a class="ml-0 footer-link icon" href="https://github.com/bent2685" target="_blank" style="text-decoration: none" rel="noreferrer" aria-label="GitHub">
+        <svg class="github svg-hov" width="18" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+      </a>
+      
+
+      
+
+      
+
+      
+
+      
+
+    </div>
+  
+</div>
+
+      </div>
+
+    </div>
+
+  </div>
+  <script src="/js/nanobar.min.js"></script>
+
+  <script>
+    var options = {
+      classname: 'nanobar',
+      id: 'myNanobar'
+    };
+    var nanobar = new Nanobar(options);
+    nanobar.go(30);
+    nanobar.go(76);
+    nanobar.go(100);
+  </script>
+
+</body>
+
+</html>
