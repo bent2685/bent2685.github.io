@@ -11,38 +11,34 @@
   <meta charset="utf-8">
 
   
-  <title>All Posts - John Doe</title>
+  <title>刷新.gitignore更改</title>
   
-  <link rel="canonical" href="https://bent2685.github.io/archives/">
+  <link rel="canonical" href="https://bent2685.github.io/2024/05/22/%E5%88%B7%E6%96%B0.gitignore%E6%9B%B4%E6%94%B9/">
   
-  <meta name="description" content="">
+  <meta name="description" content="前情提要: 当我们更新了gitignore后，接下来想stash和commit的时候，发现声明的忽略文件还是会出现在的更改区中。  TL;DR123git rm -r --cached . # 删除本地缓存git add . # 添加要提交的文件git commit -m &amp;#x27;update ">
   
   
   <meta name="author" content="John Doe">
   
   
-  <meta property="og:image" content="https://bent2685.github.io/images/thumbnail.jpg">
-  
   
   <meta property="og:site_name" content="Bent灵感" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="All Posts - John Doe" />
+  <meta property="og:title" content="刷新.gitignore更改" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="前情提要: 当我们更新了gitignore后，接下来想stash和commit的时候，发现声明的忽略文件还是会出现在的更改区中。  TL;DR123git rm -r --cached . # 删除本地缓存git add . # 添加要提交的文件git commit -m &amp;#x27;update ">
   
-  <meta property="og:url" content="https://bent2685.github.io/archives/" />
+  <meta property="og:url" content="https://bent2685.github.io/2024/05/22/%E5%88%B7%E6%96%B0.gitignore%E6%9B%B4%E6%94%B9/" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="All Posts - John Doe">
+  <meta name="twitter:title" content="刷新.gitignore更改">
   
-  <meta name="twitter:description" content="">
-  
-  
-  
-  <meta name="twitter:image" content="https://bent2685.github.io/images/thumbnail.jpg">
+  <meta name="twitter:description" content="前情提要: 当我们更新了gitignore后，接下来想stash和commit的时候，发现声明的忽略文件还是会出现在的更改区中。  TL;DR123git rm -r --cached . # 删除本地缓存git add . # 添加要提交的文件git commit -m &amp;#x27;update ">
   
   
-  <meta name="twitter:url" content="https://bent2685.github.io/archives/" />
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/05/22/%E5%88%B7%E6%96%B0.gitignore%E6%9B%B4%E6%94%B9/" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -194,92 +190,41 @@
 </div>
 
         <div class="trans">
-          
-<h2>All Posts</h2>
+            <h2>刷新.gitignore更改</h2>
 
+  <blockquote>
+<p><strong>前情提要:</strong></p>
+<p>当我们更新了gitignore后，接下来想stash和commit的时候，发现声明的忽略文件还是会出现在的更改区中。</p>
+</blockquote>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> -r --cached . <span class="comment"># 删除本地缓存</span></span><br><span class="line">git add . <span class="comment"># 添加要提交的文件</span></span><br><span class="line">git commit -m <span class="string">&#x27;update .gitignore&#x27;</span> <span class="comment"># 更新本地的缓存</span></span><br></pre></td></tr></table></figure>
 
-    <article>
-      <div class="row">
+<hr>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>其实，只需要我们把缓存清理下</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">rm</span> -r --cached .</span><br></pre></td></tr></table></figure>
 
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月22日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/22/%E5%88%B7%E6%96%B0.gitignore%E6%9B%B4%E6%94%B9/" class="">
-            
-              刷新.gitignore更改
-            
-          </a>
-        </div>
-      </div>
-    </article>
+<p>再重新把所有更改文件添加到暂存区即可</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br></pre></td></tr></table></figure>
 
-    <article>
-      <div class="row">
+<p>最后再commit文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -m <span class="string">&#x27;update .gitignore&#x27;</span> </span><br></pre></td></tr></table></figure>
 
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月21日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" class="">
-            
-              刷新.gitiignore
-            
-          </a>
-        </div>
-      </div>
-    </article>
+<p>最后，如果有remote origin。那就执行<code>git pull &amp; git push</code>把更改和remote同步。</p>
+<hr>
+<h2 id="更多方式"><a href="#更多方式" class="headerlink" title="更多方式"></a>更多方式</h2><p><strong>「接下来是安利环节」</strong></p>
+<p>在MacOS中，有一个git GUI叫<a target="_blank" rel="noopener" href="https://git-fork.com/">fork</a>。fork是一款特别出色的git可视化工具，它在commit节点预览、合并、变基、和远端remote、代码的diif……这些领域都做的非常好。当然在右键将文件ignore时，他也会自动刷新更改区。</p>
+<p>其他的git GUI我没使用过，无法再推荐更多了。实际上很多IDE也可以通过插件的方式去实现这个功能。</p>
+<p><img src="https://git-fork.com/images/image1.jpg" alt="Fork"></p>
+<blockquote>
+<p><strong>相关链接:</strong></p>
+<ul>
+<li><strong>Fork:</strong> <a target="_blank" rel="noopener" href="https://git-fork.com/">https://git-fork.com/</a></li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="👋"><a href="#👋" class="headerlink" title="👋 ;"></a>👋 ;</h1>
+  <p><a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年5月22日</p>
+  
 
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月16日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/" class="">
-            
-              设计模式|发布订阅模式
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">2024年4月13日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/04/13/%E6%83%B0%E6%80%A7%E8%B0%83%E7%94%A8/" class="">
-            
-              惰性调用
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-<div class="pagination-bar">
-  <div class="pagination" style="display: flex;">
-    
-        
-
-          <a class="" href="/archives/page/2/" style="display: flex;align-items: center;gap: 8px;">
-            <span>Older</span>
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5A.5.5 0 0 0 4 8z" />
-            </svg>
-          </a>
-
-          
-        </div>
-</div>
 
         </div>
         <!-- <div class="row mt-2">
