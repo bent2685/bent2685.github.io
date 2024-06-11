@@ -199,15 +199,15 @@
 <hr>
 <h2 id="跨域的定义"><a href="#跨域的定义" class="headerlink" title="跨域的定义"></a>跨域的定义</h2><p>在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：</p>
 <ol>
-<li>协议不同, 如 http 和 https</li>
-<li>域名不同</li>
-<li>端口不同</li>
+<li><strong>协议不同, 如 http 和 https</strong></li>
+<li><strong>域名不同</strong></li>
+<li><strong>端口不同</strong></li>
 </ol>
 <hr>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-推荐⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-推荐⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(推荐⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(推荐⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就一脚。</p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-推荐⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-推荐⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(推荐⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(推荐⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就<strong>一脚。</strong></p>
 <hr>
 <h3 id="前端解决"><a href="#前端解决" class="headerlink" title="前端解决"></a>前端解决</h3><p>如果后端死都不愿意解决，那就到了我们今天的主题<strong>Vite + Axios解决跨域</strong></p>
-<p>在<code>vite.confit.ts/js</code>里加入如下配置</p>
+<p>在<code>vite.config.ts/js</code>里加入如下配置</p>
 <p>它的作用就是通过配置代理表将请求的目标地址设为代理服务器的地址, 例如将请求的基础url设置为<code>/api</code>，当浏览器发送请求时会先将请求发送到代理服务器然后再由代理服务器转发给目标服务器，从而绕过同源策略的限制。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>: &#123;</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://接口主机地址:8080&#x27;</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">//this one is declare for cross</span></span><br><span class="line">      <span class="attr">rewrite</span>: <span class="function"><span class="params">path</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`网络请求: <span class="subst">$&#123;path.replace(<span class="string">&#x27;/api&#x27;</span>, <span class="string">&#x27;&#x27;</span>)&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">return</span> path.<span class="title function_">replace</span>(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
