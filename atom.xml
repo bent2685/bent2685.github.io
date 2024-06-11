@@ -6,7 +6,7 @@
   <link href="https://bent2685.github.io/atom.xml" rel="self"/>
   
   <link href="https://bent2685.github.io/"/>
-  <updated>2024-05-22T05:47:03.137Z</updated>
+  <updated>2024-06-11T09:26:00.926Z</updated>
   <id>https://bent2685.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vite + Axios跨域问题</title>
+    <link href="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/"/>
+    <id>https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/</id>
+    <published>2024-06-11T09:16:00.000Z</published>
+    <updated>2024-06-11T09:26:00.926Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。</p></blockquote><hr><h2 id="跨域的定义"><a href="#跨域的定义" class="headerlink" title="跨域的定义"></a>跨域的定义</h2><p>在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：</p><ol><li>协议不同, 如 http 和 https</li><li>域名不同</li><li>端口不同</li></ol><hr><h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-推荐⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-推荐⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(推荐⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(推荐⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就一脚。</p><hr><h3 id="前端解决"><a href="#前端解决" class="headerlink" title="前端解决"></a>前端解决</h3><p>如果后端死都不愿意解决，那就到了我们今天的主题<strong>Vite + Axios解决跨域</strong></p><p>在<code>vite.confit.ts/js</code>里加入如下配置</p><p>它的作用就是通过配置代理表将请求的目标地址设为代理服务器的地址, 例如将请求的基础url设置为<code>/api</code>，当浏览器发送请求时会先将请求发送到代理服务器然后再由代理服务器转发给目标服务器，从而绕过同源策略的限制。</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>: &#123;</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://接口主机地址:8080&#x27;</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">//this one is declare for cross</span></span><br><span class="line">      <span class="attr">rewrite</span>: <span class="function"><span class="params">path</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`网络请求: <span class="subst">$&#123;path.replace(<span class="string">&#x27;/api&#x27;</span>, <span class="string">&#x27;&#x27;</span>)&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">return</span> path.<span class="title function_">replace</span>(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>然后修改axios的基本配置</p><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建axios实例</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">serve</span>: <span class="title class_">AxiosInstance</span> = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">10000</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><hr><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>问题解决，别忘了让后端尝尝你的厉害🫵</p><hr><h1 id="👌-加纳"><a href="#👌-加纳" class="headerlink" title="👌 加纳~;"></a>👌 加纳~;</h1>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;blockquote&gt;
+&lt;p&gt;跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;h2 id=&quot;</summary>
+      
+    
+    
+    
+    
+    <category term="技术分享" scheme="https://bent2685.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
+    <category term="前端" scheme="https://bent2685.github.io/tags/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>刷新.gitignore更改</title>
@@ -43,11 +71,11 @@
   </entry>
   
   <entry>
-    <title>刷新.gitiignore</title>
+    <title>CSS BEM命名规范</title>
     <link href="https://bent2685.github.io/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/"/>
     <id>https://bent2685.github.io/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/</id>
     <published>2024-05-21T09:16:00.000Z</published>
-    <updated>2024-05-22T01:24:10.657Z</updated>
+    <updated>2024-06-11T09:10:00.974Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>BEM（Block, Element, Modifier）是一种命名规范，用于创建可维护和可重用的 CSS 代码。它通过将 CSS 类名组织成独立的块、元素和修饰符，使代码更具结构性和一致性。</p></blockquote><h2 id="BEM-的基本概念"><a href="#BEM-的基本概念" class="headerlink" title="BEM 的基本概念"></a>BEM 的基本概念</h2><ol><li><strong>块（Block）</strong>：页面中独立存在的功能性块，块可以包含元素和修饰符。块的命名是唯一的，并且不依赖于页面的其他部分。</li><li><strong>元素（Element）</strong>：块的一部分，完成某项具体功能。元素的命名依赖于块，表示为块名后加双下划线和元素名。</li><li><strong>修饰符（Modifier）</strong>：用于定义块或元素的不同状态或外观。修饰符的命名依赖于块或元素，表示为块名或元素名后加双横线和修饰符名。</li></ol><hr><h2 id="BEM-命名规则"><a href="#BEM-命名规则" class="headerlink" title="BEM 命名规则"></a>BEM 命名规则</h2><ul><li>块（Block）：<code>.block</code></li><li>元素（Element）：<code>.block__element</code></li><li>修饰符（Modifier）：<code>.block--modifier</code> 或 <code>.block__element--modifier</code></li></ul><hr><h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是一个使用 BEM 命名规范的示例：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--primary&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;button__text&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><p>在这个例子中：</p><ul><li><code>button</code> 是一个块，表示按钮。</li><li><code>button__text</code> 是块 <code>button</code> 的一个元素，表示按钮的文本。</li><li><code>button--primary</code> 是块 <code>button</code> 的一个修饰符，表示按钮的主要样式。</li></ul><hr><h2 id="详细说明"><a href="#详细说明" class="headerlink" title="详细说明"></a>详细说明</h2><h3 id="块（Block）"><a href="#块（Block）" class="headerlink" title="块（Block）"></a>块（Block）</h3><p>块是页面中独立存在的功能性单元。块名应该简洁、描述性强，通常是一个名词。例如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><hr><h3 id="元素（Element）"><a href="#元素（Element）" class="headerlink" title="元素（Element）"></a>元素（Element）</h3><p>元素是块的一部分，用于完成某项具体功能。元素名应该紧跟块名，用双下划线 <code>__</code> 分隔，通常是名词或形容词。例如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__item&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__link&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><hr><h3 id="修饰符（Modifier）"><a href="#修饰符（Modifier）" class="headerlink" title="修饰符（Modifier）"></a>修饰符（Modifier）</h3><p>修饰符用于定义块或元素的不同状态或外观。修饰符名应该紧跟块名或元素名，用双横线 <code>--</code> 分隔，通常是形容词或描述状态的词语。例如：</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--large&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;button button--disabled&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;menu__item menu__item--active&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure><hr><h2 id="BEM-的优点"><a href="#BEM-的优点" class="headerlink" title="BEM 的优点"></a>BEM 的优点</h2><ol><li><strong>可读性</strong>：通过明确的命名规则，使 CSS 类名更具描述性和一致性，便于理解和维护。</li><li><strong>可重用性</strong>：通过将块、元素和修饰符分离，使组件更易于重用。</li><li><strong>可维护性</strong>：通过将样式拆分成独立的块、元素和修饰符，减少了样式冲突和依赖，使代码更易于维护和扩展。</li></ol><p>另外，再是使用<code>Sass/scss</code>、<code>Less</code>等预编译CSS库的时候。BEM能让代码逻辑清晰的同时能够更加有层次化，例如:</p><figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.button</span> &#123;</span><br><span class="line">  &amp;__icon &#123;&#125;</span><br><span class="line">  &amp;__text &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--active</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="selector-class">.disabled</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--primary</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--warning</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="attr">--info</span> &#123;&#125;</span><br><span class="line">  &amp;<span class="selector-pseudo">:not</span>(&amp;--disabled) &#123;</span><br><span class="line">    &amp;<span class="selector-pseudo">:hover</span> &#123;&#125;</span><br><span class="line">    &amp;<span class="selector-pseudo">:active</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 加载</span></span><br><span class="line">  &amp;__spin &#123;</span><br><span class="line">    &amp;<span class="attr">--loading</span> &#123;&#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><hr><h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>BEM 命名规范是一种有效的 CSS 命名方法，通过将样式组织成独立的块、元素和修饰符，使代码更加结构化和可维护。无论是小型项目还是大型项目，BEM 都能帮助开发者编写更清晰、更易于维护的 CSS 代码。</p><hr><h1 id="👋"><a href="#👋" class="headerlink" title="👋 ;"></a>👋 ;</h1>]]></content>
     
@@ -222,11 +250,11 @@
     
     
     
+    <category term="技术分享" scheme="https://bent2685.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    
     <category term="应用分享" scheme="https://bent2685.github.io/tags/%E5%BA%94%E7%94%A8%E5%88%86%E4%BA%AB/"/>
     
     <category term="docker" scheme="https://bent2685.github.io/tags/docker/"/>
-    
-    <category term="技术分享" scheme="https://bent2685.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
   </entry>
   

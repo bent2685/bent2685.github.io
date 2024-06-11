@@ -11,38 +11,34 @@
   <meta charset="utf-8">
 
   
-  <title>All Posts - Bent Hsu</title>
+  <title>Vite + Axios跨域问题</title>
   
-  <link rel="canonical" href="https://bent2685.github.io/archives/2024/">
+  <link rel="canonical" href="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
   
-  <meta name="description" content="">
+  <meta name="description" content="跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。   跨域的定义在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：  协议不同, 如 http 和 ht">
   
   
   <meta name="author" content="Bent Hsu">
   
   
-  <meta property="og:image" content="https://bent2685.github.io/images/thumbnail.jpg">
-  
   
   <meta property="og:site_name" content="Bent灵感" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="All Posts - Bent Hsu" />
+  <meta property="og:title" content="Vite + Axios跨域问题" />
   
-  <meta property="og:description" content="">
+  <meta property="og:description" content="跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。   跨域的定义在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：  协议不同, 如 http 和 ht">
   
-  <meta property="og:url" content="https://bent2685.github.io/archives/2024/" />
+  <meta property="og:url" content="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="All Posts - Bent Hsu">
+  <meta name="twitter:title" content="Vite + Axios跨域问题">
   
-  <meta name="twitter:description" content="">
-  
-  
-  
-  <meta name="twitter:image" content="https://bent2685.github.io/images/thumbnail.jpg">
+  <meta name="twitter:description" content="跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。   跨域的定义在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：  协议不同, 如 http 和 ht">
   
   
-  <meta name="twitter:url" content="https://bent2685.github.io/archives/2024/" />
+  
+  
+  <meta name="twitter:url" content="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" />
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -195,92 +191,36 @@
 </div>
 
         <div class="trans">
-          
-<h2>All Posts</h2>
+            <h2>Vite + Axios跨域问题</h2>
 
+  <blockquote>
+<p>跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。</p>
+</blockquote>
+<hr>
+<h2 id="跨域的定义"><a href="#跨域的定义" class="headerlink" title="跨域的定义"></a>跨域的定义</h2><p>在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：</p>
+<ol>
+<li>协议不同, 如 http 和 https</li>
+<li>域名不同</li>
+<li>端口不同</li>
+</ol>
+<hr>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-推荐⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-推荐⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(推荐⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(推荐⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就一脚。</p>
+<hr>
+<h3 id="前端解决"><a href="#前端解决" class="headerlink" title="前端解决"></a>前端解决</h3><p>如果后端死都不愿意解决，那就到了我们今天的主题<strong>Vite + Axios解决跨域</strong></p>
+<p>在<code>vite.confit.ts/js</code>里加入如下配置</p>
+<p>它的作用就是通过配置代理表将请求的目标地址设为代理服务器的地址, 例如将请求的基础url设置为<code>/api</code>，当浏览器发送请求时会先将请求发送到代理服务器然后再由代理服务器转发给目标服务器，从而绕过同源策略的限制。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>: &#123;</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://接口主机地址:8080&#x27;</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">//this one is declare for cross</span></span><br><span class="line">      <span class="attr">rewrite</span>: <span class="function"><span class="params">path</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`网络请求: <span class="subst">$&#123;path.replace(<span class="string">&#x27;/api&#x27;</span>, <span class="string">&#x27;&#x27;</span>)&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">return</span> path.<span class="title function_">replace</span>(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    <article>
-      <div class="row">
+<p>然后修改axios的基本配置</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建axios实例</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">serve</span>: <span class="title class_">AxiosInstance</span> = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">10000</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-        <div class="three columns left lit">
-          <p class="bottom">2024年6月11日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" class="">
-            
-              Vite + Axios跨域问题
-            
-          </a>
-        </div>
-      </div>
-    </article>
+<hr>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>问题解决，别忘了让后端尝尝你的厉害🫵</p>
+<hr>
+<h1 id="👌-加纳"><a href="#👌-加纳" class="headerlink" title="👌 加纳~;"></a>👌 加纳~;</h1>
+  <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年6月11日</p>
+  
 
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月22日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/22/%E5%88%B7%E6%96%B0.gitignore%E6%9B%B4%E6%94%B9/" class="">
-            
-              刷新.gitignore更改
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月21日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/21/CSS%20BEM%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/" class="">
-            
-              CSS BEM命名规范
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-    <article>
-      <div class="row">
-
-        <div class="three columns left lit">
-          <p class="bottom">2024年5月16日</p>
-        </div>
-        <div class="nine columns left mb-3">
-          <a href="/2024/05/16/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F-%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F/" class="">
-            
-              设计模式|发布订阅模式
-            
-          </a>
-        </div>
-      </div>
-    </article>
-
-<div class="pagination-bar">
-  <div class="pagination" style="display: flex;">
-    
-        
-
-          <a class="" href="/archives/2024/page/2/" style="display: flex;align-items: center;gap: 8px;">
-            <span>Older</span>
-            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-circle" fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg">
-              <path fill-rule="evenodd" d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
-              <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H4.5A.5.5 0 0 0 4 8z" />
-            </svg>
-          </a>
-
-          
-        </div>
-</div>
 
         </div>
         <!-- <div class="row mt-2">
