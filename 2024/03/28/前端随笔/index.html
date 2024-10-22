@@ -80,18 +80,22 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <style>
   a:not(.icon) {
-    text-decoration-color: #8F2323;
+    text-decoration-color: #3d4ce0;
     background-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 0) 50%,
-      #8F2323 50%
+      #3d4ce0 50%
     );
   }
   blockquote {
-    border-left: 8px solid #8F2323;
+    border-left: 8px solid #3d4ce0;
+  }
+
+  .blog-title {
+    color: #3d4ce0;
   }
   .nanobar .bar {
-    background: #8F2323;
+    background: #3d4ce0;
   }
   .button.button-primary:hover,
   button.button-primary:hover,
@@ -103,8 +107,8 @@
   input[type="submit"].button-primary:focus,
   input[type="reset"].button-primary:focus,
   input[type="button"].button-primary:focus {
-    background-color: #8F2323;
-    border-color: #8F2323;
+    background-color: #3d4ce0;
+    border-color: #3d4ce0;
   }
   input[type="email"]:focus,
   input[type="number"]:focus,
@@ -115,7 +119,7 @@
   input[type="password"]:focus,
   textarea:focus,
   select:focus {
-    border: 1px solid #8F2323;
+    border: 1px solid #3d4ce0;
   }
 </style>
 
@@ -165,7 +169,7 @@
   </div>
 
   <div class="six columns ml-1">
-    <h1 class="mt-2">
+    <h1 class="mt-2 blog-title">
       Hi Folks.
     </h1>
   </div>
@@ -179,11 +183,11 @@
           <a href="/about" class="ml">About</a>
           
         
-        
+        <!-- 
           
-            <a href="mailto:bent2685@outlook.com" target="_blank" class="ml">Email</a>
+            <a href="mailto:bent2685@zohomail.com" target="_blank" class="ml">Email</a>
           
-        
+         -->
       </div>
     </div>
     <hr style="margin-bottom: 2.6rem">
@@ -220,7 +224,8 @@
 <section id="comments" class="mt-2 mb-3">
 
   <div id="disqus_thread">
-    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+    <!-- <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a> -->
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">展开评论</a>
   </div>
 
   <script>
