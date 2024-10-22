@@ -11,7 +11,7 @@
   <meta charset="utf-8">
 
   
-  <title>Vite + Axios跨域问题</title>
+  <title></title>
   
   <link rel="canonical" href="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
   
@@ -24,14 +24,14 @@
   
   <meta property="og:site_name" content="Bent灵感" />
   <meta property="og:type" content="article" />
-  <meta property="og:title" content="Vite + Axios跨域问题" />
+  <meta property="og:title" content="" />
   
   <meta property="og:description" content="跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。   跨域的定义在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：  协议不同, 如 http 和 ht">
   
   <meta property="og:url" content="https://bent2685.github.io/2024/06/11/Vite%20+%20Axios%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" />
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Vite + Axios跨域问题">
+  <meta name="twitter:title" content="">
   
   <meta name="twitter:description" content="跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。   跨域的定义在请求时，如果出现了以下情况中的任意一种，那么它就是跨域请求：  协议不同, 如 http 和 ht">
   
@@ -191,7 +191,7 @@
 </div>
 
         <div class="trans">
-            <h2>Vite + Axios跨域问题</h2>
+            <h2></h2>
 
   <blockquote>
 <p>跨域问题指的是不同站点之间，使用 ajax 无法相互调用的问题。跨域问题本质是浏览器的一种保护机制，它的初衷是为了保证用户的安全，防止恶意网站窃取数据。但这个保护机制也带来了跨域问题。</p>
@@ -204,9 +204,14 @@
 <li><strong>端口不同</strong></li>
 </ol>
 <hr>
-<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-推荐⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-推荐⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(推荐⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(推荐⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就<strong>一脚。</strong></p>
+<h2 id="解决方式"><a href="#解决方式" class="headerlink" title="解决方式"></a>解决方式</h2><h3 id="后端解决-⭐️⭐️⭐️⭐️⭐️"><a href="#后端解决-⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="后端解决(⭐️⭐️⭐️⭐️⭐️)"></a>后端解决(⭐️⭐️⭐️⭐️⭐️)</h3><p>什么？后端不愿意解决？那就接着往下看。</p>
 <hr>
-<h3 id="前端解决"><a href="#前端解决" class="headerlink" title="前端解决"></a>前端解决</h3><p>如果后端死都不愿意解决，那就到了我们今天的主题<strong>Vite + Axios解决跨域</strong></p>
+<h3 id="Nginx反代-⭐️⭐️⭐️⭐️⭐️"><a href="#Nginx反代-⭐️⭐️⭐️⭐️⭐️" class="headerlink" title="Nginx反代(⭐️⭐️⭐️⭐️⭐️)"></a>Nginx反代(⭐️⭐️⭐️⭐️⭐️)</h3><p>在上生产环境时，可以使用nginx来做反向代理，从而也可以解决跨域。这也是一种比较推荐的方式，但是今天在这就不讨论了。</p>
+<hr>
+<h3 id="前端解决"><a href="#前端解决" class="headerlink" title="前端解决"></a>前端解决</h3><p>如果后端死都不愿意解决，那就到了我们今天的主题<strong>Vite + Axios通过代理解决跨域问题</strong></p>
+<blockquote>
+<p>TIPS: 不过这种方式只能在开发环境使用，生产环境会失效</p>
+</blockquote>
 <p>在<code>vite.config.ts/js</code>里加入如下配置</p>
 <p>它的作用就是通过配置代理表将请求的目标地址设为代理服务器的地址, 例如将请求的基础url设置为<code>/api</code>，当浏览器发送请求时会先将请求发送到代理服务器然后再由代理服务器转发给目标服务器，从而绕过同源策略的限制。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server</span>: &#123;</span><br><span class="line">  <span class="attr">proxy</span>: &#123;</span><br><span class="line">    <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">      <span class="attr">target</span>: <span class="string">&#x27;http://接口主机地址:8080&#x27;</span>,</span><br><span class="line">      <span class="attr">secure</span>: <span class="literal">false</span>,</span><br><span class="line">      <span class="attr">changeOrigin</span>: <span class="literal">true</span>, <span class="comment">//this one is declare for cross</span></span><br><span class="line">      <span class="attr">rewrite</span>: <span class="function"><span class="params">path</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`网络请求: <span class="subst">$&#123;path.replace(<span class="string">&#x27;/api&#x27;</span>, <span class="string">&#x27;&#x27;</span>)&#125;</span>`</span>)</span><br><span class="line">        <span class="keyword">return</span> path.<span class="title function_">replace</span>(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -215,11 +220,43 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建axios实例</span></span><br><span class="line"><span class="keyword">const</span> <span class="attr">serve</span>: <span class="title class_">AxiosInstance</span> = axios.<span class="title function_">create</span>(&#123;</span><br><span class="line">  <span class="attr">baseURL</span>: <span class="string">&#x27;/api&#x27;</span>,</span><br><span class="line">  <span class="attr">timeout</span>: <span class="number">10000</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>问题解决，别忘了让后端尝尝你的厉害🫵</p>
+<h2 id="文末"><a href="#文末" class="headerlink" title="文末;"></a>文末;</h2><p>没啥好总结的</p>
 <hr>
 <h1 id="👌-加纳"><a href="#👌-加纳" class="headerlink" title="👌 加纳~;"></a>👌 加纳~;</h1>
   <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年6月11日</p>
   
+  <hr>
+<section id="comments" class="mt-2 mb-3">
+
+  <div id="disqus_thread">
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'https://bent2685.github.io/2024/06/11/Vite + Axios跨域问题/index.html';
+      this.page.identifier = '2024/06/11/Vite + Axios跨域问题/index.html';
+      this.page.title = '';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://bent2685.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
         </div>

@@ -245,11 +245,43 @@
 
 <p>这是函数柯理化的作用就体现出来了，<code>withLoading</code>这个函数是一个纯函数，主要的作用就是给异步操作提供加载效果，它不会对作用域造成污染。还不赶紧用起来？</p>
 <hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>函数的惰性调用能够让你和其他函数进行很好的组合工作，但是最好做到每个函数的单一职责，避免对作用域造成污染或者减少作用域污染。本文主要提供<code>FP(函数式编程)</code>的思路，让您在遇到问题的同时有一些巧妙的解决办法……如果你对函数式编程比较感兴趣的话，可以看看我之前写的文章。「<a href="https://bent2685.github.io/2023/12/15/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">文章:函数式编程</a>」在这篇文章里你会看到一些更有意思的东西。</p>
+<h2 id="文末"><a href="#文末" class="headerlink" title="文末;"></a>文末;</h2><p>函数的惰性调用能够让你和其他函数进行很好的组合工作，但是最好做到每个函数的单一职责，避免对作用域造成污染或者减少作用域污染。本文主要提供<code>FP(函数式编程)</code>的思路，让您在遇到问题的同时有一些巧妙的解决办法……如果你对函数式编程比较感兴趣的话，可以看看我之前写的文章。「<a href="https://bent2685.github.io/2023/12/15/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/">文章:函数式编程</a>」在这篇文章里你会看到一些更有意思的东西。</p>
 <hr>
 <h1 id="👋"><a href="#👋" class="headerlink" title="👋 ;"></a>👋 ;</h1>
   <p><a class="classtest-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>, <a class="classtest-link" href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" rel="tag">技术分享</a> — 2024年4月13日</p>
   
+  <hr>
+<section id="comments" class="mt-2 mb-3">
+
+  <div id="disqus_thread">
+    <a href="#" class="button button-primary" onclick="loadDisqus();return false;">View / Make Comments</a>
+  </div>
+
+  <script>
+    var disqus_config = function() {
+      this.page.url = 'https://bent2685.github.io/2024/04/13/惰性调用/index.html';
+      this.page.identifier = '2024/04/13/惰性调用/index.html';
+      this.page.title = '惰性调用';
+    };
+
+    var is_disqus_loaded = false;
+
+    function loadDisqus() {
+      if (!is_disqus_loaded) {
+        is_disqus_loaded = true;
+
+        var d = document,
+          s = d.createElement('script');
+        s.src = 'https://bent2685.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+    }
+
+  </script>
+  <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
 
 
         </div>
