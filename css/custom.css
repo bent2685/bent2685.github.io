@@ -406,3 +406,14 @@ hr {
 .darkmode hr {
     border-top-color: #444;
 }
+
+
+#search-text {
+    background: transparent;
+    
+}
+
+.darkmode #search-text {
+    border-color: #444;
+    color: #fff;
+}
