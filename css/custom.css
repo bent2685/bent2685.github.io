@@ -207,9 +207,10 @@ body.darkmode code:not(pre code) {
 /* blockquote */
 blockquote {
     font-family: "Inter";
-    background-color: rgba(148, 148, 149, 0.08);
+    /* background-color: rgba(148, 148, 149, 0.08); */
+    background-color: transparent;
     margin: 1.5em 0px;
-    padding: 1.1em 20px 1px 20px;
+    padding: 0.3em 20px;
     font-style: italic;
     border-left-width: 4px !important;
 }
@@ -310,7 +311,8 @@ body {
 }
 
 body.darkmode {
-    background: rgb(34, 34, 38);
+    /* background: rgb(34, 34, 38); */
+    background: #1e293b;
     color: rgb(230, 230, 230);
 }
 
