@@ -6,7 +6,7 @@
   <link href="https://bent2685.github.io/atom.xml" rel="self"/>
   
   <link href="https://bent2685.github.io/"/>
-  <updated>2025-04-22T09:29:21.356Z</updated>
+  <updated>2025-05-08T04:26:56.234Z</updated>
   <id>https://bent2685.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>今天小雨</title>
+    <link href="https://bent2685.github.io/2025/05/08/%E4%BB%8A%E5%A4%A9%E5%B0%8F%E9%9B%A8/"/>
+    <id>https://bent2685.github.io/2025/05/08/%E4%BB%8A%E5%A4%A9%E5%B0%8F%E9%9B%A8/</id>
+    <published>2025-05-07T16:00:00.000Z</published>
+    <updated>2025-05-08T04:26:56.234Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="今天小雨"><a href="#今天小雨" class="headerlink" title="今天小雨"></a>今天小雨</h2><blockquote><p>有点癫了，写篇博客。</p></blockquote><p>就到这吧，没啥想说的</p><hr><h2 id="以上👋"><a href="#以上👋" class="headerlink" title="以上👋 ;"></a>以上👋 ;</h2>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;今天小雨&quot;&gt;&lt;a href=&quot;#今天小雨&quot; class=&quot;headerlink&quot; title=&quot;今天小雨&quot;&gt;&lt;/a&gt;今天小雨&lt;/h2&gt;&lt;blockquote&gt;
+&lt;p&gt;有点癫了，写篇博客。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;就到这吧，没啥想说的&lt;/p&gt;
+&lt;h</summary>
+      
+    
+    
+    
+    
+    <category term="生活" scheme="https://bent2685.github.io/tags/%E7%94%9F%E6%B4%BB/"/>
+    
+  </entry>
   
   <entry>
     <title>事件总栈</title>
@@ -49,7 +75,7 @@
     <link href="https://bent2685.github.io/2025/03/30/MapleMono|%E5%AD%97%E4%BD%93%E5%88%86%E4%BA%AB/"/>
     <id>https://bent2685.github.io/2025/03/30/MapleMono|%E5%AD%97%E4%BD%93%E5%88%86%E4%BA%AB/</id>
     <published>2025-03-30T10:10:00.000Z</published>
-    <updated>2025-03-31T09:22:08.973Z</updated>
+    <updated>2025-05-08T04:26:33.022Z</updated>
     
     <content type="html"><![CDATA[<blockquote><p>带连字和控制台图标的圆角等宽字体，中英文宽度完美2:1，细粒度的自定义选项</p></blockquote><h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><blockquote><p><a href="https://github.com/subframe7536/maple-font">字体Github仓库</a></p></blockquote><hr><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>一款支持连写和变体的Mono类型字体，中英文宽度完美2:1。个人比较喜欢[小写L]的变体，好处是可以清晰的编辑器和控制台中清晰的区分[l、L、I、1]，<strong>另外，花体字可以给荒诞的编码点缀点乐趣</strong></p><hr><h2 id="不多说了直接看图"><a href="#不多说了直接看图" class="headerlink" title="不多说了直接看图"></a>不多说了直接看图</h2><p><img src="/../images/MapleMono%7C%E5%AD%97%E4%BD%93%E5%88%86%E4%BA%AB.assets/code.png" alt="code"></p><hr><h2 id="以上👋"><a href="#以上👋" class="headerlink" title="以上👋 ;"></a>以上👋 ;</h2>]]></content>
     
@@ -301,11 +327,11 @@
     
     
     
-    <category term="工具推荐" scheme="https://bent2685.github.io/tags/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
-    
     <category term="应用分享" scheme="https://bent2685.github.io/tags/%E5%BA%94%E7%94%A8%E5%88%86%E4%BA%AB/"/>
     
     <category term="docker" scheme="https://bent2685.github.io/tags/docker/"/>
+    
+    <category term="工具推荐" scheme="https://bent2685.github.io/tags/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
     
     <category term="mac系统" scheme="https://bent2685.github.io/tags/mac%E7%B3%BB%E7%BB%9F/"/>
     
@@ -330,13 +356,13 @@
     
     
     
-    <category term="工具推荐" scheme="https://bent2685.github.io/tags/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
+    <category term="技术分享" scheme="https://bent2685.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
     
     <category term="应用分享" scheme="https://bent2685.github.io/tags/%E5%BA%94%E7%94%A8%E5%88%86%E4%BA%AB/"/>
     
     <category term="docker" scheme="https://bent2685.github.io/tags/docker/"/>
     
-    <category term="技术分享" scheme="https://bent2685.github.io/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
+    <category term="工具推荐" scheme="https://bent2685.github.io/tags/%E5%B7%A5%E5%85%B7%E6%8E%A8%E8%8D%90/"/>
     
   </entry>
   
